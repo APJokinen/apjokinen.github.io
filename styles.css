@@ -1,0 +1,200 @@
+:root {
+  --reuna_oikea: 40px;
+  --reuna_taulukko_vasen: 700px;
+  --reuna_taulukko_top: 600px;
+
+}
+
+table, th, td {
+    border: 1px solid;
+    border-style: outset;
+  }
+
+  .otsikkoa{
+    position:relative;
+    /*top:10px;    
+    right:20px;   */ 
+  }
+  
+  header.otsikkoa{
+    background-image: url("/assets/Header-kuva.png");
+    background-size: 100% 100%;
+    height: 150px;
+    border-style: outset;
+
+    text-align: center;
+
+    
+  
+  }
+
+  #kello.otsikkoa{
+    color: black;
+    position:absolute;
+    bottom:0;
+    right:0;
+  }
+
+  .item1 { grid-column: 1 / span 2; 
+    grid-area: header; }
+  .item2 { border: 2px blue;
+
+            border-style: solid;
+            grid-area: menu; }
+  .item3 { 
+          /*border: 1px solid red;*/
+          border: 2px blue;
+          border-style: solid;
+          grid-area: main; 
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-start;  
+        }
+  .item4 { border: 2px blue;
+    border-style: solid;
+          grid-area: right; }
+  .item5 {  border: 2px blue;
+            border-style: solid;
+            grid-area: footer; }
+
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      'header header header header header'
+      'menu main main right right'
+      'menu footer footer footer footer';
+    grid-template-columns: 1fr, repeat(2, 1,8fr),1fr,1fr;
+    gap: 40px;
+    background-color: #a4d5e4;
+  }
+
+  .grid-container > div {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+  }
+
+
+
+  
+
+
+
+
+ /* #sijainti2{
+    list-style-type: none;
+    padding: 0;
+    border-radius: 3px;
+    left: 10px;
+  }
+  #sijainti.sijainti_rivi{
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+  }
+  
+  #sijainti > label{
+    padding: .5em 1em .5em 0;
+    flex: 1;
+  }
+
+  #sijainti.input{
+    flex: 2;
+  }*/
+
+  /*.taulukot{
+    font-size: 22px;
+  }*/
+
+  
+  /*#sijainti .input{
+    flex: 2;
+  }
+  #sijainti .label{
+   flex: 1;
+  }*/
+  body {
+    background-color: rgb(194, 222, 232);
+  }
+
+  
+ 
+
+  /*#valittu_paiva{
+    left: 10px;
+    text-align: left;
+  }*/
+
+
+
+  
+
+  .item3 #listat{
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;  
+    
+  }
+
+  #lista1{
+    text-align: left;
+    margin-left: 0;
+  }
+
+  #lista2{
+    margin-left: 20px;
+    text-align: left;
+  }
+
+
+
+
+
+
+  #lista1 > ul {
+    list-style-type: none;
+    width: 150px;
+    margin: 0;
+    text-align: left;
+    line-height: 40px;
+    font-size: 25px;
+    
+
+  }
+
+  #lista2 > ul{
+    list-style-type: none;
+    width: 10px;
+    margin: 0px;
+    text-align: left;
+    line-height: 40px;
+    font-size: 25px;
+  }
+
+  
+ 
+  #saa_taulukko_1{
+    font-size: 17px;
+    /*position: absolute;
+    left: 0;*/
+    /*left: var(--reuna_taulukko_vasen);
+    top: var(--reuna_taulukko_top);*/
+  }
+  
+  #saa_taulukko_2{
+    font-size: 17px;
+    /*position: absolute;*/
+    left: 0;
+    /*left: var(--reuna_taulukko_vasen);
+    top: calc(100px + var(--reuna_taulukko_top));*/
+  }
+    
+  #navi{
+    font-size: 22px;
+  }

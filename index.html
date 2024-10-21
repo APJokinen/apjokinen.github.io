@@ -5,47 +5,237 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sääsivut</title>
     <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
-    <header>
-        <h1>Sääsivut</h1>
+    
+    
+    <div id="otsikkoa">
+    <header class="otsikkoa">
+        <h1 class="otsikkoa">Sääsivu</h1>
+    </div>
     </header>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+    <div class="grid-container">
+    <div class="item1">
+            <h3>Ohjeet: </h3>
+            <p>Syötä alla oleviin kenttiin halutut pituus- ja leveysasteet, niin saat tietää kyseisen paikan lämpötilat tälle päivälle</p>
+            <p>Alla vasemmalla on linkkejä, joilla saat joidenkin kaupunkien leveys ja pituusasteita automaattisesti</p>
+            <h3 id="kello">Päivämäärä:  Kello:   </h3>
+    </div>
+
+            
+            <div class="item2"><nav id="navi">
+                <h3>Kaupunkeja: </h3>
+                <ul>
+                    <li id="Oulu"><a href="">Oulu</a></li>
+                    <li id="Helsinki"><a href="">Helsinki</a></li>
+                    <li id="Turku"><a href="">Turku</a></li>
+
+                </ul>
+                <h3>Säälinkkejä : </h3>
+                <ul>
+                    <li><a href="https://www.ilmatieteenlaitos.fi/">Ilmatieteenlaitos</a></li>
+                    <li><a href="https://www.foreca.fi/">Foreca</a></li>
+                    <li><a href="https://open-meteo.com/">Open-Meteo</a></li>
+                </ul>
+            </nav></div>
+            
+            <div class="item3">
+                
+                
+                
+                    <div id="listat">
+                    <div id="lista1">
+                        <ul>
+                            <li><label class="sij_label">Leveysasteet: </label></li>
+                            <li><label class="sij_label">Pituusasteet: </label></li>
+                            <li><label type="text">Valitse päivä: </label></li>
+                        </ul></div>
+                        
+                        
+                        
+                        <div id ="lista2">
+                        <ul>
+                            <li><input  type="text" id="latitude" name="latitude"></li>
+                            <li><input type="text" id="longitude" name="longitude"></li>
+                            <li><select name="paivat" id="paiva">
+                                <option value="paiva_tanaan">Tänään</option>
+                                <option value="paiva_huomenna">Huomenna</option>
+                                <option value="paiva_ylihuomenna">Ylihuomenna</optio>
+                            </select></li>
+                            <li><button id="saa_nappi" onclick="form_listener()">Katso sää</button></li>
+                        </ul>
+                        </div></div></div>
+                        
+                    
+
+                    
+                    <!--
+                    <div id="kaupunki">
+                        <label class="kaupunki_label">Kaupunki: </label>
+                        <input  type="text" id="kaupunkinimi" name="kaupunkinimi"><br>
+                        <button id="kaupunki_nappi" onclick="kaupunki_2()">Katso koordinaatit</button>
+                    </div>
+                    //-->
+                    
+                    
+                    
+                    
+                
+            <div class="item4">
+                <table class = "taulukot" id="saa_taulukko_1">
+                <thead>
+                    <th>Kello</th>
+                    <th>00.00</th>
+                    <th>01.00</th>
+                    <th>02.00</th>
+                    <th>03.00</th>
+                    <th>04.00</th>
+                    <th>05.00</th>
+                    <th>06.00</th>
+                    <th>07.00</th>
+                    <th>08.00</th>
+                    <th>09.00</th>
+                    <th>10.00</th>
+                    <th>11.00</th>
+                </thead>
+                <tbody>
+                    <td>Lämpötila</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tbody>
+                <tbody>
+                    <td>Sademäärä</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tbody>
+                </table>
+            
+                <br>
+                <table class = "taulukot" id="saa_taulukko_2">
+                    <th>Kello</th>
+                    <th>12.00</th>
+                    <th>13.00</th>
+                    <th>14.00</th>
+                    <th>15.00</th>
+                    <th>16.00</th>
+                    <th>17.00</th>
+                    <th>18.00</th>
+                    <th>19.00</th>
+                    <th>20.00</th>
+                    <th>21.00</th>
+                    <th>22.00</th>
+                    <th>23.00</th>
+                    <tbody>
+                        <td>Lämpötila</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tbody>
+                    <tbody>
+                        <td>Sademäärä</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tbody>
+
+                </table></div>
+            <div class="item5"><section>
+                <article>
+                    <h3>Mikä tämä sivu on?</h3>
+                    <p>Tämä sivu on lopputyö OAMK:n tietotekniikan insinööriopintojen web-sovelluskurssille. Sivu näyttää näyttää tunnin välein lämpötilan ja kuluneen tunnin sademäärän mennen tunnin open-meteon tarjoaman API:n avulla</p>
+                </article>
+            </section></div>
+          </div>
+          
     <main>
-        <section>
-            <h2>Articles</h2>
-            <article>
-                <h3>Article 1</h3>
-                <p>This is the content for article 1.</p>
-            </article>
-            <article>
-                <h3>Article 2</h3>
-                <p>This is the content for article 2.</p>
-            </article>
-        </section>
+        
         <aside>
-            <h2>Related Topics</h2>
-            <ul>
-                <li><a href="#">Topic 1</a></li>
-                <li><a href="#">Topic 2</a></li>
-            </ul>
         </aside>
     </main>
+    
+    
+    
+    
+    <br>
+    <script>
+        setInterval(kello, 1000);
+        function kello(){
+        const d = new Date();
+        
+        let pvm=d.getDate()+"."+d.getMonth()+"."+d.getFullYear();
+        document.getElementById("kello").innerHTML = "Päivämäärä: " + pvm + "       " +"Kello: " + d.toLocaleTimeString()+" ";
+        }
+        
+
+        
+    </script>
+    <script>
+    
+    
+    window.user_button = document.getElementById("Oulu");
+    user_button.addEventListener('click', ()=>{
+
+    event.preventDefault();
+    kaupunki_koordinaatit("Oulu");        
+    });
+    window.user_button = document.getElementById("Helsinki");
+    user_button.addEventListener('click', ()=>{
+
+    event.preventDefault();
+    kaupunki_koordinaatit("Helsinki");        
+    });
+    window.user_button = document.getElementById("Turku");
+    user_button.addEventListener('click', ()=>{
+
+    event.preventDefault();
+    kaupunki_koordinaatit("Turku");        
+    });
+    </script>
+    
+
     <footer>
         <p>&copy; 2024 Ari-Pekka Jokinen</p>
     </footer>
-    <script src="assets/script.js"></script>
-
-    <button type="button" onclick="saa_API_kutsu(52,60)">Click Me!</button>
-    <p id="p1">Hello World!</p>
-    <form>
-
-    </form>
+    <script src="/assets/script.js"></script>
+    <script src="/assets/kaupunki.js"></script>
 </body>
 </html>
