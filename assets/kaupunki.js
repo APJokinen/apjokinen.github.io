@@ -1,5 +1,4 @@
 function kaupunki_koordinaatit(kaupunki){
-
     let leveys=0;
     let pituus=0;
     if(kaupunki == "Oulu"){
@@ -11,31 +10,61 @@ function kaupunki_koordinaatit(kaupunki){
     }else if(kaupunki == "Helsinki"){
         leveys=60.17;
         pituus=24.94;
+    }else if(kaupunki == "Rovaniemi"){
+        leveys=66.5039;
+        pituus=25.7294;
+    }else if(kaupunki == "Espoo"){
+        leveys=60.2055;
+        pituus=24.6559;
     }
     document.getElementById("latitude").value=leveys;
     document.getElementById("longitude").value=pituus;
     
 }
 
-function kaupunki_2(){
 
-    const kaupunki = document.getElementById('kaupunkinimi')
-    url=`https://geocoding-api.open-meteo.com/v1/search?name=${kaupunki}&count=10&language=en&format=json`;
 
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
+    
+
+    
+
+    function listenerit(){
         
+        let valmiit_kaupungit=["Oulu", "Helsinki", "Turku","Rovaniemi", "Espoo"];
+        let kaupunkilista=document.getElementById('kaupunkilista');
+        for(const [index, kaupunki1] of valmiit_kaupungit.entries()){
+            /*const uusi_a = document.createElement('a');
+            uusi_a.textContent = valmiit_kaupungit[i];
+            uusi_a.href = "";
+            uusi_a.id(valmiit_kaupungit[i]);*/
 
-        document.getElementById("latitude").value=data['results']['latitude'];
-        document.getElementById("longitude").value=data['results']['longitude'];
+            
+            
+            const uusi_li=document.createElement('li');
+            uusi_li.id=kaupunki1;
+            kaupunkilista.appendChild(uusi_li);
 
-    })
-    .catch(error => {
-        document.getElementById("latitude").value=error;
-        console.error('Virhe:', error);
-    });
+            const link = document.createElement("a");
+            link.textContent=kaupunki1;
+            link.href="";
+
+            
+
+            uusi_li.appendChild(link);
+            //uusi_li.appendChild(uusi_a);
+
+            //const uusi_a= document.createElement('a');
 
 
-}
+            
+            
+            window.user_button = document.getElementById(kaupunki1);
+            user_button.addEventListener('click', function(event){
+            event.preventDefault();
+            kaupunki_koordinaatit(kaupunki1);
+        });
+        }
+        
+    }
+
+    listenerit();
