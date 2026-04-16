@@ -38,9 +38,11 @@
     <label class="label1" for="Mittarin sarjanumero">Mittarin sarjanumero</label><br>
     <input class="input1" type="text" id="Mittarin sarjanumero" name="Mittarin sarjanumero"><br>
     </div></div>
-    <button type="button" id="startScan" onclick="startScanner()">Lue mittarin sarjanumero</button>
-    <button type="button" id="stopScan" onclick="stopScanner()">Pysäytä sarjanumeron luku</button>
-    
+    <button type="button" id="startScan" onclick="startScanner1()">Lue mittarin sarjanumero</button>
+    <button type="button" id="stopScan" onclick="stopScanner1()">Pysäytä sarjanumeron luku</button>
+    <div id="video-container1">
+            <video id="video1"></video>
+            </div>
     <h2>Yhteystiedot</h2>
     <input onclick="checkbox1()" type="checkbox" name="Yritys" id="Yritys">
     <label class="label1" for="Yritys">Yritys</label><br/>
@@ -393,6 +395,9 @@
         <fieldset>
             <legend>Mittarin sarjanumero: </legend>
         <button>Lue mittarin sarjanumero (QR tai viivakoodi)</button>
+        <div id="video-container2">
+            <video id="video2"></video>
+            </div>
         <button>Lopeta sarjanumeron luku</button><br/>
         <input placeholder="Kirjoita sarjanumero tähän..."></input><br/>
         <button>Lataa kuva galleriasta</button><br/>
@@ -430,7 +435,6 @@
 </label><br/>
 <button type="button">Jatka tilaukseen</button>
 </form>
-
 
 </body>
 </html>

@@ -9,4 +9,12 @@
     height: 100px;
     resize: none;
     
-}   
+}
+
+#video-container1{
+    display: none;
+}
+
+#video-container2{
+    display: none;
+}
