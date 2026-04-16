@@ -2,16 +2,17 @@
 <html>
 <head>
 <title>Pientuotantoilmoitus</title>
-<link rel="stylesheet" href="../css/lomake.css">
-<link rel="stylesheet" href="../css/uusi.css">
-<link rel="stylesheet" href="../css/muutos.css">
+<link rel="stylesheet" href="./css/lomake.css">
+<link rel="stylesheet" href="./css/uusi.css">
+<link rel="stylesheet" href="./css/muutos.css">
+<link rel="stylesheet" href="./css/mittari.css">
 </head>
 <body>
-<script src="../js/lomake.js" defer></script>
-<script src="../js/uusi.js" defer></script>
-<script src="../js/muutos.js" defer></script>
+<script src="./js/lomake.js" defer></script>
+<script src="./js/uusi.js" defer></script>
+<script src="./js/muutos.js" defer></script>
 <script src="https://unpkg.com/@zxing/library@latest" defer></script>
-<script src="../js/codeReader.js" defer></script>
+<script src="./js/codeReader.js" defer></script>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -381,6 +382,31 @@
     </div>
     <br/>
     </div></div>
+    <h2>Mittarien romutus</h2>
+    <label>Romutettavia mittareita</label>
+    <select>
+        <option>Ei</option>
+        <option>Kyllä</option>
+    </select>
+    <div id="mittariDiv">
+        <h3>Romutettavat mittarit</h3>
+        <fieldset>
+            <legend>Mittarin sarjanumero: </legend>
+        <button>Lue mittarin sarjanumero (QR tai viivakoodi)</button>
+        <button>Lopeta sarjanumeron luku</button><br/>
+        <input placeholder="Kirjoita sarjanumero tähän..."></input><br/>
+        <button>Lataa kuva galleriasta</button><br/>
+        </fieldset>
+        <fieldset><legend>Lisätiedot</legend>
+        <div>
+        <textarea placeholder="Lisätiedot tähän..."></textarea></div></fieldset>
+        <fieldset>
+            <legend>Lisää ilmoitus</legend>
+            <button>Ilmoita romutus</button>
+            <button>Tyhjennä romutus</button>
+        </fieldset>
+        
+    </div>
     <h2>Tuotantolaitteiston tekniset tiedot</h2>
     <label class="label2">Vakuutan, että</label>
     <div id="Tekniset_tiedot">
