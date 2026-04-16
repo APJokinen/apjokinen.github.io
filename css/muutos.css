@@ -1,0 +1,224 @@
+:root{
+    --boxSideMargin: 20px;
+    --boxPadding: 30px;
+    --clickBoxSideMargin: 20px;
+    --clickBoxPadding: 10px;
+    --modalPadding: 10px;
+}
+
+#muutosPientuotanto{
+    display: none;
+}
+
+#muutosTuotantoBox{
+    border-style: solid;
+    
+}
+
+.clickBoxJaolla{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    
+    
+    
+}
+
+.productionClickBox{
+    margin-left: var(--clickBoxSideMargin);
+    margin-right: var(--clickBoxSideMargin);
+   
+}
+
+
+.jakoOtsikko{
+    text-align: center;
+}
+
+.vanha{
+    width: 50%;
+    border-style: groove;
+    justify-items: center;
+    
+}
+
+.uusi{
+    width: 50%;
+    border-style: groove;
+    justify-items: center;
+
+}
+
+.centerBox{
+    justify-items: center;
+    
+}
+
+
+
+
+
+.muutosFieldset{
+    margin-right: var(--boxSideMargin);
+}
+
+.poistoCheckBox{
+}
+
+#tuotantoClickBoxJaolla{
+    display: none;
+}
+
+#laiteClickBoxJaolla{
+    display: none;
+}
+
+#container4{
+    margin-left: var(--boxSideMargin);
+    width:100%;
+    
+}
+
+.deviceDiv{
+   margin-right: var(--clickBoxSideMargin);
+   padding-left: var(--clickBoxPadding);
+   padding-right: var(--clickBoxPadding);
+   justify-content: space-between;
+}
+
+.deviceClickBox{
+    
+}
+
+.clickBoxMuutos{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+
+    
+    
+    
+}
+
+.clickBoxMuutosUusi{
+    width: 100%;
+    position: relative;
+    border-style: solid;
+}
+
+.clickBoxMuutosVanha{
+    width: 100%;
+    position: relative;
+    border-style: solid;
+}
+
+.clickBoxPlus{
+    position: absolute;
+    right: 10px;
+    font-weight: bold;
+    font-size: 21px;
+}
+
+.clickBoxPlusDivMuutos{
+
+}
+
+.delButton{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+.labelForSystem{
+    font-weight: bold;
+}
+
+.systemChangeDiv table,.systemChangeDiv td,.systemChangeDiv th{
+    border-style:none;
+}
+
+.JärjestelmäLisäys{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+.poistoDiv{
+    height: fit-content;
+}
+
+.boldLabel{
+    font-weight: bold;
+}
+
+.devicePlus{
+    margin-right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+}
+#verkkoTeho{
+    margin-left: var(--boxSideMargin);
+}
+
+#koosteButton{
+    margin-left: var(--boxSideMargin);
+}
+
+.clickBoxMuutosLaite{
+    width: 80%;
+}
+
+.clickBoxMuutosPlus{
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    align-items: center;
+}
+
+.tuotantoTapaSpan{
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.yhteensaSpan{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.tuotantoLabel{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+#akkuClickBoxJaolla{
+    display: none;
+}
+
+.accuDiv{
+    margin-right: var(--clickBoxSideMargin);
+   padding-left: var(--clickBoxPadding);
+   padding-right: var(--clickBoxPadding);
+   justify-content: space-between;
+}
+
+#akkuMuutosContainer{
+    margin-left: var(--boxSideMargin);
+    width:100%;
+}
+
+.tabButtonsChange{
+
+}
+
+#container2TabButtons{
+    display: flex;
+    flex-direction: row;
+}
+
+.notActiveButton{
+    border-style: double;
+}
+
+.activeButton{
+    border-style: outset;
+}

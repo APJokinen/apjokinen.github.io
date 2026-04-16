@@ -1,0 +1,140 @@
+:root{
+    --form-margin-side: 120px;
+    --form-margin-down: 10px;
+    --form-width: calc(100vw - 2.0*var(--form-margin-side));
+    --input-width-3: calc((var(--form-width))/3 - 2.0/3.0*20px);
+    --input-width-2: calc((var(--form-width))/2 - 1.0/2.0*20px);
+    --input-width-1: calc((var(--form-width))/1 - 0*20px);
+    --input-width-1-2: calc((var(--form-width))/1 - 1*20px);
+    --font-color1: green;
+    --font-color2: black;
+
+}
+
+h1{
+    color: var(--font-color1);
+    text-align: center;
+}
+
+h2{
+    color: var(--font-color2);
+    margin-left: var(--form-margin-left);
+}
+
+h3{
+    margin-left: var(--form-margin-left);
+}
+
+#form{
+    justify-content: center;
+    margin-inline: var(--form-margin-side);
+    width: var(--form-width);
+}
+
+.form1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form1Block{
+
+}
+
+.form2Block{
+    
+}
+
+.form3Block2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.input1{
+    border-radius: 5px;
+    height: 25px;
+    width: var(--input-width-3);
+    margin-bottom: var(--form-margin-down);
+    
+}
+
+
+
+.label1{
+    
+    
+}
+
+.label2{
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.label3{
+    font-size: 17px;
+}
+
+.label3Bold{
+    font-weight: bold;
+}
+
+.label3Red{
+    color: red;
+}
+
+
+.input2{
+    border-radius: 5px;
+    height: 25px;
+    width: var(--input-width-2);
+    margin-bottom: var(--form-margin-down);
+}
+
+.input3{
+    border-radius: 5px;
+    height: 25px;
+    width: var(--input-width-1);
+    margin-bottom: var(--form-margin-down);
+}
+
+#check1{
+    display:none;
+}
+
+#check2{
+    display:none;
+}
+
+#check3{
+    display:none;
+}
+
+#check4{
+    display:none;
+}
+
+#Tekniset_tiedot{
+    display: flex;
+    flex-direction: column;
+    
+    width: var(--form-width);
+}
+
+.teknisetBox{
+    border-style: groove;
+    width: 100%;
+}
+
+button{
+    background-color: rgb(55, 199, 55);
+    border-style: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.input4{
+    border-radius: 5px;
+    height: 25px;
+    width: var(--input-width-1-2);
+    margin-bottom: var(--form-margin-down);
+}

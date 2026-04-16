@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pientuotannon ilmoitus</title>
+<link rel="stylesheet" href="ilmoitus.css">
+</head>
+<body>
+
+<div id="mainDiv">
+
+<div id="formRow">
+<div class="sectionBox2">
+<div class="headerDiv">
+<label class="otsikko">Ilmoitus uudesta pientuotannosta</label>
+</div><br/>
+<fieldset class="fieldset">
+<legend>Aurinkopaneelit</legend>
+<div class="fieldDiv">
+    <label class="fieldDivLabel">5 kW</label>
+    <label class="fieldDivPlus">+</label></div>
+<button class="fieldButton">Lisää aurinkopaneelit ilmoitukseen</button>
+</fieldset>
+<fieldset class="fieldset">
+<legend>Invertterit</legend><br/>
+<label>Invertteri 1:</label><br/>
+<div class="invertteriBoksi">
+    <label>Hybridi</label><br/>
+    <label>3kW</label>
+    <label class="inverterPlus">+</label><br/>
+    </div>
+<div class="fieldDiv">
+    <label class="fieldDivLabel">Sähkövarasto: 2 kWh</label>
+    <label class="fieldDivPlus">+</label></div><br/><br/>
+    <label>Invertteri 2:</label><br/>
+<div class="invertteriBoksi">
+    <label>Tavallinen</label><br/>
+    <label>3kW</label>
+    <label class="inverterPlus">+</label><br/>
+    </div>
+<div class="fieldDiv">
+    <label class="fieldDivLabel">Ei sähkövarastoa</label>
+    <label class="fieldDivPlus">+</label></div><br/>
+<div class="fieldDiv">
+    <label class="fieldDivLabel">Lisää uusi invertteri</label>
+    <label class="fieldDivPlus">+</label>
+</div><br/>
+<button class="fieldButton">Lisää invertterit ilmoitukseen</button><br/>
+</fieldset>
+<label class="ilmoitusLabel">Ilmoitus:</label><br/>
+<div class="ilmoitus">
+<label>Aurinkopaneelit: 5 kW</label><br/>
+<label>Invertteri1: hybridi, 3kw, 2kWh sähkövarasto</label><br/>
+<label>Invertteri2: Tavallinen, 3kw, ei sähkövarastoa</label>
+</div>
+<div class="ilmoitus">
+<label class="tehoLabel">Verkkoon liitetty teho:</label><br/>
+<label> 11kW</label><br/>
+</div>
+<div class="sendButtonDiv">
+<button class="sendButton">Lähetä ilmoitus</button>
+</div>
+</div>
+<div class="sectionBox2">
+<div class="headerDiv">
+<label class="otsikko">Ilmoitus pientuotannon muutoksista</label>
+</div><br/>
+<div id="changesTop">
+<fieldset class="fieldset">
+<legend>Aurinkopaneelit</legend>
+<div class="muutosRivi">
+    <div class="muutosBox"><div class="tdCenter"><label class="muutosOtsikko">Vanha</label></div>
+    <div class="fieldDiv">
+    <label class="fieldDivLabel">5 kW</label>
+    <label class="fieldDivPlus">+</label></div>
+</div>
+    <div class="muutosBox"><div class="tdCenter"><label class="muutosOtsikko">Uusi</label></div>
+    <div class="fieldDiv">
+    <label class="fieldDivLabel">8 kW</label>
+    <label class="fieldDivPlus">+</label></div>
+</div>
+</div>
+<button>Lisää aurinkopaneelit ilmoitukseen</button>
+</fieldset>
+<fieldset class="fieldset">
+    <legend>Invertterit</legend>
+    <label>Invertteri 1:</label><br/>
+    <div class="muutosRivi">
+    <div class="muutosBox"><div class="tdCenter"><label class="muutosOtsikko">Vanha</label></div>
+    <div class="invertteriBoksi">
+    <label>Hybridi</label><br/>
+    <label>3kW</label>
+    <label class="inverterPlus">+</label><br/>
+    </div>
+    <div class="fieldDiv">
+    <label class="fieldDivLabel">Sähkövarasto: 2 kWh</label>
+    <label class="fieldDivPlus">+</label></div>
+    <input type="checkbox">Invertteri poistettu</input><br/></div>
+    <div class="muutosBox"><div class="tdCenter"><label class="muutosOtsikko">Uusi</label></div>
+    <div class="invertteriBoksi">
+    <label>Hybridi</label><br/>
+    <label>3kW</label>
+    <label class="inverterPlus">+</label><br/>
+    </div>
+    <div class="fieldDiv">
+    <label class="fieldDivLabel">Sähkövarasto: 2 kWh</label>
+    <label class="fieldDivPlus">+</label></div>
+    </div>
+    </div><br/>
+    <label>Invertteri 2:</label><br/>
+    <div class="muutosRivi">
+    <div class="muutosBox"><div class="tdCenter"><label class="muutosOtsikko">Vanha</label></div>
+    <div class="invertteriBoksi">
+    <label>Ei invertteriä</label><br/>
+    <label>-</label>
+    <label class="inverterPlus">+</label><br/>
+    </div>
+    <div class="fieldDiv">
+    <label class="fieldDivLabel">Ei sähkövarastoa</label>
+    <label class="fieldDivPlus">+</label></div>
+    <input type="checkbox">Invertteri poistettu</input><br/></div>
+    <div class="muutosBox"><div class="tdCenter"><label class="muutosOtsikko">Uusi</label></div>
+    <div class="invertteriBoksi">
+    <label>Lisää invertteri</label><br/>
+    <label class="inverterPlus">+</label><br/>
+    </div>
+    <div class="fieldDiv">
+    <label class="fieldDivLabel">Ei sähkövarastoa</label>
+    <label class="fieldDivPlus">+</label></div>
+    </div>
+    </div>
+    <div class="fieldDiv">
+    <label class="fieldDivLabel">Lisää uusi invertteri</label>
+    <label class="fieldDivPlus">+</label>
+    </div><br/>
+    <br/>
+    
+    <button>Lisää invertterit ilmoitukseen</button>
+</div>
+</fieldset>
+
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+:root{
+    --boxSideMargin: 20px;
+    --boxPadding: 30px;
+    --clickBoxSideMargin: 20px;
+    --clickBoxPadding: 10px;
+    --modalPadding: 10px;
+}
+
+#uusiPientuotanto{
+    display: none;
+}
+
+
+
+
+.labelUusi1{
+    font-weight: bold;
+}
+
+#uusiTuotantoBox{
+    border-style: solid;
+    padding-bottom: var(--boxPadding);
+}
+
+.marginBox1{
+    margin-left: var(--boxSideMargin);
+    margin-right: var(--boxSideMargin);
+}
+
+.clickBox{
+    margin-left: var(--clickBoxSideMargin);
+    margin-right: var(--clickBoxSideMargin);
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: var(--clickBoxPadding);
+    padding-right: var(--clickBoxPadding);     /* vertikaalinen keskitys */
+    position: relative;
+}
+
+.clickBoxPlusDiv{
+    border-style: dotted;
+}
+
+.clickBoxPlus{
+    font-size: large;
+    
+}
+
+#clickBox1{
+
+}
+
+.modal{
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modalBox{
+    justify-content: center;
+    align-content: center;
+    background-color: white;
+    margin: 15% auto; 
+    width: 70%;
+    border-style: solid;
+    padding: var(--modalPadding);
+}
+.ilmoitusUusi{
+    
+}
+
+.verkkoTeho{
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.systemBold{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+
+.clickBox table{
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.nollaus{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+.uusiTuotantoNimet{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+.uusiVerkkolaiteNimet{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+.boldSpan{
+    font-weight: bold;
+}
+
+#accuNewModal{
+    display: none;
+}
+
+.accuName{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+#akkuUusiContainer button{
+    margin-left: var(--clickBoxSideMargin);
+}
