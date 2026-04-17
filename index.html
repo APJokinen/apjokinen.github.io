@@ -41,9 +41,13 @@
     <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero</button>
     <div class="modal" id="video-container">
             <div id="videoBox1" class="videoBox">
+            <div id="videoWrapper">
             <video id="video"></video>
+            <div class="scan-line"></div></div>
             <div id="stopScan" onclick="stopScanner()"><label class="whiteLabel">Pysäytä sarjanumeron luku</label></div>
-            </div></div>
+            </div>
+        
+        </div>
     <h2>Yhteystiedot</h2>
     <input onclick="checkbox1()" type="checkbox" name="Yritys" id="Yritys">
     <label class="label1" for="Yritys">Yritys</label><br/>
@@ -392,6 +396,7 @@
         <option value="kyllä">Kyllä</option>
     </select>
     <div id="mittariDiv">
+        <div class="marginBox1">
         <h3>Romutettavat mittarit</h3>
         <fieldset>
             <legend>Mittarin sarjanumero</legend>
@@ -419,8 +424,7 @@
             <div id="romutusIlmoitus"></div>
             <button onclick="emptyIlmoitus()" type="button">Tyhjennä ilmoitus</button>
         </fieldset>
-        
-    </div>
+    </div></div>
     <h2>Tuotantolaitteiston tekniset tiedot</h2>
     <label class="label2">Vakuutan, että</label>
     <div id="Tekniset_tiedot">
