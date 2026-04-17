@@ -1,7 +1,15 @@
-
+:root{
+    --boxSideMargin: 20px;
+    --boxPadding: 30px;
+    --clickBoxSideMargin: 20px;
+    --clickBoxPadding: 10px;
+    --modalPadding: 10px;
+    --greenColor: rgb(55, 199, 55);
+}
 
 #mittariDiv{
     border-style: solid;
+    display: none;
 }
 
 #mittariDiv textarea{
@@ -11,10 +19,29 @@
     
 }
 
-#video-container1{
-    display: none;
+.videoBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
 }
 
-#video-container2{
+#video-container{
     display: none;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#stopScan{
+    width: 100%;
+    display: flex;
+    background-color: var(--greenColor);
+    justify-content: center;
+    border-style: solid;
+}
+
+.whiteLabel{
+    color: white;
 }

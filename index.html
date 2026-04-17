@@ -12,7 +12,7 @@
 <script src="./js/uusi.js" defer></script>
 <script src="./js/muutos.js" defer></script>
 <script src="https://unpkg.com/@zxing/library@latest" defer></script>
-<script src="./js/codeReader.js" defer></script>
+<script src="./js/mittari.js" defer></script>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -38,11 +38,12 @@
     <label class="label1" for="Mittarin sarjanumero">Mittarin sarjanumero</label><br>
     <input class="input1" type="text" id="Mittarin sarjanumero" name="Mittarin sarjanumero"><br>
     </div></div>
-    <button type="button" id="startScan" onclick="startScanner1()">Lue mittarin sarjanumero</button>
-    <button type="button" id="stopScan" onclick="stopScanner1()">Pysäytä sarjanumeron luku</button>
-    <div id="video-container1">
-            <video id="video1"></video>
-            </div>
+    <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero</button>
+    <div class="modal" id="video-container">
+            <div id="videoBox1" class="videoBox">
+            <video id="video"></video>
+            <div id="stopScan" onclick="stopScanner()"><label class="whiteLabel">Pysäytä sarjanumeron luku</label></div>
+            </div></div>
     <h2>Yhteystiedot</h2>
     <input onclick="checkbox1()" type="checkbox" name="Yritys" id="Yritys">
     <label class="label1" for="Yritys">Yritys</label><br/>
@@ -386,29 +387,37 @@
     </div></div>
     <h2>Mittarien romutus</h2>
     <label>Romutettavia mittareita</label>
-    <select>
-        <option>Ei</option>
-        <option>Kyllä</option>
+    <select id="romutusSelect" onchange="romutus()">
+        <option value="ei">Ei</option>
+        <option value="kyllä">Kyllä</option>
     </select>
     <div id="mittariDiv">
         <h3>Romutettavat mittarit</h3>
         <fieldset>
-            <legend>Mittarin sarjanumero: </legend>
-        <button>Lue mittarin sarjanumero (QR tai viivakoodi)</button>
-        <div id="video-container2">
-            <video id="video2"></video>
-            </div>
-        <button>Lopeta sarjanumeron luku</button><br/>
-        <input placeholder="Kirjoita sarjanumero tähän..."></input><br/>
+            <legend>Mittarin sarjanumero</legend>
+        <button type="button" onclick="startScanner(2)">Lue mittarin sarjanumero (QR tai viivakoodi)</button>
         <button>Lataa kuva galleriasta</button><br/>
+        <input id="romutettavaByHand" placeholder="Kirjoita sarjanumero tähän..."></input><br/>
+        <button type="button" onclick="addRomutettava()">Lisää</button><br/>
         </fieldset>
         <fieldset><legend>Lisätiedot</legend>
         <div>
-        <textarea placeholder="Lisätiedot tähän..."></textarea></div></fieldset>
+        <textarea id="infoArea" placeholder="Lisätiedot tähän..."></textarea>
+        <button type="button" onclick="emptyInfo()">Tyhjennä lisätiedot</button></div></fieldset>
+        <fieldset>
+            <legend>Lisätyt sarjanumerot ja lisätiedot</legend>
+            <div id="romutettavat"></div>
+        </fieldset>
         <fieldset>
             <legend>Lisää ilmoitus</legend>
-            <button>Ilmoita romutus</button>
-            <button>Tyhjennä romutus</button>
+            <button type="button" onclick="romuIlmoitusFunc()">Lisää romutus ilmoitukseen</button>
+            <button type="button" onclick="emptyRomu()">Tyhjennä romutus</button>
+        </fieldset>
+        <fieldset>
+            <legend>Ilmoitus</legend>
+            <div id="valilehtiBtn"></div>
+            <div id="romutusIlmoitus"></div>
+            <button onclick="emptyIlmoitus()" type="button">Tyhjennä ilmoitus</button>
         </fieldset>
         
     </div>
