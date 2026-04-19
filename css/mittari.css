@@ -10,6 +10,7 @@
     --inputMinWidth: 120px;
     --inputMinHeight: 30px; 
     --radius: 15px;
+    --picModalTopMargin: 10px;
 }
 
 
@@ -259,4 +260,21 @@ table tr.selectedRomuRow td {
 
 #mittariInfoSign:hover #mittariToolTip {
   visibility: visible;
+}
+
+.sarjanumeroDiv{
+    
+}
+
+.picFieldset{
+    margin-left: var(--boxSideMargin);
+    margin-right: var(--boxSideMargin);
+}
+
+#picFieldset1Upper, #picFieldset2Upper{
+    margin-top: var(--picModalTopMargin)
+}
+
+.picButtonsDiv{
+    margin-left: var(--boxSideMargin);
 }

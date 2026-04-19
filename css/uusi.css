@@ -5,6 +5,7 @@
     --clickBoxPadding: 10px;
     --modalPadding: 10px;
     --phoneButtonMargin: 15px;
+    --greenColor: rgb(55, 199, 55);
 }
 
 @media (max-width: 600px){
@@ -46,6 +47,9 @@
     padding-left: var(--clickBoxPadding);
     padding-right: var(--clickBoxPadding);     /* vertikaalinen keskitys */
     position: relative;
+    color: white;
+    background-color: var(--greenColor);
+    border-color: black;
 }
 
 .clickBoxPlusDiv{

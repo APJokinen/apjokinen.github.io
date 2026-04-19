@@ -157,7 +157,8 @@ function addRomutettava(){
 }*/
 
 function romuIlmoitusFunc(){
-    const alkio = {id:romuIlmoitusId, lista: romutettavat, tiedot: document.getElementById("infoAreaRomu").value}
+   const lisatiedot = document.getElementById("infoAreaRomu").value
+    const alkio = {id:romuIlmoitusId, lista: romutettavat, tiedot: lisatiedot}
     romuIlmoitus.push(alkio)
     const index1 = romuIlmoitusId
     romuIlmoitusId++
@@ -186,7 +187,11 @@ function romuIlmoitusFunc(){
         for(b of a.lista){
           divText += b.numero + "<br/>"
         }
-        divText += "<br/>"
+        divText += "<br/><br/>"
+        if(lisatiedot){
+            divText += "<label class='systemBold'>Lisätiedot: </label><br/>"
+            divText += "<label>"+lisatiedot+"</label><br/>"
+        }
         divText += "</fieldset>"
         const mittariLabel = document.createElement("label")
         /*mittariLabel.textContent ="Poistettavien mittareiden sarjanumerot: "
@@ -229,6 +234,8 @@ function romuIlmoitusFunc(){
 
         containerBtn.appendChild(newTabButton)
         
+        
+       
         
         containerIlmoitus.appendChild(newDiv)
 
@@ -320,13 +327,14 @@ async function displayImages(files,modeNumber) {
   }
   for (const file of files) {
     if (file.type.startsWith("image/")) {
+      label.style.display="none"
       object = URL.createObjectURL(file)
         img.src = URL.createObjectURL(file);
         img.alt = file.name;
     }
   }
 
-  label.style.display="none"
+  
 
   codeReader = new ZXing.BrowserMultiFormatReader();
   try {
@@ -362,7 +370,7 @@ async function loadPic(event,modeNumber){
   }
   
 
-  label.style.display="none"
+  
   const object = URL.createObjectURL(event.target.files[0]);
   img.src = object
 
@@ -371,6 +379,7 @@ async function loadPic(event,modeNumber){
     const result = await codeReader.decodeFromImageUrl(
       object
     );
+    label.style.display="none"
     resultElement.textContent = result.getText();
   } catch (err) {
     resultElement.textContent = "Koodia ei löytynyt";
@@ -382,26 +391,37 @@ async function loadPic(event,modeNumber){
 function addNumberFromPic(modeNumber){
     if(modeNumber === 1){
             const valueText = document.getElementById("serialNumberByPic1").textContent
-            document.getElementById("Mittarin_sarjanumero").value = valueText
+            if(valueText !== null && valueText !== ""){
+              document.getElementById("Mittarin_sarjanumero").value = valueText
+            }
+            
      }else if(modeNumber === 2){
+            if(valueText !== null && valueText !== ""){
             const valueText = document.getElementById("serialNumberByPic2").textContent
             const romuIndex = romuId
             romuId++
             const alkio = {id:romuIndex, numero:valueText}
             romutettavat.push(alkio)
             showRomutettavat()
+            }
     }
 }
 
 function emptyPic(modeNumber){
-    let preview, viewLabel;
+    let preview, viewLabel, serialNumber, imgInput;
     if(modeNumber === 1){
+        serialNumber = document.getElementById("serialNumberByPic1")
         preview = document.getElementById("preview1")
         viewLabel = document.getElementById("beforePicLabel1")
+        imgInput = document.getElementById("imgInput1")
     }else{
+        serialNumber = document.getElementById("serialNumberByPic2")
         preview = document.getElementById("preview2")
         viewLabel = document.getElementById("beforePicLabel2")
+        imgInput = document.getElementById("imgInput2")
     }
     preview.style.display = "none"
     viewLabel.style.display = "initial"
+    serialNumber.textContent = null
+    imgInput.value = null
 }

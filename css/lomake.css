@@ -10,6 +10,8 @@
     --font-color2: black;
     --buttonWidth: 60px;
     --buttonHeight: 30px;
+    --greenColor: rgb(55, 199, 55);
+    --darkGreen: darkGreen;
 
 
 }
@@ -156,6 +158,10 @@ button{
     color: white;
     min-width: var(--buttonWidth);
     min-height: var(--buttonHeight);
+}
+
+.pressedButton{
+    
 }
 
 .input4{

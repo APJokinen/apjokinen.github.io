@@ -570,6 +570,7 @@ function addSystem(){
             btn.textContent = "Järjestelmä "+(index2+1)
                 if(index2 < tabButtons.length-1){
                 btn.classList.remove('active');
+                //btn.classList.remove('pressedButton')
                 }else{
                     btn.style.borderStyle = "double"
                 }
@@ -614,9 +615,11 @@ function nollaaUusi(){
     production = []
     device = []
     accuNew = []
+    document.getElementById("infoForNew").value = ""
     const container1 = document.getElementById("container1")
     const container2 = document.getElementById("newProductionContainer")
     const container3 = document.getElementById("akkuUusiContainer")
+    document.getElementById("KoosteContainerUusi").innerHTML = ""
     container1.innerHTML = ""
     container2.innerHTML = ""
     container3.innerHTML = ""
@@ -626,6 +629,7 @@ function nollaaIlmoitusUusi(){
     system=[]
     document.getElementById("container2").innerHTML = ""
     document.getElementById("container2TabButtons").innerHTML = ""
+    
 }
 
 function verkkoTehoUusi(){

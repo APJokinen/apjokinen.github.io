@@ -351,7 +351,7 @@ function uusiLaite(){
         console.log(poistoDiv)
         console.log(poistoDiv.querySelector('input[type="checkbox"]'))
         //console.log(alkio.vanhaPoistettu)
-        if(alkio?.vanha?.[9] === true){
+        if(alkio?.vanha?.[8] === true){
 
             poistoDiv.querySelector('input[type="checkbox"]').checked = true
             

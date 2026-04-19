@@ -4,6 +4,7 @@
     --clickBoxSideMargin: 20px;
     --clickBoxPadding: 10px;
     --modalPadding: 10px;
+    --greenColor: rgb(55, 199, 55);
 }
 
 #muutosPientuotanto{
@@ -33,18 +34,22 @@
 
 .jakoOtsikko{
     text-align: center;
+    width: 100%;
+    background-color: var(--greenColor);
+    color: white;
+    
 }
 
 .vanha{
     width: 50%;
-    border-style: groove;
+    border-style: solid none none solid;
     justify-items: center;
     
 }
 
 .uusi{
     width: 50%;
-    border-style: groove;
+    border-style: solid solid none solid;
     justify-items: center;
 
 }

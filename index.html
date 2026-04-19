@@ -56,7 +56,7 @@
             </div></div>
     <div class="modal" id="pic-container1">
         <div class="pictureBox">
-            <fieldset>
+            <fieldset id="picFieldset1Upper" class="picFieldset">
                 <legend>Lisää kuva</legend>
 
             <div id="picDropZone" onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,1)">
@@ -65,22 +65,24 @@
             </div>
             <input id="imgInput1" type="file" accept="image/*" onchange="loadPic(event, 1)">
         </fieldset>
-            <fieldset>
-                <div>
-                    <label>Mittarin sarjanumero:</label><br/>
+            <fieldset class="picFieldset">
+                <legend>Mittarin sarjanumero</legend>
+                <div class="sarjanumeroDiv">
                     <label id="serialNumberByPic1"></label>
                     <button type="button" onclick="addNumberFromPic(1)">Lisää ilmoitukseen</button>
                 </div>
             </fieldset>
+            <div class="picButtonsDiv">
             <button type="button" onclick="emptyPic(1)">Tyhjennä kuva</button>
             <button type="button" onclick="closePicModal(1)">Sulje</button>
+            </div><br/><br/><br/>
         </div>
     </div>
     
 
     <div class="modal" id="pic-container2">
         <div class="pictureBox">
-            <fieldset>
+            <fieldset id="picFieldset2Upper" class="picFieldset">
                 <legend>Lisää kuva</legend>
             <div onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,2)">
                 <div><label id="beforePicLabel2">Lataa kuva raahaamalla tähän tai painamalla alhaalta</label></div>
@@ -88,15 +90,17 @@
             </div>
             <input id="imgInput2" type="file" accept="image/*" onchange="loadPic(event, 2)">
         </fieldset>
-            <fieldset>
-                <div>
-                    <label>Mittarin sarjanumero:</label><br/>
+            <fieldset class="picFieldset">
+                <legend>Mittarin sarjanumero:</legend>
+                <div class="sarjanumeroDiv">
                     <label id="serialNumberByPic2"></label>
                     <button type="button" onclick="addNumberFromPic(2)">Lisää ilmoitukseen</button>
                 </div>
             </fieldset>
+            <div class="picButtonsDiv">
             <button type="button" onclick="emptyPic(2)">Tyhjennä kuva</button>
             <button type="button" onclick="closePicModal(2)">Sulje</button>
+            </div><br/><br/><br/>
         </div>
     </div>
         
