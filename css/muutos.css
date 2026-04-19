@@ -222,3 +222,7 @@
 .activeButton{
     border-style: outset;
 }
+
+#infoAreaChange{
+    margin-left: var(--clickBoxSideMargin);
+}

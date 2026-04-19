@@ -92,7 +92,6 @@ function showRomutettavat(){
   
   container.innerHTML = ""
   if(romutettavat.length > 0){
-    container.innerHTML="Lista romutettavista mittareista: "
   for(i of romutettavat){
     table.innerHTML += "<tr><td>"+i.numero+"</td><td><button class='hiddenBtn' onclick='poistaRivi(this,"+i.id+")'>Poista</button></td></tr>"
   }

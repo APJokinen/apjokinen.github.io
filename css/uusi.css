@@ -4,7 +4,15 @@
     --clickBoxSideMargin: 20px;
     --clickBoxPadding: 10px;
     --modalPadding: 10px;
+    --phoneButtonMargin: 15px;
 }
+
+@media (max-width: 600px){
+    .nollaus{
+    margin-bottom: var(--phoneButtonMargin);
+}
+}
+
 
 #uusiPientuotanto{
     display: none;
@@ -121,5 +129,9 @@
 }
 
 #akkuUusiContainer button{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+#infoForNew{
     margin-left: var(--clickBoxSideMargin);
 }

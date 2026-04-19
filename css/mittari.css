@@ -23,7 +23,6 @@ textarea{
     width: calc(100% - 40px);
     height: 100px;
     resize: none;
-    margin-left: var(--clickBoxSideMargin);
     
 }
 
@@ -215,3 +214,49 @@ table tr.selectedRomuRow td {
     
 }
 
+.mittariFieldDiv{
+    margin-left: var(--clickBoxSideMargin);
+}
+
+#tyhjennaRomu{
+    margin-bottom: var(--boxPadding);
+}
+
+#mittariInfoSign{
+    position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#mittariToolTip{
+    visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+  border-style: solid;
+  border-color: black;
+  background-color: var(--greenColor);
+}
+
+#mittariToolTip::after{
+    content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+#mittariInfoSign:hover #mittariToolTip {
+  visibility: visible;
+}
