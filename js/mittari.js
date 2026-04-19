@@ -48,7 +48,7 @@ function startCamera(modeNumber){
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
           
           if(modeNumber === 1){
-            document.getElementById("Mittarin sarjanumero").value = result.text
+            document.getElementById("Mittarin_sarjanumero").value = result.text
           }else if(modeNumber === 2){
             const id = romuId
             romuId++
@@ -394,3 +394,15 @@ function addNumberFromPic(modeNumber){
     }
 }
 
+function emptyPic(modeNumber){
+    let preview, viewLabel;
+    if(modeNumber === 1){
+        preview = document.getElementById("preview1")
+        viewLabel = document.getElementById("beforePicLabel1")
+    }else{
+        preview = document.getElementById("preview2")
+        viewLabel = document.getElementById("beforePicLabel2")
+    }
+    preview.style.display = "none"
+    viewLabel.style.display = "initial"
+}
