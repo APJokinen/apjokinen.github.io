@@ -182,7 +182,9 @@ function openModal1(){
         const powerLabel = document.createElement("label")
         powerLabel.textContent = power + " kW"
         alkio.teho = power+ " kW"
+        console.log("Ennen:",production)
         production.push(alkio)
+        console.log("Jälkeen:",production)
         const br1 = document.createElement("br")
         const br2 = document.createElement("br")
         const nimi = document.createElement("label")
@@ -195,7 +197,9 @@ function openModal1(){
             buttons2[0].onclick = () => {
                 const power = modal2.querySelector("#modalPower1").value
                 powerLabel.textContent = power + " kW"
+            
                 alkio.teho = power + " kW"
+                
                 verkkoTehoUusi()
             }
             buttons2[1].onclick = () => {
@@ -457,7 +461,8 @@ function addSystem(){
         "Type":productionType,
         "Accus":accuNew,
         "Production":production,
-        "Devices": device
+        "Devices": device,
+        "Info":document.getElementById("infoForNew")
     }
     system.push(data)
     const index1 = systemIdNew
@@ -471,9 +476,11 @@ function addSystem(){
             text += "<label class='systemBold'>Tuotantolaitteiden tehot: </label><br/><table>"
         }
         for(let b = 0; b < production.length; b++){
+            console.log(production[b])
             const tehoLisays = parseInt(production?.[b]?.teho?.match(/\d+/)?.[0]);
             const teho = Number.isNaN(tehoLisays) ? 0 : tehoLisays;
             text += "<tr><td>Tuotantolaite "+(b+1)+": </td><td>"+teho+" kW</td></tr>"
+            tuotantoTeho += teho
         }
         if(production.length > 0){
             text += "<tr><td><span class='boldSpan'>Yhteensä: </span></td><td>"+tuotantoTeho+" kW</td></tr>"
@@ -528,7 +535,12 @@ function addSystem(){
             text += "<label class='systemBold'>Verkkoonliittymisteho: </label><br/>"
             text += "<label>"+verkkoonTeho+" kW</label><br/><br/>"
         }
-        //text += "<button>Poista</button>"
+        const info = document.getElementById("infoForNew").value
+        if(info !== null && info !== ""){
+            text += "<label class='systemBold'>Lisätiedot:</label><br/>"
+            text += "<label>"+info+"</label><br/><br/>"
+        }
+        
     uusiDiv.innerHTML = ""
     uusiDiv.innerHTML = text
     uusiDiv.className = "ilmoitusUusi"
@@ -541,7 +553,7 @@ function addSystem(){
     delButton.addEventListener("click", () => {
 
         uusiDiv.remove();
-        system = system.filter(s => s.id !== index1)
+        system = system.filter(s => s.Id !== index1)
         delButton.remove();
         tabButton.remove()
         const divit = container.querySelectorAll(".ilmoitusUusi");
@@ -553,6 +565,7 @@ function addSystem(){
         });
 
         const tabButtons = tabButtonContainer.querySelectorAll(".tabButtonsNew")
+        
         tabButtons.forEach((btn, index2) => {
             btn.textContent = "Järjestelmä "+(index2+1)
                 if(index2 < tabButtons.length-1){
@@ -571,6 +584,7 @@ function addSystem(){
     uusiDiv.style.display = "none"
 
     tabButton.type = "button"
+    console.log("System",system)
     tabButton.textContent = "Järjestelmä "+system.length
     tabButton.className = "tabButtonsNew"
     tabButton.onclick = () => {
@@ -611,6 +625,7 @@ function nollaaUusi(){
 function nollaaIlmoitusUusi(){
     system=[]
     document.getElementById("container2").innerHTML = ""
+    document.getElementById("container2TabButtons").innerHTML = ""
 }
 
 function verkkoTehoUusi(){
@@ -646,6 +661,7 @@ function verkkoTehoUusi(){
     summa.Akut = 0
     summa.VerkkoLaite = 0
     table1.innerHTML = ""
+    console.log("production",production)
     for(let i of production){
         counter++
         const teho = parseInt(i?.teho?.match(/\d+/)?.[0]);

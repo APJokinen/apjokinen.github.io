@@ -8,7 +8,23 @@
     --input-width-1-2: calc((var(--form-width))/1 - 1*20px);
     --font-color1: green;
     --font-color2: black;
+    --buttonWidth: 60px;
+    --buttonHeight: 30px;
 
+
+}
+
+@media (max-width: 600px) {
+  :root {
+    --form-margin-side: 20px;
+    --form-margin-down: 10px;
+    --form-width: calc(100vw - 2.0*var(--form-margin-side));
+    --input-width-3: calc((var(--form-width))/3 - 2.0/3.0*(var(--form-margin-side)));
+    --input-width-2: calc((var(--form-width))/2 - 1.0/2.0*(var(--form-margin-side)));
+    --input-width-1: calc((var(--form-width))/1 - 0*(var(--form-margin-side)));
+    --input-width-1-2: calc((var(--form-width))/1 - 1*(var(--form-margin-side)));
+    --mittarinNumeroFont: 11px;
+  }
 }
 
 h1{
@@ -25,6 +41,10 @@ h3{
     margin-left: var(--form-margin-left);
 }
 
+#Mittarin_sarjanumero_label{
+    font-size: var(--mittarinNumeroFont);
+}
+
 #form{
     justify-content: center;
     margin-inline: var(--form-margin-side);
@@ -38,10 +58,14 @@ h3{
 }
 
 .form1Block{
-
+    
 }
 
 .form2Block{
+    
+}
+
+.form3Block{
     
 }
 
@@ -130,6 +154,8 @@ button{
     border-style: none;
     border-radius: 5px;
     color: white;
+    min-width: var(--buttonWidth);
+    min-height: var(--buttonHeight);
 }
 
 .input4{

@@ -7,17 +7,23 @@
     --greenColor: rgb(55, 199, 55);
     --lineHeight: 4px;
     --stopScanHeight: 100px;
+    --inputMinWidth: 120px;
+    --inputMinHeight: 30px; 
+    --radius: 15px;
 }
+
+
 
 #mittariDiv{
     border-style: solid;
     display: none;
 }
 
-#mittariDiv textarea{
-    width: 100%;
+textarea{
+    width: calc(100% - 40px);
     height: 100px;
     resize: none;
+    margin-left: var(--clickBoxSideMargin);
     
 }
 
@@ -29,15 +35,62 @@
     justify-content: center;
     align-items: center;
     border-style: solid;
+    border-radius: var(--radius);
 }
 
+#videoWrapper {
+  position: relative;
+  width: 80dvh;
+  height: 70dvh;
+  overflow: hidden;
+  border-style: solid;
+  border-color: var(--greenColor);
+  border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+  border-width: 20px;
+}
+
+.whiteLabel{
+    color: white;
+    font-size: 40px;
+}
+
+@media (max-width: 600px){
+    .videoBox{
+    position: relative;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-radius: var(--radius);
+    width: 90%;
+}
+
+#videoWrapper {
+  position: relative;
+  width:90%;
+  height: 50dvh;
+  overflow: hidden;
+  border-style: solid;
+  border-color: var(--greenColor);
+  border-width: 20px;
+}
+
+.whiteLabel{
+    font-size: 30px;
+}
+}
+
+
+
 #video-container{
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     justify-content: center; /* vaakasuunnassa */
     align-items: center;     /* pystysuunnassa */
     flex-direction: column;
@@ -47,8 +100,11 @@
 #video{
     width: 100%;
     height: 100%;
+    padding: 10px;
     object-fit: cover;
 }
+
+
 
 #stopScan{
     width: 100%;
@@ -58,12 +114,35 @@
     justify-content: center;
     align-items: center;
     border-style: solid;
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
 }
 
-.whiteLabel{
-    color: white;
+
+
+#romutettavaByHand{
+    min-width: var(--inputMinWidth);
+    min-height: var(--inputMinHeight);
 }
 
+.overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    padding:10px
+}
+
+.scan-area{
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  right: 10%;
+  bottom: 20%;
+
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.6); /* 🔥 maski */
+  overflow: hidden;
+}
 
 
 .scan-line {
@@ -77,12 +156,7 @@
   animation: scan 2s linear infinite;
 }
 
-#videoWrapper {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  overflow: hidden;
-}
+
 
 @keyframes scan {
   0% {
@@ -93,25 +167,50 @@
   }
 }
 
-/*.overlay::before,
-.overlay::after {
-  content: "";
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border: 4px solid lime;
+table tr.selectedRomuRow td {
+    background-color: aquamarine;
 }
 
-.overlay::before {
-  top: 0;
-  left: 0;
-  border-right: none;
-  border-bottom: none;
+#romutettavat table{
+    width: 100%;
+    font-size: 20px;
 }
 
-.overlay::after {
-  bottom: 0;
-  right: 0;
-  border-left: none;
-  border-top: none;
-}*/
+.removeRomuRowBtn{
+    display: block;
+    width: 30dvh;
+}
+
+.hiddenBtn{
+    display: none;
+}
+
+#pic-container1, #pic-container2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center; /* vaakasuunnassa */
+    align-items: center;     /* pystysuunnassa */
+    flex-direction: column;
+}
+
+.pictureBox{
+    border-style: solid;
+    background-color: white;
+}
+
+.getPicture{
+    border-style: dashed;
+    width: 50dvh;
+    height: 50dvh;
+    justify-items: center; /* vaakasuunnassa */
+    align-content: center;     /* pystysuunnassa */
+    flex-direction: column;
+}
+
+
+#imgInput1, #imgInput2 {
+    
+}

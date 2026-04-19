@@ -459,6 +459,7 @@ function addSystemChange() {
     new1.tuotanto = productions
     new1.akut = accus
     new1.laitteet = devices
+    new1.lisatiedot = document.getElementById("infoAreaChange").value
     systems.push(new1)
     showSystem(new1)
 }
@@ -564,7 +565,14 @@ function showSystem(newSystem){
     if(devices.length > 0){
         text += "<label class='systemBold'>Verkkoliittymisen kokonaistehon muutos:</label><br/>"
         text += "<table><tr><th>Vanha</th><th></th><th>Uusi</th><tr/>"
-        text += "<tr><td>"+laiteTeho.vanha+" kW</td><td>&#8594;</td><td>"+laiteTeho.uusi+" kW</td></tr></table><br/>"
+        text += "<tr><td>"+laiteTeho.vanha+" kW</td><td>&#8594;</td><td>"+laiteTeho.uusi+" kW</td></tr></table><br/><br/>"
+    }
+
+    const lisatiedot = document.getElementById("infoAreaChange").value
+    console.log("Lisätiedot:",lisatiedot)
+    if(lisatiedot !== null && lisatiedot !== ""){
+        text += "<label class='systemBold'>Lisätiedot: </label><br/>"
+        text += "<label>"+lisatiedot+"</label>"
     }
 
     
@@ -650,6 +658,8 @@ function nollaaMuutos(){
     container1.innerHTML = ""
     container2.innerHTML = ""
     container3.innerHTML = ""
+    const textarea = document.getElementById("infoAreaChange")
+    textarea.textContent = null
     verkkoTeho()
 }
 

@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="./css/uusi.css">
 <link rel="stylesheet" href="./css/muutos.css">
 <link rel="stylesheet" href="./css/mittari.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <script src="./js/lomake.js" defer></script>
@@ -35,19 +36,69 @@
     <div class="form1Block">
     <label class="label1" for="Postitoimipaikka">Postitoimipaikka</label><br>
     <input class="input1" type="text" id="Postitoimipaikka" name="Postitoimipaikka"><br/><br/>
-    <label class="label1" for="Mittarin sarjanumero">Mittarin sarjanumero</label><br>
-    <input class="input1" type="text" id="Mittarin sarjanumero" name="Mittarin sarjanumero"><br>
+    <label class="label1" id="Mittarin_sarjanumero_label" for="Mittarin sarjanumero">Mittarin sarjanumero</label><br>
+    <input class="input1" type="text" id="Mittarin_sarjanumero" name="Mittarin sarjanumero"><br>
     </div></div>
-    <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero</button>
+    <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
+    <button type="button" onclick="startPic(1)">Lataa kuva galleriasta</button><br/><br/>
+    
     <div class="modal" id="video-container">
             <div id="videoBox1" class="videoBox">
             <div id="videoWrapper">
             <video id="video"></video>
-            <div class="scan-line"></div></div>
-            <div id="stopScan" onclick="stopScanner()"><label class="whiteLabel">Pysäytä sarjanumeron luku</label></div>
+            <div class="overlay">
+                <div class="scan-area">
+                    <div class="scan-line"></div>
             </div>
-        
+  </div></div>
+            <div id="stopScan" onclick="stopScanner()"><label class="whiteLabel">Pysäytä sarjanumeron luku</label></div>
+            </div></div>
+    <div class="modal" id="pic-container1">
+        <div class="pictureBox">
+            <fieldset>
+                <legend>Lisää kuva</legend>
+
+            <div id="picDropZone" onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,1)">
+                <div><label id="beforePicLabel1">Lataa kuva raahaamalla tähän tai painamalla alhaalta</label></div>
+                <img id="preview1">
+            </div>
+            <input id="imgInput1" type="file" accept="image/*" onchange="loadPic(event, 1)">
+        </fieldset>
+            <fieldset>
+                <div>
+                    <label>Mittarin sarjanumero:</label><br/>
+                    <label id="serialNumberByPic1"></label>
+                    <button type="button" onclick="addNumberFromPic(1)">Lisää ilmoitukseen</button>
+                </div>
+            </fieldset>
+            
+            <button type="button" onclick="closePicModal(1)">Sulje</button>
         </div>
+    </div>
+    
+
+    <div class="modal" id="pic-container2">
+        <div class="pictureBox">
+            <fieldset>
+                <legend>Lisää kuva</legend>
+            <div onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,2)">
+                <div><label id="beforePicLabel2">Lataa kuva raahaamalla tähän tai painamalla alhaalta</label></div>
+                <img id="preview2">
+            </div>
+            <input id="imgInput2" type="file" accept="image/*" onchange="loadPic(event, 2)">
+        </fieldset>
+            <fieldset>
+                <div>
+                    <label>Mittarin sarjanumero:</label><br/>
+                    <label id="serialNumberByPic2"></label>
+                    <button type="button" onclick="addNumberFromPic(2)">Lisää ilmoitukseen</button>
+                </div>
+            </fieldset>
+            
+            <button type="button" onclick="closePicModal(2)">Sulje</button>
+        </div>
+    </div>
+        
     <h2>Yhteystiedot</h2>
     <input onclick="checkbox1()" type="checkbox" name="Yritys" id="Yritys">
     <label class="label1" for="Yritys">Yritys</label><br/>
@@ -144,8 +195,8 @@
                     <legend id="modalLegend1">Uusi tuotantolaite</legend>
                     <label>Teho</label>
                     <input id="modalPower1" type="text"/><label> kW</label><br/>
-                    <button type="button" onclick="addPower1()">Lisää</button>
-                    <button type="button" onclick="closeModal1()">Sulje</button><br/>
+                    <button type="button">Lisää</button>
+                    <button type="button">Sulje</button><br/>
                     </fieldset><br/>
                 </div>
             </div>
@@ -209,14 +260,19 @@
 
         </fieldset>
         <fieldset>
+            <legend>Järjestelmän verkkoliitäntätehot</legend>
+            <div id="KoosteContainerUusi"></div>
+        </fieldset>
+        <fieldset>
+            <legend>Lisätiedot</legend>
+            <textarea id="infoForNew" placeholder="Lisätiedot tähän..."></textarea>
+        </fieldset>
+        <fieldset>
             <legend>Lisää</legend>
             <button class="nollaus" type="button" onclick="nollaaUusi()">Nollaa järjestelmä</button>
             <button class="JärjestelmäLisäys" type="button" onclick="addSystem()" id="add">Lisää järjestelmä ilmoitukseen</button>
         </fieldset>
-        <fieldset>
-            <legend>Järjestelmän verkkoliitäntätehot</legend>
-            <div id="KoosteContainerUusi"></div>
-        </fieldset>
+        
         <fieldset>
             <legend>Ilmoitus</legend>
             <div id="container2TabButtons"></div>
@@ -375,6 +431,10 @@
         <legend>Järjestelmän verkkoliitäntätehojen muutokset</legend>
         <div id="KoosteContainer"></div>
     </fieldset>
+    <fieldset>
+        <legend>Lisätiedot</legend>
+        <textarea id="infoAreaChange" placeholder="Lisätiedot tähän...."></textarea>
+    </fieldset>
     <fieldset class="muutosFieldset">
         <legend>Lisää</legend>
         <button class="nollaus" type="button" onclick="nollaaMuutos()">Nollaa järjestelmä</button>
@@ -400,17 +460,17 @@
         <h3>Romutettavat mittarit</h3>
         <fieldset>
             <legend>Mittarin sarjanumero</legend>
-        <button type="button" onclick="startScanner(2)">Lue mittarin sarjanumero (QR tai viivakoodi)</button>
-        <button>Lataa kuva galleriasta</button><br/>
-        <input id="romutettavaByHand" placeholder="Kirjoita sarjanumero tähän..."></input><br/>
+        <button type="button" onclick="startScanner(2)">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
+        <button type="button" onclick="startPic(2)">Lataa kuva galleriasta</button><br/><br/>
+        <input id="romutettavaByHand" placeholder="Kirjoita sarjanumero tähän..."></input>
         <button type="button" onclick="addRomutettava()">Lisää</button><br/>
         </fieldset>
         <fieldset><legend>Lisätiedot</legend>
         <div>
-        <textarea id="infoArea" placeholder="Lisätiedot tähän..."></textarea>
+        <textarea id="infoAreaRomu" placeholder="Lisätiedot tähän..."></textarea>
         <button type="button" onclick="emptyInfo()">Tyhjennä lisätiedot</button></div></fieldset>
         <fieldset>
-            <legend>Lisätyt sarjanumerot ja lisätiedot</legend>
+            <legend>Lisätyt sarjanumerot</legend>
             <div id="romutettavat"></div>
         </fieldset>
         <fieldset>
