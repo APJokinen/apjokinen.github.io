@@ -15,6 +15,7 @@
     --greenVideoBorder: 20px;
     --videoBoxWidth: calc(var(--videoWidth) + 2*var(--greenVideoBorder));
     --picModalSideMargin: 5vW;
+    --lampFont: 24px;
 }
 
 #torchDebugDiv{
@@ -63,7 +64,7 @@ textarea{
 
 .whiteLabel{
     color: white;
-    font-size: 40px;
+    font-size: var(--lampFont);
 }
 
 @media (max-width: 600px){
@@ -115,9 +116,7 @@ textarea{
   border-width: 20px;
 }
 
-.whiteLabel{
-    font-size: 30px;
-}
+
 
 
 
