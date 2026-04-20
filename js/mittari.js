@@ -2,7 +2,7 @@ let codeReader = null;
 let track = null
 let info = null
 let torchExists = null
-let torchOn =null
+let torchOn =true 
 let romutettavat = []
 let romuIlmoitus = []
 let romuId= 0
@@ -49,7 +49,7 @@ async function startCamera(modeNumber){
   const videoInputDevices = await codeReader.listVideoInputDevices();
   const selectedDeviceId = videoInputDevices[0].deviceId;
 
-      await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err) => {
+      const controls = await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err) => {
         if (result) {
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
           
@@ -74,11 +74,11 @@ async function startCamera(modeNumber){
 
       track = codeReader.stream.getVideoTracks()[0];
       console.log("track",track)
+      console.log("codeReader",codeReader)
+      console.log("controls",controls)
       if(track){
         try{
-          await track.applyConstraints({
-          advanced: [{ torch: true }]
-      });
+          await codeReader.mediaStreamSetTorch(stream.getVideoTracks()[0], torchOn)
           document.getElementById("lampDiv").style.display = "flex"
         }catch(e){
           console.log("Ei taskulamppua käytettävissä")
@@ -96,10 +96,8 @@ async function startCamera(modeNumber){
 async function lampButton(){
     if(track){
         torchOn = !torchOn
-
-        await track.applyConstraints({
-          advanced: [{ torch: torchOn }]
-      });
+        await codeReader.mediaStreamSetTorch(track, torchOn)
+        
       if(torchOn){
         document.getElementById("lampDiv") = "Sulje taskulamppu"
       }else{
