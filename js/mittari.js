@@ -49,7 +49,7 @@ async function startCamera(modeNumber){
   const videoInputDevices = await codeReader.listVideoInputDevices();
   const selectedDeviceId = videoInputDevices[0].deviceId;
 
-      const controls = await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err) => {
+      await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err, controls) => {
         if (result) {
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
           
@@ -66,13 +66,21 @@ async function startCamera(modeNumber){
           stopScanner()
         }
 
+        track=controls.stream
+        const caps = track.getCapabilities();
+        let debug = document.getElementById("torchDebug")
+          if(caps.torch){
+            debug.textContent = "Torch tuettu"
+          }else{
+            debug.textContent = "Torch ei tuettu"
+          }
 
         if (err && !(err instanceof ZXing.NotFoundException)) {
           console.error(err);
         }
       });
 
-      setTimeout(async() => {
+      /*setTimeout(async() => {
       track = codeReader.stream.getVideoTracks()[0];
       console.log("track",track)
       console.log("codeReader",codeReader)
@@ -93,7 +101,7 @@ async function startCamera(modeNumber){
           console.log("Ei taskulamppua käytettävissä")
         }
       }
-      }, 500)
+      }, 500)*/
       
 
      
