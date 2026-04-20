@@ -138,7 +138,7 @@ textarea{
 #lampDiv{
     width: 100%;
     height: var(--stopScanHeight);
-    display: flex;
+    display: none;
     background-color: var(--greenColor);
     justify-content: center;
     align-items: center;
