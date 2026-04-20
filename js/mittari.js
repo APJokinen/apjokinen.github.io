@@ -58,13 +58,7 @@ if(codeReader){
 }
   codeReader = new ZXingBrowser.BrowserMultiFormatReader();
 
-  const videoInputDevices = await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
-  const selectedDeviceId = videoInputDevices[0].deviceId; 
-
-
   const previewElem = document.querySelector('video');
-  console.log("devices", videoInputDevices)
-  console.log("selected",selectedDeviceId)
   
   /*const videoReady = new Promise(resolve => {
   video.onloadedmetadata = resolve;
@@ -79,9 +73,8 @@ if(codeReader){
           facingMode: { ideal: "environment" }
           }
           },
-        previewElem, (result, err) => {
-        
-        if (result) {
+        previewElem, (result, error, cont) => {
+        if(result){
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
           
           if(modeNumber === 1){
@@ -94,8 +87,8 @@ if(codeReader){
 
       
         
-        /*
-        if (err) {
+        
+        /*if (err) {
           console.error(err);
         }*/
         
