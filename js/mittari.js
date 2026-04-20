@@ -1,4 +1,5 @@
 let codeReader = null;
+let codeReaderArray = []
 let track = null
 let info = null
 let torchExists = null
@@ -9,7 +10,7 @@ let romuId= 0
 let romuIlmoitusId = 0
 let currentStream = null
 const container = document.getElementById("video-container")
-
+let controls = null
 
 document.addEventListener("click", (e) => {
   if (!e.target.closest("table")) {
@@ -45,70 +46,68 @@ function romutus(){
 }
 
 async function startCamera(modeNumber){
-  codeReader = new ZXing.BrowserMultiFormatReader();
+  if (controls) {
+  controls.stop();
+  controls = null;
+  console.log("Vanha kamera suljettu");
+}
+  codeReader = new ZXingBrowser.BrowserMultiFormatReader();
 
-  const videoInputDevices = await codeReader.listVideoInputDevices();
-  const selectedDeviceId = videoInputDevices[0].deviceId;
+  const videoInputDevices = await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
+  const selectedDeviceId = videoInputDevices[0].deviceId; 
 
- 
 
+  const previewElem = document.querySelector('video');
+  console.log("devices", videoInputDevices)
+  console.log("selected",selectedDeviceId)
   
-  if (codeReader.stream) {
-      codeReader.stream.getTracks().forEach(t => t.stop());
-      console.log("Streameja suljettu")
-    }
-      const controls = await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err) => {
+  /*const videoReady = new Promise(resolve => {
+  video.onloadedmetadata = resolve;
+});
+
+  await videoReady*/
+  
+      try{
+        controls = await codeReader.decodeFromVideoDevice(selectedDeviceId,previewElem, (result, err) => {
+        
         if (result) {
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
           
           if(modeNumber === 1){
             document.getElementById("Mittarin_sarjanumero").value = result.text
-          }else if(modeNumber === 2){
-            const id = romuId
-            romuId++
-            const lisays = {id:id,numero:result.text}
-            romutettavat.push(lisays)
-            console.log("Romutettavat:",romutettavat)
-            showRomutettavat()
           }
-          stopScanner()
+          controls.stop()
         }
 
   
 
       
         
-
-        if (err && !(err instanceof ZXing.NotFoundException)) {
+        /*
+        if (err) {
           console.error(err);
-        }
+        }*/
+        
+        
       });
 
-  setTimeout(async() => {
-      track = codeReader.stream.getVideoTracks()[0];
-      const caps = track.getCapabilities();
-      let debug = document.getElementById("torchDebug")
-      if(caps.torch){
-          debug.textContent = "Torch tuettu"
-      }else{
-          debug.textContent = "Torch ei tuettu"
-      }
-      if(track && caps.torch){
-        try{
-          await codeReader.mediaStreamSetTorch(track, torchOn)
-          document.getElementById("lampDiv").style.display = "flex"
-        }catch(e){
-          console.log("Ei taskulamppua käytettävissä")
+      
+      if(controls){
+        const debug = document.getElementById("torchDebug")
+        if(controls.switchTorch){
+            await controls.switchTorch(true)
+            debug.textContent = "Torch tuettu"
+        }else{
+            debug.textContent = "Torch ei tuettu"
         }
       }
-      }, 500)
+      }catch(e){  
+        console.error("Kameravirhe",e)
+      }
       
       
-
-     
       
       
-
       
     
 }
@@ -129,16 +128,19 @@ async function lampButton(){
 function startScanner(modeNumber) {
       container.style.display = "flex"
       document.body.classList.add("modal-open")
-      requestAnimationFrame(() => {
-        startCamera(modeNumber)
-      })
+      
+      startCamera(modeNumber)
       
     }
 
 async function stopScanner() {
-  if (codeReader?.stream) {
+  if(controls){
+    controls.stop()
+  }
+
+  /*if (codeReader?.stream) {
       codeReader.stream.getTracks().forEach(t => t.stop());
-      console.log("Streameja suljettu")
+      console.log("Streameja suljettu modaalia suljettaessa")
     }
 
    if (codeReader) {
@@ -157,7 +159,7 @@ async function stopScanner() {
       }
 
       track = null
-       }
+       }*/
 
 
       container.style.display = "none"
