@@ -73,9 +73,12 @@ async function startCamera(modeNumber){
       });
 
       track = codeReader.stream.getVideoTracks()[0];
+      console.log("track",track)
       if(track){
         try{
-          const torch = codeReader.mediaStreamSetTorch(track, true)
+          await track.applyConstraints({
+          advanced: [{ torch: true }]
+      });
           document.getElementById("lampDiv").style.display = "flex"
         }catch(e){
           console.log("Ei taskulamppua käytettävissä")
