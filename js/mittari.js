@@ -7,6 +7,7 @@ let romutettavat = []
 let romuIlmoitus = []
 let romuId= 0
 let romuIlmoitusId = 0
+let currentStream = null
 const container = document.getElementById("video-container")
 
 
@@ -49,7 +50,14 @@ async function startCamera(modeNumber){
   const videoInputDevices = await codeReader.listVideoInputDevices();
   const selectedDeviceId = videoInputDevices[0].deviceId;
 
-      await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err, controls) => {
+ 
+
+  
+  if (codeReader.stream) {
+      codeReader.stream.getTracks().forEach(t => t.stop());
+      console.log("Streameja suljettu")
+    }
+      const controls = await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err) => {
         if (result) {
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
           
@@ -66,27 +74,19 @@ async function startCamera(modeNumber){
           stopScanner()
         }
 
-        track=controls.stream
-        const caps = track.getCapabilities();
-        let debug = document.getElementById("torchDebug")
-          if(caps.torch){
-            debug.textContent = "Torch tuettu"
-          }else{
-            debug.textContent = "Torch ei tuettu"
-          }
+  
+
+      
+        
 
         if (err && !(err instanceof ZXing.NotFoundException)) {
           console.error(err);
         }
       });
 
-      /*setTimeout(async() => {
+  setTimeout(async() => {
       track = codeReader.stream.getVideoTracks()[0];
-      console.log("track",track)
-      console.log("codeReader",codeReader)
-      console.log("controls",controls)
       const caps = track.getCapabilities();
-      console.log("caps",caps)
       let debug = document.getElementById("torchDebug")
       if(caps.torch){
           debug.textContent = "Torch tuettu"
@@ -101,7 +101,8 @@ async function startCamera(modeNumber){
           console.log("Ei taskulamppua käytettävissä")
         }
       }
-      }, 500)*/
+      }, 500)
+      
       
 
      
@@ -135,6 +136,11 @@ function startScanner(modeNumber) {
     }
 
 async function stopScanner() {
+  if (codeReader?.stream) {
+      codeReader.stream.getTracks().forEach(t => t.stop());
+      console.log("Streameja suljettu")
+    }
+
    if (codeReader) {
         await codeReader.reset();
         codeReader = null
