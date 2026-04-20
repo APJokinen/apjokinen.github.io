@@ -51,6 +51,11 @@ async function startCamera(modeNumber){
   controls = null;
   console.log("Vanha kamera suljettu");
 }
+
+if(codeReader){
+  codeReader  =null
+  console.log("codeReader suljettu")
+}
   codeReader = new ZXingBrowser.BrowserMultiFormatReader();
 
   const videoInputDevices = await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
@@ -68,7 +73,13 @@ async function startCamera(modeNumber){
   await videoReady*/
   
       try{
-        controls = await codeReader.decodeFromVideoDevice(selectedDeviceId,previewElem, (result, err) => {
+        controls = await codeReader.decodeFromConstraints(
+          {
+          video: {
+          facingMode: { ideal: "environment" }
+          }
+          },
+        previewElem, (result, err) => {
         
         if (result) {
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
@@ -90,17 +101,13 @@ async function startCamera(modeNumber){
         
         
       });
-
       
-      if(controls){
-        const debug = document.getElementById("torchDebug")
-        if(controls.switchTorch){
-            await controls.switchTorch(true)
-            debug.textContent = "Torch tuettu"
-        }else{
-            debug.textContent = "Torch ei tuettu"
-        }
+      if(typeof controls.switchTorch === "function"){
+          document.getElementById("torchDebug").textContent = "Torch tuettu"
+      }else{
+          document.getElementById("torchDebug").textContent = "Torch ei tuettu"
       }
+      
       }catch(e){  
         console.error("Kameravirhe",e)
       }
@@ -126,6 +133,7 @@ async function lampButton(){
 }
 
 function startScanner(modeNumber) {
+      
       container.style.display = "flex"
       document.body.classList.add("modal-open")
       
@@ -136,7 +144,12 @@ function startScanner(modeNumber) {
 async function stopScanner() {
   if(controls){
     controls.stop()
+    controls = null
   }
+
+  if(codeReader){
+  codeReader  =null
+}
 
   /*if (codeReader?.stream) {
       codeReader.stream.getTracks().forEach(t => t.stop());
