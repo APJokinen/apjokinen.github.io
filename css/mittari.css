@@ -11,6 +11,9 @@
     --inputMinHeight: 30px; 
     --radius: 15px;
     --picModalTopMargin: 10px;
+    --videoWidth: 70dvw;
+    --greenVideoBorder: 20px;
+    --videoBoxWidth: calc(var(--videoWidth) + 2*var(--greenVideoBorder))
 }
 
 
@@ -29,6 +32,7 @@ textarea{
 
 .videoBox{
     position: relative;
+    width: var(--videoBoxWidth);
     border-style: solid;
     display: flex;
     flex-direction: column;
@@ -47,7 +51,7 @@ textarea{
   border-color: var(--greenColor);
   border-top-left-radius: var(--radius);
     border-top-right-radius: var(--radius);
-  border-width: 20px;
+  border-width: var(--greenVideoBorder);
 }
 
 .whiteLabel{
@@ -56,8 +60,8 @@ textarea{
 }
 
 @media (max-width: 600px){
-    .videoBox{
-    position: relative;
+    /*.videoBox{
+    position: fixed;
     border-style: solid;
     display: flex;
     flex-direction: column;
@@ -66,11 +70,37 @@ textarea{
     border-style: solid;
     border-radius: var(--radius);
     width: 90%;
+    }
+    #videoWrapper{
+        position: relative;
+    width:90%;
+    height: 50dvh;
+    overflow: hidden;
+    border-style: solid;
+    border-color: var(--greenColor);
+    border-width: 20px;
+    }
+    .modal{
+        position: fixed;   
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0,0,0,0.5);
+
+    }*/
+    body.modal-open{
+        position: fixed;
+        overflow: hidden;
+    }
 }
 
 #videoWrapper {
   position: relative;
-  width:90%;
+  width:var(--videoWidth);
   height: 50dvh;
   overflow: hidden;
   border-style: solid;
@@ -81,7 +111,7 @@ textarea{
 .whiteLabel{
     font-size: 30px;
 }
-}
+
 
 
 
@@ -199,12 +229,16 @@ table tr.selectedRomuRow td {
 .pictureBox{
     border-style: solid;
     background-color: white;
+    position: fixed;
+    width: 70%;
+
 }
 
 .getPicture{
+
     border-style: dashed;
-    width: 50dvh;
-    height: 50dvh;
+    width: 60%;
+    height: 70%;
     justify-items: center; /* vaakasuunnassa */
     align-content: center;     /* pystysuunnassa */
     flex-direction: column;

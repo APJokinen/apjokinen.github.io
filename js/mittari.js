@@ -69,7 +69,7 @@ function startCamera(modeNumber){
 
 function startScanner(modeNumber) {
       container.style.display = "flex"
-
+      document.body.classList.add("modal-open")
       requestAnimationFrame(() => {
         startCamera(modeNumber)
       })
@@ -82,7 +82,8 @@ function stopScanner() {
         codeReader = null
         //document.getElementById('result').innerHTML = "⏹️ Skannaus pysäytetty";
       }
-       container.style.display = "none"
+      container.style.display = "none"
+      document.body.classList.remove("modal-open")
      
     }
 

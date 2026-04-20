@@ -454,51 +454,7 @@
     </div>
     <br/>
     </div></div>
-    <h2>Mittarien romutus</h2>
-    <label>Romutettavia mittareita</label>
-    <select id="romutusSelect" onchange="romutus()">
-        <option value="ei">Ei</option>
-        <option value="kyllä">Kyllä</option>
-    </select>
-    <div id="mittariDiv">
-        <div class="marginBox1">
-        <h3>Romutettavat mittarit</h3>
-        <fieldset>
-            <legend>Mittarin sarjanumero</legend>
-            <div class="mittariFieldDiv">
-        <button type="button" onclick="startScanner(2)">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
-        <button type="button" onclick="startPic(2)">Lataa kuva galleriasta</button><br/><br/>
-        <input id="romutettavaByHand" placeholder="Kirjoita sarjanumero tähän..."></input>
-        <button type="button" onclick="addRomutettava()">Lisää</button><br/>
-                </div>
-    </fieldset>
-        <fieldset>
-            <legend>Lisätyt sarjanumerot <span id="mittariInfoSign">&#9432;<span id="mittariToolTip">Valitse poistettava mittarinumero painamalla sitä listasta</span></span></legend>
-            <div class="mittariFieldDiv">
-            
-            <div id="romutettavat"></div></div>
-        </fieldset>
-        <fieldset><legend>Lisätiedot</legend>
-        <div class="mittariFieldDiv">
-        <div>
-        <textarea id="infoAreaRomu" placeholder="Lisätiedot tähän..."></textarea>
-        <button type="button" onclick="emptyInfo()">Tyhjennä lisätiedot</button></div>
-    </div></fieldset>
-        <fieldset>
-            <legend>Lisää ilmoitus</legend>
-            <div class="mittariFieldDiv">
-            <button type="button" onclick="romuIlmoitusFunc()">Lisää romutus ilmoitukseen</button>
-            <button type="button" onclick="emptyRomu()">Tyhjennä romutus</button>
-            </div>
-        </fieldset>
-        <fieldset>
-            <legend>Ilmoitus</legend>
-            <div class="mittariFieldDiv">
-            <div id="valilehtiBtn"></div>
-            <div id="romutusIlmoitus"></div>
-        </div></fieldset>
-        <button id="tyhjennaRomu" onclick="emptyIlmoitus()" type="button">Tyhjennä ilmoitus</button>
-    </div></div>
+    
     <h2>Tuotantolaitteiston tekniset tiedot</h2>
     <label class="label2">Vakuutan, että</label>
     <div id="Tekniset_tiedot">
