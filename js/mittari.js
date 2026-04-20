@@ -84,6 +84,7 @@ if(codeReader){
           controls.stop()
           controls = null
           container.style.display = "none"
+          document.body.classList.remove("modal-open")
         }
 
   
