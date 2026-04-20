@@ -18,6 +18,7 @@
 }
 
 #torchDebugDiv{
+    display: none;
     background-color: antiquewhite;
     width: var(--videoBoxWidth);
     height: auto;

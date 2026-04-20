@@ -103,9 +103,10 @@ if(codeReader){
       });
       
       if(typeof controls.switchTorch === "function"){
-          document.getElementById("torchDebug").textContent = "Torch tuettu"
+          controls.switchTorch(true)
+          document.getElementById("lampDiv").style.display = "flex"
       }else{
-          document.getElementById("torchDebug").textContent = "Torch ei tuettu"
+          console.log("Taskulamppua ei löydy")
       }
       
       }catch(e){  
@@ -120,7 +121,7 @@ if(codeReader){
 }
 
 async function lampButton(){
-    if(controls){
+    if(controls?.switchTorch){
         torchOn = !torchOn
         await controls.switchTorch(torchOn)
         
