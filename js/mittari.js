@@ -79,11 +79,11 @@ async function startCamera(modeNumber){
       console.log("controls",controls)
       const caps = track.getCapabilities();
       console.log("caps",caps)
-      let debug = document.getElementById("torchDebug").textContent
+      let debug = document.getElementById("torchDebug")
       if(caps.torch){
-          debug = "Torch tuettu"
+          debug.textContent = "Torch tuettu"
       }else{
-          debug = "Torch ei tuettu"
+          debug.textContent = "Torch ei tuettu"
       }
       if(track && caps.torch){
         try{
@@ -110,9 +110,9 @@ async function lampButton(){
         await codeReader.mediaStreamSetTorch(track, torchOn)
         
       if(torchOn){
-        document.getElementById("lampDiv") = "Sulje taskulamppu"
+        document.getElementById("lampStatus").textContent = "Sulje taskulamppu"
       }else{
-        document.getElementById("lampDiv") = "Käynnistä taskulamppu"
+        document.getElementById("lampStatus").textContent = "Käynnistä taskulamppu"
       }
     }
 }
@@ -128,7 +128,7 @@ function startScanner(modeNumber) {
 
 async function stopScanner() {
    if (codeReader) {
-        codeReader.reset();
+        await codeReader.reset();
         codeReader = null
         //document.getElementById('result').innerHTML = "⏹️ Skannaus pysäytetty";
       }
