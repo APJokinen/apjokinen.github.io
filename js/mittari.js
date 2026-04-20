@@ -113,9 +113,9 @@ async function startCamera(modeNumber){
 }
 
 async function lampButton(){
-    if(track){
+    if(controls){
         torchOn = !torchOn
-        await codeReader.mediaStreamSetTorch(track, torchOn)
+        await controls.switchTorch(torchOn)
         
       if(torchOn){
         document.getElementById("lampStatus").textContent = "Sulje taskulamppu"
