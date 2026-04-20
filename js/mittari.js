@@ -287,6 +287,7 @@ function startPic(modeNumber){
     container = document.getElementById("pic-container2")
   }
   container.style.display = "flex"
+  document.body.classList.add("modal-open")
 
 }
 
@@ -298,6 +299,7 @@ function closePicModal(modeNumber){
     container = document.getElementById("pic-container2")
   }
   container.style.display = "none"
+  document.body.classList.remove("modal-open")
 }
 
 function dragoverHandler(ev) {

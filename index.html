@@ -14,7 +14,7 @@
 <script src="./js/muutos.js" defer></script>
 <script src="https://unpkg.com/@zxing/library@latest" defer></script>
 <script src="./js/mittari.js" defer></script>
-<label>Päivitetty:</label>
+<label>Päivitetty: 12.30</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -58,13 +58,13 @@
         <div class="pictureBox">
             <fieldset id="picFieldset1Upper" class="picFieldset">
                 <legend>Lisää kuva</legend>
-
+                <div class="sarjanumeroDiv">
             <div id="picDropZone" onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,1)">
                 <div><label id="beforePicLabel1">Lataa kuva raahaamalla tähän tai painamalla alhaalta</label></div>
                 <img id="preview1">
             </div>
             <input id="imgInput1" type="file" accept="image/*" onchange="loadPic(event, 1)">
-        </fieldset>
+       </div> </fieldset>
             <fieldset class="picFieldset">
                 <legend>Mittarin sarjanumero</legend>
                 <div class="sarjanumeroDiv">
