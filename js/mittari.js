@@ -1,5 +1,8 @@
 let codeReader = null;
+let track = null
 let info = null
+let torchExists = null
+let torchOn =null
 let romutettavat = []
 let romuIlmoitus = []
 let romuId= 0
@@ -40,10 +43,13 @@ function romutus(){
     }
 }
 
-function startCamera(modeNumber){
+async function startCamera(modeNumber){
   codeReader = new ZXing.BrowserMultiFormatReader();
 
-      codeReader.decodeFromVideoDevice(null,"video", (result, err) => {
+  const videoInputDevices = await codeReader.listVideoInputDevices();
+  const selectedDeviceId = videoInputDevices[0].deviceId;
+
+      await codeReader.decodeFromVideoDevice(selectedDeviceId,"video", (result, err) => {
         if (result) {
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
           
@@ -60,12 +66,51 @@ function startCamera(modeNumber){
           stopScanner()
         }
 
+
         if (err && !(err instanceof ZXing.NotFoundException)) {
           console.error(err);
         }
       });
+
+      track = codeReader.stream.getVideoTracks()[0];
+
+      if (track.getSettings().torch === undefined) {
+        document.getElementById("lampDiv").style.display="none"
+        console.log("Torch ei tuettu tällä laitteella");
+          
+      }else{
+        console.log("Torch pitäisi olla tuettu")
+         try{
+            await track.applyConstraints({
+            advanced: [{ torch: true }]})
+           
+          }catch(e){
+            console.log("Taskulamppu:",e)
+          };
+      }
+
+     
+      
+      
+
+      
+    
 }
 
+async function lampButton(){
+    if(track){
+        torchOn = !torchOn
+
+        await track.applyConstraints({
+          advanced: [{ torch: torchOn }]
+      });
+      if(torchOn){
+        document.getElementById("lampDiv") = "Sulje taskulamppu"
+      }else{
+        document.getElementById("lampDiv") = "Käynnistä taskulamppu"
+      }
+    }
+}
 
 function startScanner(modeNumber) {
       container.style.display = "flex"
@@ -76,12 +121,26 @@ function startScanner(modeNumber) {
       
     }
 
-function stopScanner() {
+async function stopScanner() {
    if (codeReader) {
         codeReader.reset();
         codeReader = null
         //document.getElementById('result').innerHTML = "⏹️ Skannaus pysäytetty";
       }
+
+      if(track){
+      try{
+        await track.applyConstraints({
+        advanced: [{ torch: false }]
+      });
+      }catch(e){
+        console.log("Taskulampun sulku:",e)
+      }
+
+      track = null
+       }
+
+
       container.style.display = "none"
       document.body.classList.remove("modal-open")
      

@@ -135,6 +135,16 @@ textarea{
     object-fit: cover;
 }
 
+#lampDiv{
+    width: 100%;
+    height: var(--stopScanHeight);
+    display: flex;
+    background-color: var(--greenColor);
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+}
+
 
 
 #stopScan{
