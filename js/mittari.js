@@ -79,8 +79,11 @@ if(codeReader){
           
           if(modeNumber === 1){
             document.getElementById("Mittarin_sarjanumero").value = result.text
+
           }
           controls.stop()
+          controls = null
+          container.style.display = "none"
         }
 
   
