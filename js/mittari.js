@@ -72,18 +72,29 @@ async function startCamera(modeNumber){
         }
       });
 
+      setTimeout(async() => {
       track = codeReader.stream.getVideoTracks()[0];
       console.log("track",track)
       console.log("codeReader",codeReader)
       console.log("controls",controls)
-      if(track){
+      const caps = track.getCapabilities();
+      console.log("caps",caps)
+      let debug = document.getElementById("torchDebug").textContent
+      if(caps.torch){
+          debug = "Torch tuettu"
+      }else{
+          debug = "Torch ei tuettu"
+      }
+      if(track && caps.torch){
         try{
-          await codeReader.mediaStreamSetTorch(stream.getVideoTracks()[0], torchOn)
+          await codeReader.mediaStreamSetTorch(track, torchOn)
           document.getElementById("lampDiv").style.display = "flex"
         }catch(e){
           console.log("Ei taskulamppua käytettävissä")
         }
       }
+      }, 500)
+      
 
      
       

@@ -17,6 +17,11 @@
     --picModalSideMargin: 5vW;
 }
 
+#torchDebugDiv{
+    background-color: antiquewhite;
+    width: var(--videoBoxWidth);
+    height: auto;
+}
 
 
 #mittariDiv{

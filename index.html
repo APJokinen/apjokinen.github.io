@@ -14,10 +14,9 @@
 <script src="./js/muutos.js" defer></script>
 <script src="https://unpkg.com/@zxing/library@latest" defer></script>
 <script src="./js/mittari.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/eruda" defer></script>
-<script defer>eruda.init();</script>
 
-<label>Päivitetty: 15.05</label>
+
+<label>Päivitetty: 15.27</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -55,8 +54,10 @@
                     <div class="scan-line"></div>
             </div>
   </div></div>
+            <div id="torchDebugDiv"><label id="torchDebug">Testi</label></div>
             <div id="lampDiv" onclick="lampButton()"><label id="lampStatus" class="whiteLabel">Sulje taskulamppu</label></div>
             <div id="stopScan" onclick="stopScanner()"><label class="whiteLabel">Pysäytä sarjanumeron luku</label></div>
+            
             </div></div>
     <div class="modal" id="pic-container1">
         <div class="pictureBox">
