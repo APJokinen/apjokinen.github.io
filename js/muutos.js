@@ -90,12 +90,12 @@ function uusiTuotanto() {
 
      kopio.querySelector(".clickBoxMuutosVanha").onclick = () => {
         choose1 = "vanha"
-        modalCopy.style.display = "block"
+        modalCopy.style.display = "flex"
     }
 
     kopio.querySelector(".clickBoxMuutosUusi").onclick = () => {
         choose1 = "uusi"
-         modalCopy.style.display = "block"
+         modalCopy.style.display = "flex"
     }
 
 
@@ -197,13 +197,13 @@ function muutosAkku(){
     const uusi = kopio.querySelector(".uusi")
     vanha.querySelector(".clickBoxMuutos").onclick = () => {
         choose1 = "vanha"
-        modalCopy.style.display  ="block"
+        modalCopy.style.display  ="flex"
         
     }
 
     uusi.querySelector(".clickBoxMuutos").onclick = () => {
         choose1 = "uusi"
-        modalCopy.style.display  ="block"
+        modalCopy.style.display  ="flex"
     }
 
     const modalbox = modalCopy.querySelector(".modalBox")
@@ -234,20 +234,20 @@ function muutosAkku(){
 
 function tuotantoVanha(){
     const modal = document.getElementById("muutosModal1")
-    modal.style.display = "initial"
+    modal.style.display = "flex"
     choose1 = "vanha"
 }
 
 function tuotantoUusi(){
     const modal = document.getElementById("muutosModal1")
-    modal.style.display = "initial"
+    modal.style.display = "flex"
     choose1 = "uusi"
 }
 
 function openModal(modal1){
     const modal = document.getElementById(modal1)
     const cbox = modal.querySelector("checkbox")
-    modal.style.display = "block"
+    modal.style.display = "flex"
 }
 
 function addPower2(){
@@ -347,7 +347,7 @@ function uusiLaite(){
     
     clickVanha.onclick = () => {
         choose1 = "vanha"
-        modalCopy.style.display="block"
+        modalCopy.style.display="flex"
         console.log(poistoDiv)
         console.log(poistoDiv.querySelector('input[type="checkbox"]'))
         //console.log(alkio.vanhaPoistettu)
@@ -365,7 +365,7 @@ function uusiLaite(){
 
     clickUusi.onclick = () => {
         choose1 = "uusi"
-        modalCopy.style.display="block"
+        modalCopy.style.display="flex"
         poistoDiv.style.display="none"
     }
     modalCopy.querySelectorAll("button").forEach(btn => btn.remove());

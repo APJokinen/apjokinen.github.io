@@ -76,13 +76,17 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .modalBox{
+    position: relative;
     justify-content: center;
-    align-content: center;
+    align-items: center;
     background-color: white;
-    margin: 15% auto; 
+    margin: 15% auto;
     width: 70%;
     border-style: solid;
     padding: var(--modalPadding);

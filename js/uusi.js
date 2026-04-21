@@ -84,9 +84,9 @@ function uusiAkku(){
         uusiDiv.className = "clickBox"
         const br1 = document.createElement("br")
         const br2 = document.createElement("br")
-
-        const delButton = document.createElement("button")
+eElement("button")
         delButton.textContent="Poista"
+        const delButton = document.creat
         delButton.type="button"
         delButton.onclick = () => {
         uusiDiv.remove()
@@ -116,8 +116,8 @@ function uusiAkku(){
                 alkio.kapasiteetti = kapasiteetti + " kWh"
                 verkkoTehoUusi()
             }
-            modalCopy.style.display = "block"
-            
+            modalCopy.style.display = "flex"
+            document.body.classList.add("modal-open")
             
         }
 
@@ -145,6 +145,7 @@ function uusiAkku(){
 
     modalButton2.onclick = () => {
         modalCopy.style.display = "none"
+        document.body.classList.remove("modal-open")
     }
 
     const modalbox = modalCopy.querySelector(".modalBox")
@@ -152,7 +153,8 @@ function uusiAkku(){
     modalbox.appendChild(modalButton1)
     modalbox.appendChild(modalButton2)
     container.appendChild(modalCopy)
-    modalCopy.style.display = "block"
+    modalCopy.style.display = "flex"
+    document.body.classList.add("modal-open")
 
 
 
@@ -204,8 +206,10 @@ function openModal1(){
             }
             buttons2[1].onclick = () => {
                 modal2.style.display = "none"
+                document.body.classList.remove("modal-open")
             }
-            modal2.style.display = "block"
+            modal2.style.display = "flex"
+            document.body.classList.add("modal-open")
         }
         nimi.textContent = "Tuotantolaite "+(production.length)
         nimi.className = "uusiTuotantoNimet"
@@ -237,8 +241,10 @@ function openModal1(){
     }
     buttons[1].onclick = () => {
         modal.style.display= "none"
+        document.body.classList.remove("modal-open")
     }
-    modal.style.display="block"
+    modal.style.display="flex"
+    document.body.classList.add("modal-open")
 }
 
 /*
@@ -375,6 +381,7 @@ function addDevice2(){
         kopio.querySelectorAll("button").forEach(btn => btn.remove());
         kopio.style.display = "none"
         
+        
         const content = kopio.querySelector("#modalBox2");
         let button1 = document.createElement("BUTTON");
         button1.textContent = "Tallenna"
@@ -414,7 +421,7 @@ function addDevice2(){
             uusiDiv.appendChild(plusDiv)
             verkkoTehoUusi()
 
-
+           
 
             
 
@@ -424,31 +431,37 @@ function addDevice2(){
         button2.textContent = "Sulje"
         button2.onclick = function(){
             kopio.style.display = "none"
+            document.body.classList.remove("modal-open")
         }
         content.appendChild(button1)
         content.appendChild(button2)
+
             
         document.body.appendChild(kopio)
         uusiDiv.onclick = function () {
-            kopio.style.display = "block"
+            kopio.style.display = "flex"
+            document.body.classList.add("modal-open")
         }
         container.appendChild(nimi)
         container.appendChild(uusiDiv);
         container.appendChild(delButton);
         container.appendChild(br1);
         container.appendChild(br2);
-    
+        
 
 }
 
 function openModal2(){
     const modal = document.getElementById("modal2")
-    modal.style.display = "initial"
+    modal.style.display = "flex"
+    document.body.classList.add("modal-open")
+
 }
 
 function closeModal2(){
     const modal = document.getElementById("modal2")
     modal.style.display= "none"
+    document.body.classList.remove("modal-open")
 }
 function addSystem(){
     

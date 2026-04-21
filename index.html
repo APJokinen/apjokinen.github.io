@@ -16,7 +16,7 @@
 <script src="./js/mittari.js" defer></script>
 
 
-<label>Päivitetty: 22.08</label>
+<label>Päivitetty: 10.30</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -55,7 +55,7 @@
             </div>
   </div></div>
             <div id="torchDebugDiv"><label id="torchDebug">Testi</label></div>
-            <div id="lampDiv" onclick="lampButton()"><label class="whiteLabel">Sulje taskulamppu</label></div>
+            <div id="lampDiv" onclick="lampButton()"><label id="lampStatus" class="whiteLabel">Sulje taskulamppu</label></div>
             <div id="stopScan" onclick="stopScanner()"><label class="whiteLabel">Pysäytä sarjanumeron luku</label></div>
             
             </div></div>
@@ -240,7 +240,7 @@
         <div id="modal2" class="modal">
                 <div id="modalBox2" class="modalBox">
                     <fieldset>
-                    <legend id="modalLegend2">Uusi invertteri</legend>
+                    <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
                     <label>Laite</label><input id="device"/><br/>
                     <label>Merkki</label><input id="deviceLabel"/><br/>
                     <label>Malli</label><input id="deviceModel"/><br/>
