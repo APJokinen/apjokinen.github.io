@@ -29,6 +29,7 @@
 #uusiTuotantoBox{
     border-style: solid;
     padding-bottom: var(--boxPadding);
+    width: 100%;
 }
 
 .marginBox1{
@@ -76,24 +77,36 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 .modalBox{
-    position: relative;
     justify-content: center;
     align-items: center;
     background-color: white;
-    margin: 15% auto;
+    margin: 15% auto; 
     width: 70%;
     border-style: solid;
     padding: var(--modalPadding);
+    height: fit-content;
 }
 .ilmoitusUusi{
     
 }
+
+.lisaysDiv{
+    margin-left: var(--clickBoxSideMargin);
+    margin-right: var(--clickBoxSideMargin);
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding-right: var(--clickBoxPadding);     /* vertikaalinen keskitys */
+    position: relative;
+    background-color: var(--white);
+    border-color: black;
+}   
 
 .verkkoTeho{
     font-size: 21px;
@@ -107,7 +120,7 @@
 
 
 
-.clickBox table{
+.lisaysDiv table{
     margin-left: 0;
     margin-right: auto;
 }

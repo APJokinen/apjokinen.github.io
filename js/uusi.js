@@ -15,7 +15,7 @@ function select1(){
     if(val === "no"){
         document.getElementById("uusiPientuotanto").style.display= "none"
     }else{
-        document.getElementById("uusiPientuotanto").style.display= "initial"
+        document.getElementById("uusiPientuotanto").style.display= "flex"
     }
 }   
 
@@ -24,7 +24,7 @@ function select2(){
      if(val === "no"){
         document.getElementById("muutosPientuotanto").style.display= "none"
     }else{
-        document.getElementById("muutosPientuotanto").style.display= "initial"
+        document.getElementById("muutosPientuotanto").style.display= "flex"
     }
 }
 
@@ -81,12 +81,11 @@ function uusiAkku(){
 
         const nimi = document.createElement("label")
         const uusiDiv = document.createElement("div")
-        uusiDiv.className = "clickBox"
+        uusiDiv.className = "lisaysDiv"
         const br1 = document.createElement("br")
         const br2 = document.createElement("br")
-eElement("button")
+        const delButton = document.createElement("button")
         delButton.textContent="Poista"
-        const delButton = document.creat
         delButton.type="button"
         delButton.onclick = () => {
         uusiDiv.remove()
@@ -176,7 +175,7 @@ function openModal1(){
     const alkio = {id:index1}
     buttons[0].onclick = () => {
         const newProduction = document.createElement("div")
-        newProduction.className = "clickBox"
+        newProduction.className = "lisaysDiv"
         const plus = document.createElement("label")
         plus.textContent = "+"
         plus.className = "clickBoxPlus"
@@ -312,7 +311,7 @@ function addDevice2(){
     const nimi = document.createElement("label")
     nimi.textContent = "Laite "+device.length
     nimi.className = "uusiVerkkolaiteNimet"
-        uusiDiv.className = "clickBox"
+        uusiDiv.className = "lisaysDiv"
         uusiDiv.id = "deviceClickBox"+i
 
         let text = "<table><tr><th></th><th></th></tr>"

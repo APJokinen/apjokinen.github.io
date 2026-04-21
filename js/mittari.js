@@ -461,24 +461,29 @@ async function loadPic(event,modeNumber){
     label =  document.getElementById("beforePicLabel2");
     resultElement = document.getElementById("serialNumberByPic2");
     img = document.getElementById("preview2");
+
   }
   
+  img.style.maxWidth = "400px"
+  img.style.maxHeight = "400px" 
 
   
   const object = URL.createObjectURL(event.target.files[0]);
   img.src = object
+  label.style.display="none"
 
-  codeReader = new ZXing.BrowserMultiFormatReader();
+  codeReader = new ZXingBrowser.BrowserMultiFormatReader();
   try {
+    console.log("URL",object)
     const result = await codeReader.decodeFromImageUrl(
       object
     );
-    label.style.display="none"
+    
     resultElement.textContent = result.getText();
   } catch (err) {
     resultElement.textContent = "Koodia ei löytynyt";
+    console.error("Kuvan luku:",err)
   }
-  codeReader.reset()
   codeReader = null
 }
 
