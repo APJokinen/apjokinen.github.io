@@ -13,6 +13,20 @@
     --greenColor: rgb(55, 199, 55);
     --darkGreen: darkGreen;
 
+    --black: #000000;
+  --green: #37C737;
+
+  --green-dark: #2FA62F;
+  --green-light: #6EE06E;
+  --green-bg: #E6F9E6;
+
+  --gray-dark: #1A1A1A;
+  --gray: #444444;
+  --gray-light: #AAAAAA;
+
+  --white: #FFFFFF;
+  --bg-light: #F5F5F5;
+
 
 }
 
@@ -29,7 +43,9 @@
   }
 }
 
-
+textarea{
+    background-color: var(--green-bg);
+}
 
 h1{
     color: var(--font-color1);
@@ -162,8 +178,8 @@ button{
     min-height: var(--buttonHeight);
 }
 
-.pressedButton{
-    
+button:hover{
+    background-color: var(--green-dark);
 }
 
 .input4{

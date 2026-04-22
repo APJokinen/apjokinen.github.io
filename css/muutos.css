@@ -2,9 +2,24 @@
     --boxSideMargin: 20px;
     --boxPadding: 30px;
     --clickBoxSideMargin: 20px;
-    --clickBoxPadding: 10px;
+    --clickBoxPadding: 300px;
     --modalPadding: 10px;
     --greenColor: rgb(55, 199, 55);
+    --verkkoLaiteMuutos: calc();
+
+    --black: #000000;
+  --green: #37C737;
+
+  --green-dark: #2FA62F;
+  --green-light: #6EE06E;
+  --green-bg: #E6F9E6;
+
+  --gray-dark: #1A1A1A;
+  --gray: #444444;
+  --gray-light: #AAAAAA;
+
+  --white: #FFFFFF;
+  --bg-light: #F5F5F5;
 }
 
 #muutosPientuotanto{
@@ -16,6 +31,7 @@
 
 #muutosTuotantoBox{
     border-style: solid;
+    border-color: var(--gray-light);
     width:100%;
 }
 
@@ -44,16 +60,23 @@
 }
 
 .vanha{
-    width: 50%;
+    display: flex;
+     flex-direction: column;
     border-style: solid none solid solid;
-    justify-items: center;
-    
+    width: 50%;
+    min-width: 0;
 }
 
 .uusi{
+    display: flex;
+    flex-direction: column;
+    border-style: solid solid solid solid;
     width: 50%;
-    border-style: solid solid none solid;
-    justify-items: center;
+    min-width: 0;
+
+}
+
+.vanha table, .uusi table{
 
 }
 
@@ -67,7 +90,12 @@
 
 
 .muutosFieldset{
-
+    min-width: 0;
+    height:100%;
+    margin-left: var(--boxSideMargin);
+    margin-right: var(--boxSideMargin);
+    box-sizing: border-box;
+    border-color: var(--green-light);
 }
 
 .poistoCheckBox{
@@ -82,30 +110,36 @@
 }
 
 #container4{
-    width:100%;
-    
+    max-width:100%;
+    max-block-size: 100%;
+    box-sizing: border-box;
 }
 
 .deviceDiv{
-   margin-right: var(--clickBoxSideMargin);
-   margin-left: var(--clickBoxSideMargin);
-   padding-left: var(--clickBoxPadding);
-   padding-right: var(--clickBoxPadding);
-   justify-content: space-between;
+    display: block;
+    flex-direction: column;
+    margin-left: var(--clickBoxSideMargin);
+    margin-right: var(--clickBoxSideMargin);
+    max-width: calc(75dvw-var(--clickBoxSideMargin));
+    flex: 1 1 300px;    
+   min-width: 0;
+   box-sizing: border-box;
+   
 }
 
 .deviceClickBox{
-    
+    max-block-size: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .clickBoxMuutos{
-    width: 100%;
-    position: relative;
+    max-width: 100%;
     display: flex;
     flex-direction: row;
-    border-style: solid;
-
-    
+    overflow-x: auto;
+    box-sizing: border-box;
+    justify-content: space-between;
     
     
 }
@@ -113,29 +147,29 @@
 .clickBoxMuutosUusi{
     display: flex;
     width: 100%;
-    position: relative;
-    border-style: solid;
+    border-style: solid none none none;
+    justify-content: space-between;
     align-items: center;
 }
 
 .clickBoxMuutosVanha{
     display: flex;
     width: 100%;
-    position: relative;
-    border-style: solid;
+    border-style: solid none none none;
     align-items: center;
+    justify-content: space-between;
     
 }
 
 .clickBoxPlus{
-    position: absolute;
-    right: 10px;
     font-weight: bold;
-    font-size: 21px;
+    font-size: 20px;
+    margin-right: 10px;
+    
 }
 
 .clickBoxPlusDivMuutos{
-
+    
 }
 
 .delButton{
@@ -177,16 +211,17 @@
 }
 
 .clickBoxMuutosLaite{
-    width: 80%;
+
 }
 
 .clickBoxMuutosPlus{
     width: 20%;
+    height: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-
+    justify-content: center;
     align-items: center;
+
 }
 
 .tuotantoTapaSpan{
@@ -238,4 +273,47 @@
 
 #infoAreaChange{
     margin-left: var(--clickBoxSideMargin);
+}
+
+.laiteMuutosBox{
+    display: flex;
+    flex-direction: column;
+    max-width:100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.systemDeviceScroll{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.muutosFieldsetSystem{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#showSystemDevice{
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.showSystemDeviceContent{
+    border-style: solid;
+    background-color: var(--green-bg);
+    width: fit-content;
+    height: 70dvh;
+}
+
+.showSystemDeviceContent table{
+    border-style: dashed;
+}
+
+#oldDeviceRemovedLabel{
+    font-size: 20px;
+    font-weight: bold;
 }

@@ -348,8 +348,6 @@ function uusiLaite(){
     clickVanha.onclick = () => {
         choose1 = "vanha"
         modalCopy.style.display="flex"
-        console.log(poistoDiv)
-        console.log(poistoDiv.querySelector('input[type="checkbox"]'))
         //console.log(alkio.vanhaPoistettu)
         if(alkio?.vanha?.[8] === true){
 
@@ -465,6 +463,15 @@ function addSystemChange() {
 }
 
 function showSystem(newSystem){
+    const index = systems.length
+    /*const deviceButton = document.createElement("button")
+    deviceButton.textContent = "Näytä laitteet uudessa ikkunassa"
+    
+    deviceButton.onclick = () => {
+        showSystemDevice(index)
+    }
+    deviceButton.className = "showSystemDevicesBtn"*/
+
     let vanhaVerkkoTeho = 0;
     let uusiVerkkoTeho = 0;
     const laiteTeho =  {vanha : 0, uusi: 0}
@@ -473,7 +480,7 @@ function showSystem(newSystem){
     const container = document.getElementById("container5")
     const div = document.createElement("div")
     div.className = "systemChangeDiv"
-    const index = systems.length
+    
     div.id="systemChangeDiv"+(index-1)
     const legend = "Järjestelmä "+index
     let text = "<fieldset><legend>"+legend+"</legend>"
@@ -534,25 +541,25 @@ function showSystem(newSystem){
 
     
     if(devices.length > 0){
-    text += "<label class='systemBold'>Verkkoliitäntälaitteet: </label><br/><br/>"
+    text += "<div class='systemBold'>Verkkoliitäntälaitteet: <span class='toolTip1Sign'>&#9432;<span class='toolTip1'>Testi</span></span></div><br><br>"
     }
     for(let i = 0; i < devices.length; i++){
-        text += "<fieldset><legend>Laite "+(i+1)+"</legend></br>"
-        text += "<table>"
+        text += "<fieldset class='muutosFieldsetSystem'><legend>Laite "+(i+1)+"</legend></br>"
+        text += "<div class='systemDeviceScroll' onclick='showSystemDevice("+(index-1)+","+i+")'><table class='systemChangeTable'>"
         text += "<tr><th></th><th>Vanha</th><th></th><th>Uusi</th></tr>"
         text += "<tr><td>Laite: </td><td>"+devices[i]?.vanha?.[0]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[0]+"</td></tr>"
         text += "<tr><td>Merkki: </td><td>"+devices[i]?.vanha?.[1]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[1]+"</td></tr>"
         text += "<tr><td>Malli: </td><td>"+devices[i]?.vanha?.[2]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[2] +"</td></tr>"
         text += "<tr><td>Tyyppi: </td><td>"+devices[i]?.vanha?.[3]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[3] +"</td></tr>"
         text += "<tr><td>Teho: </td><td>"+devices[i]?.vanha?.[4]+" kW</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[4]+" kW</td></tr>"
-        text += "<tr><td>Enimmäisvikavirta: </td><td>"+devices[i]?.vanha?.[6]+" A</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[5] + " A</td></tr>"
-        text += "<tr><td>Oikosulkuvirta: </td><td>"+devices[i]?.vanha?.[7]+" A</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[6] +" A</td></tr>"
-        text += "<tr><td>Kytketyt vaiheet: </td><td>"+devices[i]?.vanha?.[8]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[7]+"</td></tr>"
+        text += "<tr><td>Enimmäisvikavirta: </td><td>"+devices[i]?.vanha?.[5]+" A</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[5] + " A</td></tr>"
+        text += "<tr><td>Oikosulkuvirta: </td><td>"+devices[i]?.vanha?.[6]+" A</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[6] +" A</td></tr>"
+        text += "<tr><td>Kytketyt vaiheet: </td><td>"+devices[i]?.vanha?.[7]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[7]+"</td></tr>"
         //text += "</table><label>Vanha laite poistetttu: </label><label>"+devices[i]?.vanhaPoistettu+"</label></fieldset><br/>"
         if(devices[i]?.vanha?.[8] === true){
             text += "</table><label class='boldLabel'>Vanha laite poistettu</label></fieldset><br/>"
         }else{
-            text += "</table><label class='boldLabel'>Vanha laite ei ole poistettu</label></fieldset><br/>"
+            text += "</table><label class='boldLabel'>Vanha laite ei ole poistettu</label></div></fieldset><br/>"
         }
         const vanhaTeho = parseInt(devices[i]?.vanha?.[4].match(/\d+/)?.[0]);
         const uusiTeho= parseInt(devices[i]?.uusi?.[4].match(/\d+/)?.[0]);
@@ -580,7 +587,7 @@ function showSystem(newSystem){
     //text += "<table><tr><th>Vanha</th><th></th><th>Uusi</th><tr/>"
     //text += "<tr><td>"+vanhaVerkkoTeho.toString()+" kW</td><td>&#8594;</td><td>"+uusiVerkkoTeho.toString()+" kW</td></tr></table>"
     text += "</fieldset><button>Poista järjestelmä</button><br/>"
-    div.innerHTML = text
+    div.innerHTML += text
     /*div.querySelectorAll("label").forEach((el,index) => {
         if(index !== 1 && index !== div.querySelectorAll("label").length - 1){
             el.classList.add("labelForSystem");
@@ -666,6 +673,7 @@ function nollaaMuutos(){
 function nollaaIlmoitusMuutos(){
     systems = []
     document.getElementById("container5").innerHTML = ""
+    document.getElementById("container5TabButtons").innerHTML = ""
 }
 
 function verkkoTeho(){
@@ -811,4 +819,48 @@ function verkkoTeho(){
     //uusiDiv.appendChild(table3)
     //uusiDiv.appendChild(sum3)
     container.appendChild(uusiDiv)
+}
+
+function showSystemDevice(index, alaindeksi){
+    console.log(index)
+    const chosenSystem = systems[index]
+    console.log(chosenSystem)
+    const oldRemovedLabel = document.getElementById("oldDeviceRemovedLabel")
+    if(device?.vanha?.[8] === true){
+        oldRemovedLabel.textContent = "Vanha laite poistettu"
+    }else{
+        oldRemovedLabel.textContent = "Vanha laite ei ole poistettu"
+    }
+    let text = "";
+
+        const table = document.createElement("table")
+        const header = document.getElementById("showSystemDeviceLegend")
+        header.textContent = "Järjestelmä "+(index+1)
+        text += "<tr><th></th><th>Vanha</th><th></th><th>Uusi</th></tr>"
+        text += "<tr><td>Laite:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[0]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[0]+"</td></tr>"
+        text += "<tr><td>Merkki:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[1]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[1]+"</td></tr>"
+        text += "<tr><td>Malli:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[2]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[2]+"</td></tr>"
+        text += "<tr><td>Tyyppi:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[3]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[3]+"</td></tr>"
+        text += "<tr><td>Teho:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[4]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[4]+"</td></tr>"
+        text += "<tr><td>Enimmäisvikavirta:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[5]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[5]+"</td></tr>"
+        text += "<tr><td>Oikosulkuvirta:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[6]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[6]+"</td></tr>"
+        text += "<tr><td>Kytketyt vaiheet:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[7]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[7]+"</td></tr>"
+        table.innerHTML = text
+        const label = document.createElement("label")
+        label.textContent = "Laite "+(alaindeksi+1)
+        
+        const div = document.getElementById("showSystemDeviceTable")
+
+        div.innerHTML = ""
+        div.appendChild(label)
+        div.appendChild(table)
+        
+    
+    
+    document.getElementById("showSystemDevice").style.display = "flex"
+}
+    
+
+function SuljeMuutosLaite(){
+    document.getElementById("showSystemDevice").style.display = "none"
 }

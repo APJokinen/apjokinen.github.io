@@ -60,6 +60,7 @@ function select3(){
 
 
 function uusiAkku(){
+    getScroll()
     const container = document.getElementById("akkuUusiContainer")
     const modal = document.getElementById("accuNewModal")
     const modalCopy = modal.cloneNode(true)
@@ -78,7 +79,6 @@ function uusiAkku(){
         accuIdNew++
         const alkio = {id:index1}
         accuNew.push(alkio)
-
         const nimi = document.createElement("label")
         const uusiDiv = document.createElement("div")
         uusiDiv.className = "lisaysDiv"
@@ -118,6 +118,7 @@ function uusiAkku(){
             modalCopy.style.display = "flex"
             document.body.classList.add("modal-open")
             
+            
         }
 
         nimi.textContent  ="Sähkövarasto "+accuNew.length
@@ -125,15 +126,25 @@ function uusiAkku(){
         const table = document.createElement("table")
         const plus = document.createElement("label")
         plus.textContent = "+"
-        plus.className = "clickBoxPlus"
+        plus.className = "clickBoxPlusNew"
         const kapasiteetti = modalCopy.querySelector(".accuNewCap").value
         const teho =modalCopy.querySelector(".accuNewPower").value
         alkio.teho= teho + " kW"
         alkio.kapasiteetti = kapasiteetti + " kWh"
         table.innerHTML = "<tr><td>Kapasiteetti: </td><td>"+kapasiteetti+" kWh</td></tr>"
         table.innerHTML += "<tr><td>Teho: </td><td>"+teho+" kW</td></tr>"
-        uusiDiv.appendChild(table)
-        uusiDiv.appendChild(plus)
+        
+        const tableDiv = document.createElement("div")
+        const plusDiv = document.createElement("div")
+        const wrapper = document.createElement("div")
+        wrapper.className = "tableAndPlusWrapper"
+        tableDiv.className = "tableDivNew"
+        plusDiv.className  = "plusDivNew"
+        tableDiv.appendChild(table)
+        plusDiv.appendChild(plus)
+        wrapper.appendChild(tableDiv)
+        wrapper.appendChild(plusDiv)
+        uusiDiv.appendChild(wrapper)
         container.appendChild(nimi)
         container.appendChild(uusiDiv)
         container.appendChild(delButton)
@@ -145,6 +156,7 @@ function uusiAkku(){
     modalButton2.onclick = () => {
         modalCopy.style.display = "none"
         document.body.classList.remove("modal-open")
+        setScroll1()
     }
 
     const modalbox = modalCopy.querySelector(".modalBox")
@@ -152,9 +164,11 @@ function uusiAkku(){
     modalbox.appendChild(modalButton1)
     modalbox.appendChild(modalButton2)
     container.appendChild(modalCopy)
-    modalCopy.style.display = "flex"
+    modalCopy.style.display = "block"
+    
+    
     document.body.classList.add("modal-open")
-
+    setScroll2()
 
 
 }
@@ -165,6 +179,8 @@ function uusiAkku(){
 }*/
 
 function openModal1(){
+    console.log("Modaali 1")
+    getScroll()
     const modal = document.getElementById("modal1")
     const buttons = modal.querySelectorAll("button")
     const container = document.getElementById("newProductionContainer")
@@ -183,16 +199,13 @@ function openModal1(){
         const powerLabel = document.createElement("label")
         powerLabel.textContent = power + " kW"
         alkio.teho = power+ " kW"
-        console.log("Ennen:",production)
         production.push(alkio)
-        console.log("Jälkeen:",production)
         const br1 = document.createElement("br")
         const br2 = document.createElement("br")
         const nimi = document.createElement("label")
         newProduction.appendChild(powerLabel)
         newProduction.appendChild(plus)
         newProduction.onclick = () => {
-            console.log("New")
             const modal2 = document.getElementById("modal1")
             const buttons2 = modal2.querySelectorAll("button")
             buttons2[0].onclick = () => {
@@ -204,11 +217,16 @@ function openModal1(){
                 verkkoTehoUusi()
             }
             buttons2[1].onclick = () => {
+                console.log("Sulku 1")
                 modal2.style.display = "none"
                 document.body.classList.remove("modal-open")
+                setScroll1()
             }
+            getScroll()
+            console.log("Avaus 2")
             modal2.style.display = "flex"
             document.body.classList.add("modal-open")
+            setScroll2()
         }
         nimi.textContent = "Tuotantolaite "+(production.length)
         nimi.className = "uusiTuotantoNimet"
@@ -241,9 +259,12 @@ function openModal1(){
     buttons[1].onclick = () => {
         modal.style.display= "none"
         document.body.classList.remove("modal-open")
+        setScroll1()
     }
+    getScroll()
     modal.style.display="flex"
     document.body.classList.add("modal-open")
+    setScroll2()
 }
 
 /*
@@ -291,6 +312,8 @@ function showDevices(){
 
 
 function addDevice2(){
+    console.log("getScroll1")
+    getScroll()
     const newItem = {};
     const index1 = deviceIdNew
     deviceIdNew++
@@ -438,8 +461,11 @@ function addDevice2(){
             
         document.body.appendChild(kopio)
         uusiDiv.onclick = function () {
+            getScroll()
             kopio.style.display = "flex"
             document.body.classList.add("modal-open")
+            console.log("1. setScroll")
+            setScroll2()
         }
         container.appendChild(nimi)
         container.appendChild(uusiDiv);
@@ -452,8 +478,10 @@ function addDevice2(){
 
 function openModal2(){
     const modal = document.getElementById("modal2")
-    modal.style.display = "flex"
+    modal.style.display = "block"
+    getScroll()
     document.body.classList.add("modal-open")
+    setScroll2()
 
 }
 
@@ -461,6 +489,7 @@ function closeModal2(){
     const modal = document.getElementById("modal2")
     modal.style.display= "none"
     document.body.classList.remove("modal-open")
+    setScroll1()
 }
 function addSystem(){
     
@@ -488,7 +517,6 @@ function addSystem(){
             text += "<label class='systemBold'>Tuotantolaitteiden tehot: </label><br/><table>"
         }
         for(let b = 0; b < production.length; b++){
-            console.log(production[b])
             const tehoLisays = parseInt(production?.[b]?.teho?.match(/\d+/)?.[0]);
             const teho = Number.isNaN(tehoLisays) ? 0 : tehoLisays;
             text += "<tr><td>Tuotantolaite "+(b+1)+": </td><td>"+teho+" kW</td></tr>"
@@ -597,7 +625,6 @@ function addSystem(){
     uusiDiv.style.display = "none"
 
     tabButton.type = "button"
-    console.log("System",system)
     tabButton.textContent = "Järjestelmä "+system.length
     tabButton.className = "tabButtonsNew"
     tabButton.onclick = () => {
@@ -677,7 +704,6 @@ function verkkoTehoUusi(){
     summa.Akut = 0
     summa.VerkkoLaite = 0
     table1.innerHTML = ""
-    console.log("production",production)
     for(let i of production){
         counter++
         const teho = parseInt(i?.teho?.match(/\d+/)?.[0]);

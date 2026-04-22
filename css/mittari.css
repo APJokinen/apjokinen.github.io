@@ -6,16 +6,31 @@
     --modalPadding: 10px;
     --greenColor: rgb(55, 199, 55);
     --lineHeight: 4px;
-    --stopScanHeight: 100px;
+    --stopScanHeight: 80px;
     --inputMinWidth: 120px;
     --inputMinHeight: 30px; 
     --radius: 15px;
     --picModalTopMargin: 10px;
-    --videoWidth: 70dvw;
-    --greenVideoBorder: 20px;
-    --videoBoxWidth: calc(var(--videoWidth) + 2*var(--greenVideoBorder));
+    --videoWidth: 50dvw;
+    --videoHeight: 50dvh;
+    --videoBorder: 10px;
+    --videoBoxWidth: calc(var(--videoWidth) + 2*var(--videoBorder));
     --picModalSideMargin: 5vW;
     --lampFont: 24px;
+
+    --black: #000000;
+  --green: #37C737;
+
+  --green-dark: #2FA62F;
+  --green-light: #6EE06E;
+  --green-bg: #E6F9E6;
+
+  --gray-dark: #1A1A1A;
+  --gray: #444444;
+  --gray-light: #AAAAAA;
+
+  --white: #FFFFFF;
+  --bg-light: #F5F5F5;
 }
 
 #torchDebugDiv{
@@ -47,23 +62,20 @@ textarea{
     justify-content: center;
     align-items: center;
     border-style: solid;
-    border-radius: var(--radius);
 }
 
 #videoWrapper {
   position: relative;
-  width: 80dvh;
-  height: 70dvh;
+  width: var(--videoWidth);
+  height: var(--videoHeight);
   overflow: hidden;
   border-style: solid;
   border-color: var(--greenColor);
-  border-top-left-radius: var(--radius);
-    border-top-right-radius: var(--radius);
-  border-width: var(--greenVideoBorder);
+  border-width: var(--videoBorder);
 }
 
 .whiteLabel{
-    color: white;
+    color: var(--green-bg);
     font-size: var(--lampFont);
 }
 
@@ -106,7 +118,7 @@ textarea{
     }
 }
 
-#videoWrapper {
+/*#videoWrapper {
   position: relative;
   width:var(--videoWidth);
   height: 50dvh;
@@ -114,7 +126,7 @@ textarea{
   border-style: solid;
   border-color: var(--greenColor);
   border-width: 20px;
-}
+}*/
 
 
 
@@ -141,19 +153,26 @@ textarea{
 }
 
 #lampDiv{
-    width: 100%;
+    width: var(--videoBoxWidth);
     height: var(--stopScanHeight);
-    display: none;
+    display: flex;
     background-color: var(--greenColor);
     justify-content: center;
     align-items: center;
     border-style: solid;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    border-bottom: none;
+}
+
+#lampDiv:hover{
+    background-color: var(--green-dark);
 }
 
 
 
 #stopScan{
-    width: 100%;
+    width: var(--videoBoxWidth);
     height: var(--stopScanHeight);
     display: flex;
     background-color: var(--greenColor);
@@ -162,8 +181,12 @@ textarea{
     border-style: solid;
     border-bottom-left-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
+    border-top: none;
 }
 
+#stopScan:hover{
+    background-color: var(--green-dark);
+}
 
 
 #romutettavaByHand{
@@ -175,15 +198,15 @@ textarea{
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,0.5);
-    padding:10px
+    padding:1px
 }
 
 .scan-area{
   position: absolute;
-  top: 20%;
+  top: 10%;
   left: 10%;
   right: 10%;
-  bottom: 20%;
+  bottom: 10%;
 
   border-radius: 12px;
   box-shadow: 0 0 0 9999px rgba(0,0,0,0.6); /* 🔥 maski */
@@ -264,9 +287,8 @@ table tr.selectedRomuRow td {
 
 
 #imgInput1, #imgInput2 {
-    width: 90%;
+    width: 100%;
 }
-
 .mittariFieldDiv{
     margin-left: var(--clickBoxSideMargin);
 }
@@ -281,46 +303,61 @@ table tr.selectedRomuRow td {
   cursor: pointer;
 }
 
-#mittariToolTip{
-    visibility: hidden;
+#toolTip1Sign {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#toolTip1 {
+  visibility: hidden;
   width: 120px;
-  background-color: black;
+
+  background-color: var(--greenColor);
   color: #ffffff;
+
   text-align: center;
   border-radius: 6px;
   padding: 5px;
+
   position: absolute;
   z-index: 1;
+
   bottom: 150%;
   left: 50%;
-  margin-left: -60px;
-  border-style: solid;
-  border-color: black;
-  background-color: var(--greenColor);
+  transform: translateX(-50%);
+
+  border: 1px solid var(--greenColor);
 }
 
-#mittariToolTip::after{
-    content: "";
+#toolTip1::after {
+  content: "";
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
+  transform: translateX(-50%);
+
   border-width: 5px;
   border-style: solid;
-  border-color: black transparent transparent transparent;
+  border-color: var(--greenColor) transparent transparent transparent;
 }
 
-#mittariInfoSign:hover #mittariToolTip {
+#toolTip1Sign:hover #toolTip1 {
   visibility: visible;
 }
+
+
+
+
+
 
 .sarjanumeroDiv{
     
 }
 
 .picFieldset{
-    margin-left: var(--picModalSideMargin);
-    margin-right: var(--picModalSideMargin);
+    margin-left: var(--boxSideMargin);
+    margin-right: var(--boxSideMargin);
     box-sizing: border-box;
 }
 
@@ -338,5 +375,5 @@ table tr.selectedRomuRow td {
 }
 
 #beforePicLabel1, #beforePicLabel2{
-    font-size: 4vw;
+    font-size: clamp(20px, 5dvw, 30px);
 }
