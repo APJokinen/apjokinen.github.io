@@ -95,6 +95,8 @@
 
 .modal{
   display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -107,15 +109,27 @@
 }
 
 .modalBox{
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     background-color: white;
     margin: 15% auto; 
-    width: 70%;
-    border-style: solid;
     padding: var(--modalPadding);
+    width: fit-content;
+    border-style: solid;
     height: fit-content;
 }
+
+.newAccuBtnWrapper{
+    display : flex;
+    width: fit-content;
+    
+}
+
+.newAccuBtnWrapper button{
+    margin-right: 20px;
+}
+
+
 .ilmoitusUusi{
     
 }
@@ -185,7 +199,7 @@
 }
 
 #akkuUusiContainer button{
-    margin-left: var(--clickBoxSideMargin);
+
 }
 
 #infoForNew{

@@ -64,7 +64,7 @@ function uusiAkku(){
     const container = document.getElementById("akkuUusiContainer")
     const modal = document.getElementById("accuNewModal")
     const modalCopy = modal.cloneNode(true)
-
+    modalCopy.style.flexDirection = "column"
     const modalButton1 = document.createElement("button")
     const modalButton2 = document.createElement("button")
 
@@ -147,9 +147,11 @@ function uusiAkku(){
         uusiDiv.appendChild(wrapper)
         container.appendChild(nimi)
         container.appendChild(uusiDiv)
+        
         container.appendChild(delButton)
-        container.appendChild(br2)
         container.appendChild(br1)
+        container.appendChild(br2)
+        
         verkkoTehoUusi()
     }
 
@@ -161,11 +163,14 @@ function uusiAkku(){
 
     const modalbox = modalCopy.querySelector(".modalBox")
     modalCopy.querySelectorAll("button").forEach(btn => btn.remove());
-    modalbox.appendChild(modalButton1)
-    modalbox.appendChild(modalButton2)
-    container.appendChild(modalCopy)
-    modalCopy.style.display = "block"
+    const wrapper = document.createElement("div")
+    wrapper.appendChild(modalButton1)
+    wrapper.appendChild(modalButton2)
+    wrapper.className = "newAccuBtnWrapper"
+    modalbox.appendChild(wrapper)
     
+    modalCopy.style.display = "flex"
+    container.appendChild(modalCopy)
     
     document.body.classList.add("modal-open")
     setScroll2()
@@ -405,6 +410,7 @@ function addDevice2(){
         
         
         const content = kopio.querySelector("#modalBox2");
+
         let button1 = document.createElement("BUTTON");
         button1.textContent = "Tallenna"
         button1.onclick = () => {
@@ -451,6 +457,7 @@ function addDevice2(){
         }
         let button2 = document.createElement("button");
         button2.textContent = "Sulje"
+        button2.type = "button"
         button2.onclick = function(){
             kopio.style.display = "none"
             document.body.classList.remove("modal-open")
@@ -478,7 +485,7 @@ function addDevice2(){
 
 function openModal2(){
     const modal = document.getElementById("modal2")
-    modal.style.display = "block"
+    modal.style.display = "flex"
     getScroll()
     document.body.classList.add("modal-open")
     setScroll2()

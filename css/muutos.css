@@ -22,6 +22,10 @@
   --bg-light: #F5F5F5;
 }
 
+/** {
+    outline: 1px solid red;
+}*/
+
 #muutosPientuotanto{
     display: none;
     flex-direction: column; /* elementit allekkain */
@@ -85,7 +89,13 @@
     
 }
 
+.muutosBtnWrapper{
 
+}
+
+.muutosBtnWrapper button{
+   margin-right: 20px;
+}
 
 
 
@@ -180,9 +190,9 @@
     font-weight: bold;
 }
 
-.systemChangeDiv table,.systemChangeDiv td,.systemChangeDiv th{
-    border-style:none;
-}
+/*.systemChangeDiv table,.systemChangeDiv td,.systemChangeDiv th{
+
+}*/
 
 .JärjestelmäLisäys{
     margin-left: var(--clickBoxSideMargin);
@@ -284,16 +294,17 @@
 }
 
 .systemDeviceScroll{
+    overflow-x: scroll;
     max-width: 100%;
-    white-space: nowrap;
-    overflow-x: auto;
+    min-width: 0;
+
 }
 
 .muutosFieldsetSystem{
-    box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    max-width: 100%;
+    min-width: 0;
+
 }
 
 #showSystemDevice{
@@ -302,18 +313,43 @@
     align-items: center;
 }
 
+#showSystemDevice button{
+    margin-left: var(--boxSideMargin);
+}
+
 .showSystemDeviceContent{
     border-style: solid;
-    background-color: var(--green-bg);
+    background-color: white;
     width: fit-content;
-    height: 70dvh;
+    height: fit-content;
 }
 
 .showSystemDeviceContent table{
-    border-style: dashed;
+
 }
 
 #oldDeviceRemovedLabel{
     font-size: 20px;
     font-weight: bold;
+}
+
+.systemChangeContent{
+    height: 100%;
+}
+
+.systemInnerFieldSet{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    min-width: 0;
+    
+}
+
+.systemChangeTable{
+        width: fit-content;
+}
+
+.systemChangeDeviceTable{
+       
+  width: 600px;
 }

@@ -11,8 +11,8 @@
     --inputMinHeight: 30px; 
     --radius: 15px;
     --picModalTopMargin: 10px;
-    --videoWidth: 50dvw;
-    --videoHeight: 50dvh;
+    --videoWidth: 65dvw;
+    --videoHeight: 65dvh;
     --videoBorder: 10px;
     --videoBoxWidth: calc(var(--videoWidth) + 2*var(--videoBorder));
     --picModalSideMargin: 5vW;
@@ -309,14 +309,14 @@ table tr.selectedRomuRow td {
   cursor: pointer;
 }
 
-#toolTip1 {
+.toolTip1 {
   visibility: hidden;
-  width: 120px;
-
+  width: fit-content;
+    font-weight: normal;
   background-color: var(--greenColor);
   color: #ffffff;
 
-  text-align: center;
+  text-align: left;
   border-radius: 6px;
   padding: 5px;
 
@@ -327,24 +327,25 @@ table tr.selectedRomuRow td {
   left: 50%;
   transform: translateX(-50%);
 
-  border: 1px solid var(--greenColor);
+  border: 1px solid black
 }
 
-#toolTip1::after {
+.toolTip1::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-
+    font-weight: normal;
   border-width: 5px;
   border-style: solid;
   border-color: var(--greenColor) transparent transparent transparent;
 }
 
-#toolTip1Sign:hover #toolTip1 {
+#toolTip1Sign:hover .toolTip1 {
   visibility: visible;
 }
+
 
 
 

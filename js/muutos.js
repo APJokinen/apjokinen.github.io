@@ -100,8 +100,11 @@ function uusiTuotanto() {
 
 
     const modalbox = modalCopy.querySelector(".modalBox")
-    modalbox.appendChild(button1)
-    modalbox.appendChild(button2) 
+    const wrapper = document.createElement("div")
+    wrapper.appendChild(button1)
+    wrapper.appendChild(button2)
+    wrapper.className = "muutosBtnWrapper"
+    modalbox.appendChild(wrapper)
 
     productions.push(alkio)
     const tuotantoLabel = document.createElement("label")
@@ -114,9 +117,10 @@ function uusiTuotanto() {
     const br2 = document.createElement("br")
     uusiDiv.appendChild(br1)
     uusiDiv.appendChild(br2)
-    modalCopy.style.display = "intial"
+    modalCopy.style.display = "flex"
     container.appendChild(uusiDiv);
     container.appendChild(modalCopy)
+    console.log(modalCopy)
     verkkoTeho()
 }
 
@@ -207,8 +211,11 @@ function muutosAkku(){
     }
 
     const modalbox = modalCopy.querySelector(".modalBox")
-    modalbox.appendChild(button1)
-    modalbox.appendChild(button2) 
+    const wrapper = document.createElement("div")
+    wrapper.className = "muutosBtnWrapper"
+    wrapper.appendChild(button1)
+    wrapper.appendChild(button2)
+    modalbox.appendChild(wrapper)
 
     accus.push(alkio)
     const accuLabel = document.createElement("label")
@@ -430,8 +437,11 @@ function uusiLaite(){
     
     devices.push(alkio)
     const box = modalCopy.querySelector(".modalBox")
-    box.appendChild(modalButton1)
-    box.appendChild(modalButton2)
+    const wrapper = document.createElement("div")
+    wrapper.appendChild(modalButton1)
+    wrapper.appendChild(modalButton2)
+    wrapper.className = "muutosBtnWrapper"
+    box.appendChild(wrapper)
     const name = document.createElement("label")
     name.textContent = "Laite "+(devices.length)
     name.className = "deviceName"
@@ -479,11 +489,13 @@ function showSystem(newSystem){
     const tuotantoTeho = {vanha : 0, uusi: 0}
     const container = document.getElementById("container5")
     const div = document.createElement("div")
+    //const wrapper =document.createElement("div")
+    //wrapper.className = "ststemWrapper"
     div.className = "systemChangeDiv"
     
     div.id="systemChangeDiv"+(index-1)
     const legend = "Järjestelmä "+index
-    let text = "<fieldset><legend>"+legend+"</legend>"
+    let text = "<fieldset class='systemInnerFieldSet'><legend>"+legend+"</legend>"
     text += "<label class='systemBold'>Tuotantotapa: </label><label>"+ newSystem.tuotantoTapa+"</label><br/><br/>"
     if(productions.length > 0){
     text += "<label class='systemBold'>Tuotantolaitteiden tehojen muutos: </label><br/>"
@@ -541,11 +553,11 @@ function showSystem(newSystem){
 
     
     if(devices.length > 0){
-    text += "<div class='systemBold'>Verkkoliitäntälaitteet: <span class='toolTip1Sign'>&#9432;<span class='toolTip1'>Testi</span></span></div><br><br>"
+    text += "<div class='systemBold'>Verkkoliitäntälaitteet: <span id='toolTip1Sign'>&#9432;<span class='toolTip1'>Verkkoliitäntälaitteet avautuvat niitä painamalla uuteen ikkunaan</span></span></div><br><br>"
     }
     for(let i = 0; i < devices.length; i++){
         text += "<fieldset class='muutosFieldsetSystem'><legend>Laite "+(i+1)+"</legend></br>"
-        text += "<div class='systemDeviceScroll' onclick='showSystemDevice("+(index-1)+","+i+")'><table class='systemChangeTable'>"
+        text += "<div class='systemDeviceScroll' onclick='showSystemDevice("+(index-1)+","+i+")'><div class='systemChangeContent'><table class='systemChangeDeviceTable'>"
         text += "<tr><th></th><th>Vanha</th><th></th><th>Uusi</th></tr>"
         text += "<tr><td>Laite: </td><td>"+devices[i]?.vanha?.[0]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[0]+"</td></tr>"
         text += "<tr><td>Merkki: </td><td>"+devices[i]?.vanha?.[1]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[1]+"</td></tr>"
@@ -557,9 +569,9 @@ function showSystem(newSystem){
         text += "<tr><td>Kytketyt vaiheet: </td><td>"+devices[i]?.vanha?.[7]+"</td><td>&#8594;</td><td>" + devices[i]?.uusi?.[7]+"</td></tr>"
         //text += "</table><label>Vanha laite poistetttu: </label><label>"+devices[i]?.vanhaPoistettu+"</label></fieldset><br/>"
         if(devices[i]?.vanha?.[8] === true){
-            text += "</table><label class='boldLabel'>Vanha laite poistettu</label></fieldset><br/>"
+            text += "</table><label class='boldLabel'>Vanha laite poistettu</label></div></div></fieldset><br>"
         }else{
-            text += "</table><label class='boldLabel'>Vanha laite ei ole poistettu</label></div></fieldset><br/>"
+            text += "</table><label class='boldLabel'>Vanha laite ei ole poistettu</label></div></div></fieldset><br>"
         }
         const vanhaTeho = parseInt(devices[i]?.vanha?.[4].match(/\d+/)?.[0]);
         const uusiTeho= parseInt(devices[i]?.uusi?.[4].match(/\d+/)?.[0]);
@@ -570,9 +582,9 @@ function showSystem(newSystem){
     }
 
     if(devices.length > 0){
-        text += "<label class='systemBold'>Verkkoliittymisen kokonaistehon muutos:</label><br/>"
-        text += "<table><tr><th>Vanha</th><th></th><th>Uusi</th><tr/>"
-        text += "<tr><td>"+laiteTeho.vanha+" kW</td><td>&#8594;</td><td>"+laiteTeho.uusi+" kW</td></tr></table><br/><br/>"
+        text += "<label class='systemBold'>Verkkoliittymisen kokonaistehon muutos:</label><br>"
+        text += "<table class='systemChangeTable'><tr><th>Vanha</th><th></th><th>Uusi</th><tr/>"
+        text += "<tr><td>"+laiteTeho.vanha+" kW</td><td>&#8594;</td><td>"+laiteTeho.uusi+" kW</td></tr></table><br><br>"
     }
 
     const lisatiedot = document.getElementById("infoAreaChange").value
@@ -847,10 +859,9 @@ function showSystemDevice(index, alaindeksi){
         text += "<tr><td>Kytketyt vaiheet:</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.vanha?.[7]+"</td><td>&#8594;</td><td>"+chosenSystem?.laitteet?.[alaindeksi]?.uusi?.[7]+"</td></tr>"
         table.innerHTML = text
         const label = document.createElement("label")
-        label.textContent = "Laite "+(alaindeksi+1)
-        
+        label.textContent = "Verkkoliitäntälaite "+(alaindeksi+1)
+        label.style.fontWeight = "bold"
         const div = document.getElementById("showSystemDeviceTable")
-
         div.innerHTML = ""
         div.appendChild(label)
         div.appendChild(table)

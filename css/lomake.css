@@ -176,6 +176,8 @@ button{
     color: white;
     min-width: var(--buttonWidth);
     min-height: var(--buttonHeight);
+    width: fit-content;
+    height: fit-content;
 }
 
 button:hover{
