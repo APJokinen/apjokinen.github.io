@@ -193,7 +193,7 @@ async function lampButton(){
     }
 }
 
-function startScanner(modeNumber) {
+async function startScanner(modeNumber) {
       
       container.style.display = "flex"
       document.body.classList.add("modal-open")
