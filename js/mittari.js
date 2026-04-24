@@ -73,7 +73,7 @@ async function zoom(mode){
       const step = 0.2
 
   if(mode === "out"){
-
+    debug.textContent ="Zoom min: "+min
     if(zoomValue > min){
         debug.textContent ="Zoom out"
     
@@ -83,6 +83,7 @@ async function zoom(mode){
       });
       }
   }else if(mode === "in"){
+    debug.textContent ="Zoom max: "+max
       if(zoomValue < max){
         debug.textContent ="Zoom in"
       zoomValue += step
