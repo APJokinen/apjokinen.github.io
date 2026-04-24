@@ -47,7 +47,9 @@ function romutus(){
 }
 
 async function zoom(mode){
+  const debug = document.getElementById("zoomTesti")
   console.log("zoom function start");
+  debug.textContent = "Zoom start"
   const video = document.getElementById("video");
   /*let zoomIcon = ""
   if(mode === "out"){
@@ -66,7 +68,6 @@ async function zoom(mode){
 
   console.log(track)
   console.log(capabilities)
-  const debug = document.getElementById("zoomTesti")
   debug.textContent = "Zoomtesti lähtee käyntiin"
   if(capabilities?.zoom){
       const max = capabilities?.zoom?.max
