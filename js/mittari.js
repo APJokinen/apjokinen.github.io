@@ -65,6 +65,7 @@ async function zoom(mode){
 
   console.log(track)
   console.log(capabilities)
+  const debug = document.getElementById("zoomTesti")
 
   if(capabilities.zoom){
       const max = capabilities.zoom.max
@@ -72,8 +73,9 @@ async function zoom(mode){
       const step = 0.2
 
   if(mode === "out"){
-    if(zoomValue > min){
 
+    if(zoomValue > min){
+        debug.textContent ="Zoom out"
     
     zoomValue -= step
       track.applyConstraints({
@@ -82,7 +84,7 @@ async function zoom(mode){
       }
   }else if(mode === "in"){
       if(zoomValue < max){
-
+        debug.textContent ="Zoom in"
       zoomValue += step
       track.applyConstraints({
         advanced: [{ zoom: zoomValue }]
@@ -91,7 +93,7 @@ async function zoom(mode){
   }
     }else{
       console.log("Zoom ei mahdollista tällä laitteella")
-      
+      debug.textContent ="Ei zoomia"
     }
 
 

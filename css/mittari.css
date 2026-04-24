@@ -516,3 +516,7 @@ table tr.selectedRomuRow td {
     width: var(--videoIconWidth);
     height: var(--videoIconHeight);
 }
+
+#zoomTesti{
+    color: white;
+}
