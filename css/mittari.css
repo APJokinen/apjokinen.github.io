@@ -11,12 +11,17 @@
     --inputMinHeight: 30px; 
     --radius: 15px;
     --picModalTopMargin: 10px;
-    --videoWidth: 65dvw;
-    --videoHeight: 65dvh;
+    --videoWidth: 100dvw;
+    --videoHeight: 100dvh;
     --videoBorder: 10px;
     --videoBoxWidth: calc(var(--videoWidth) + 2*var(--videoBorder));
     --picModalSideMargin: 5vW;
     --lampFont: 24px;
+    --videoIconWidth: 60%;
+    --videoIconHeight: 60%;
+    --videoSquare: 70%;
+    --videoCornerBorderWidth: 2px;
+    --videoFrame: calc(var(--videoSquare) + 16*var(--videoCornerBorderWidth));
 
     --black: #000000;
   --green: #37C737;
@@ -55,7 +60,8 @@ textarea{
 
 .videoBox{
     position: relative;
-    width: var(--videoBoxWidth);
+    width: 100dvw;
+    height: 100dvh;
     border-style: solid;
     display: flex;
     flex-direction: column;
@@ -66,12 +72,9 @@ textarea{
 
 #videoWrapper {
   position: relative;
-  width: var(--videoWidth);
-  height: var(--videoHeight);
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  border-style: solid;
-  border-color: var(--greenColor);
-  border-width: var(--videoBorder);
 }
 
 .whiteLabel{
@@ -138,9 +141,7 @@ textarea{
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    justify-content: center; /* vaakasuunnassa */
-    align-items: center;     /* pystysuunnassa */
+    height: 100%;    /* pystysuunnassa */
     flex-direction: column;
     
 }
@@ -148,7 +149,6 @@ textarea{
 #video{
     width: 100%;
     height: 100%;
-    padding: 10px;
     object-fit: cover;
 }
 
@@ -197,8 +197,24 @@ textarea{
 .overlay{
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.5);
-    padding:1px
+    background: rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--videoSquare);
+  height: var(--videoSquare);
+  transform: translate(-50%, -50%);
+
+  background: transparent;
+  border: 2px solid transparent;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.6);
 }
 
 .scan-area{
@@ -209,8 +225,64 @@ textarea{
   bottom: 10%;
 
   border-radius: 12px;
-  box-shadow: 0 0 0 9999px rgba(0,0,0,0.6); /* 🔥 maski */
+
   overflow: hidden;
+}
+
+.frame {
+  position: relative;
+  width: var(--videoFrame);
+  height: var(--videoFrame);
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+
+    
+}
+
+
+
+
+.frame span {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid white;
+  z-index: 2;
+}
+
+
+/* vasen ylä */
+.frame .tl {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+/* oikea ylä */
+.frame .tr {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* vasen ala */
+.frame .bl {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+/* oikea ala */
+.frame .br {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
 }
 
 
@@ -377,4 +449,70 @@ table tr.selectedRomuRow td {
 
 #beforePicLabel1, #beforePicLabel2{
     font-size: clamp(20px, 5dvw, 30px);
+}
+
+.videoBlack{
+    width: 100%;
+    height: 15%;
+    background-color: #000000;
+}
+
+#BlackUpper{
+    top:0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+#BlackLower{
+    bottom:0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.material-icons{
+    color: white;
+}
+
+.material-symbols-outlined{
+    color:white;
+}
+
+#imgCancel{
+    width: var(--videoIconWidth);
+    height: var(--videoIconHeight);
+}
+
+.videoBtnWrapper{
+    width: 60dvw;
+    max-height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightOn{
+    display: none;
+    width: var(--videoIconWidth);
+    height: var(--videoIconHeight);
+}
+
+#lightOff{
+    display: none;
+    width: var(--videoIconWidth);
+    height: var(--videoIconHeight);
+}
+
+#zoomValue{
+    color: white;
+    font-size: calc(var(--videoIconHeight)*3);
+    width: 100px;
+}
+
+#zoomOut, #zoomIn{
+    width: var(--videoIconWidth);
+    height: var(--videoIconHeight);
 }

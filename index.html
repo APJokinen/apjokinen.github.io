@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="./css/uusi.css">
 <link rel="stylesheet" href="./css/muutos.css">
 <link rel="stylesheet" href="./css/mittari.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -17,7 +19,7 @@
 <script src="./js/scroll.js" defer></script>
 
 
-<label>Päivitetty: 22:18</label>
+<label>Päivitetty: 16:123</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -46,24 +48,39 @@
     <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
     <button type="button" onclick="startPic(1)">Lataa kuva galleriasta</button><br/><br/>
     
-    <div class="modal" id="video-container">
-            <div id="lampDiv" onclick="lampButton()"><label id="lampStatus" class="whiteLabel">Sulje taskulamppu</label></div>
-            <div id="videoBox1" class="videoBox">
+   
+
+        <div class="modal" id="video-container">
+        <div id="videoBox1" class="videoBox">
+        <div class="videoBlack" id="BlackUpper">
+            <div class="videoBtnWrapper">
+            <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopScanner()" class="material-symbols-outlined"/>
+        <img id="lightOn" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        <img id="lightOff" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
             
-            <div id="videoWrapper">
+        </div></div>
+        <div id="videoWrapper">
             <video id="video"></video>
             <div class="overlay">
-                <div class="scan-area">
-                    <div class="scan-line"></div>
+                <div class="frame">
+                    <span class="tl"></span>
+                    <span class="tr"></span>
+                    <span class="bl"></span>
+                    <span class="br"></span>
+                </div>
             </div>
-  </div></div>
-            <div id="torchDebugDiv"><label id="torchDebug">Testi</label></div>
-            
-            
-            
-            </div>
-        <div id="stopScan" onclick="stopScanner()"><label class="whiteLabel">Pysäytä sarjanumeron luku</label></div>
         </div>
+        <div class="videoBlack" id="BlackLower">
+            <div class="videoBtnWrapper">
+            <img onclick="zoom('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            <p id="zoomValue">1.0 X</p>
+            <img onclick="zoom('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
+            </div>
+        </div>
+        </div>
+  </div>
+
+
     <div class="modal" id="pic-container1">
         <div class="pictureBox">
             <fieldset id="picFieldset1Upper" class="picFieldset">
@@ -210,9 +227,12 @@
                     <legend id="modalLegend1">Uusi tuotantolaite</legend>
                     <label>Teho</label>
                     <input id="modalPower1" type="text"/><label> kW</label><br/>
+                    </fieldset>
+                    <div class="modal1BtnBox">
                     <button type="button">Lisää</button>
-                    <button type="button">Sulje</button><br/>
-                    </fieldset><br/>
+                    <button type="button">Sulje</button>
+                    </div>
+                    <br/><br/>
                 </div>
             </div>
         </fieldset>
@@ -228,8 +248,10 @@
                 <div class="modalBox">
                     <fieldset>
                         <legend>Uusi sähkövarasto</legend>
-                        <label>Kapasiteetti</label><input class="accuNewCap"></input><label>kWh</label><br/>
+                        <div class="modalGrid">
+                        <label>Kapasiteetti</label><input class="accuNewCap"></input><label>kWh</label>
                         <label>Teho</label><input class="accuNewPower"></input><label>kW</label><br/>
+                        </div>
                     </fieldset>
                 </div>
             </div>
@@ -244,7 +266,8 @@
         <div id="modal2" class="modal">
                 <div id="modalBox2" class="modalBox">
                     <fieldset>
-                    <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
+                        <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
+                    <div class="modalGrid">
                     <label>Laite</label><input id="device"/><br/>
                     <label>Merkki</label><input id="deviceLabel"/><br/>
                     <label>Malli</label><input id="deviceModel"/><br/>
@@ -254,11 +277,10 @@
                     </select><br/>
                     <label>Teho</label>
                         <input id="devicePower" type="text"/><label>kW</label>
-                    <br/>
                     <label>Enimmäisvikavirta</label>
-                    <input id="deviceMaxFault" type="text"/><label>A</label><br/>
+                    <input id="deviceMaxFault" type="text"/><label>A</label>
                     <label>Oikosulkuvirta</label>
-                    <input id="deviceShortCircuit" type="text"/><label>A</label><br/>
+                    <input id="deviceShortCircuit" type="text"/><label>A</label>
                     <label>Kytketyt vaiheet</label>
                     <select id="devicePhases">
                         <option value="Kolmivaiheinen">Kolmivaiheinen</option>
@@ -266,6 +288,7 @@
                         <option value="L2">L2</option>
                         <option value="L3">L3</option>
                     </select>
+                </div>
                     <button type="button" onclick="addDevice2()">Lisää</button>
                     <button type="button" onclick="closeModal2()">Sulje</button><br/>
                     </fieldset><br/>
@@ -350,6 +373,7 @@
             <div class="modalBox">
             <fieldset>
                     <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
+                    <div class="modalGrid">
                     <label>Laite</label><input class="deviceForm" id="device"/><br/>
                     <label>Merkki</label><input class="deviceForm" id="deviceLabel"/><br/>
                     <label>Malli</label><input class="deviceForm" id="deviceModel"/><br/>
@@ -359,11 +383,10 @@
                     </select><br/>
                     <label>Teho</label>
                         <input id="devicePower" class="deviceForm" type="text"/><label>kW</label>
-                    <br/>
                     <label>Enimmäisvikavirta</label>
-                    <input id="deviceMaxFault" class="deviceForm" type="text"/><label>A</label><br/>
+                    <input id="deviceMaxFault" class="deviceForm" type="text"/><label>A</label>
                     <label>Oikosulkuvirta</label>
-                    <input id="deviceShortCircuit" class="deviceForm" type="text"/><label>A</label><br/>
+                    <input id="deviceShortCircuit" class="deviceForm" type="text"/><label>A</label>
                     <label>Kytketyt vaiheet</label>
                     <select id="devicePhases" class="deviceForm">
                         <option value="Kolmivaiheinen">Kolmivaiheinen</option>
@@ -371,6 +394,7 @@
                         <option value="L2">L2</option>
                         <option value="L3">L3</option>
                     </select>
+                    </div>
                     <div class="poistoDiv">
                         <input type="checkbox" class="poistoCheckBox"></input><label class="boldLabel">Vanha laite poistettu</label></div>
                     <button type="button">Lisää</button>
@@ -405,8 +429,10 @@
             <div class="modalBox">
                 <fieldset>
                     <legend>Uusi sähkövarasto</legend>
-                    <label>Kapasiteetti: </label><input class="accuChangeCapacity"></input><label> kWh</label></br>
-                    <label>Teho: </label><input class="accuChangePower"></input><label> kW</label></br>
+                    <div class="modalGrid">
+                    <label>Kapasiteetti: </label><input class="accuChangeCapacity"></input><label> kWh</label>
+                    <label>Teho: </label><input class="accuChangePower"></input><label> kW</label>
+                    </div>
                 </fieldset>
             </div>
         </div>

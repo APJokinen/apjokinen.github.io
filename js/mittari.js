@@ -3,7 +3,7 @@ let codeReaderArray = []
 let track = null
 let info = null
 let torchExists = null
-let torchOn =true 
+let torchOn =null
 let romutettavat = []
 let romuIlmoitus = []
 let romuId= 0
@@ -11,6 +11,7 @@ let romuIlmoitusId = 0
 let currentStream = null
 const container = document.getElementById("video-container")
 let controls = null
+let zoomValue = 1.0
 
 document.addEventListener("click", (e) => {
   if (!e.target.closest("table")) {
@@ -44,6 +45,59 @@ function romutus(){
       div.style.display = "none"
     }
 }
+
+async function zoom(mode){
+  const video = document.getElementById("video");
+  /*let zoomIcon = ""
+  if(mode === "out"){
+    zoomIcon = document.getElementById("zoomOut")
+  }else if(mode === "in"){
+    zoomIcon = document.getElementById("zoomIn")
+  }*/
+  
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: true
+  });
+
+  video.srcObject = stream;
+  const track = stream.getVideoTracks()[0];
+  const capabilities = track.getCapabilities();
+
+  console.log(track)
+  console.log(capabilities)
+
+  if(capabilities.zoom){
+      const max = capabilities.zoom.max
+      const min = capabilities.zoom.min
+      const step = 0.2
+
+  if(mode === "out"){
+    if(zoomValue > min){
+
+    
+    zoomValue -= step
+      track.applyConstraints({
+        advanced: [{ zoom: zoomValue}]
+      });
+      }
+  }else if(mode === "in"){
+      if(zoomValue < max){
+
+      zoomValue += step
+      track.applyConstraints({
+        advanced: [{ zoom: zoomValue }]
+      });
+      }
+  }
+    }else{
+      console.log("Zoom ei mahdollista tällä laitteella")
+      
+    }
+
+
+}
+
+
 
 async function startCamera(modeNumber){
   if (controls) {
@@ -101,10 +155,13 @@ if(codeReader){
       
       if(typeof controls.switchTorch === "function"){
           controls.switchTorch(true)
-          document.getElementById("lampDiv").style.display = "flex"
+          torchOn = true
+          document.getElementById("lightOff").style.display = "block"
       }else{
           console.log("Taskulamppua ei löydy")
       }
+
+      
       
       }catch(e){  
         console.error("Kameravirhe",e)
@@ -123,9 +180,11 @@ async function lampButton(){
         await controls.switchTorch(torchOn)
         
       if(torchOn){
-        document.getElementById("lampStatus").textContent = "Sulje taskulamppu"
+        document.getElementById("lightOff").style.display = "block"
+        document.getElementById("lightOn").style.display = "none"
       }else{
-        document.getElementById("lampStatus").textContent = "Käynnistä taskulamppu"
+        document.getElementById("lightOn").style.display = "block"
+        document.getElementById("lightOff").style.display = "none"
       }
     }
 }
