@@ -47,6 +47,7 @@ function romutus(){
 }
 
 async function zoom(mode){
+  console.log("zoom function start");
   const video = document.getElementById("video");
   /*let zoomIcon = ""
   if(mode === "out"){
@@ -72,7 +73,7 @@ async function zoom(mode){
       const min = capabilities.zoom.min
       const step = 0.2
 
-  if(mode === "out"){
+  if(mode === 'out'){
     debug.textContent ="Zoom min: "+min
     if(zoomValue > min){
         debug.textContent ="Zoom out"
@@ -82,7 +83,7 @@ async function zoom(mode){
         advanced: [{ zoom: zoomValue}]
       });
       }
-  }else if(mode === "in"){
+  }else if(mode === 'in'){
     debug.textContent ="Zoom max: "+max
       if(zoomValue < max){
         debug.textContent ="Zoom in"
@@ -96,7 +97,7 @@ async function zoom(mode){
       console.log("Zoom ei mahdollista tällä laitteella")
       debug.textContent ="Ei zoomia"
     }
-
+    console.log("debug element:", debug);
 
 }
 
@@ -197,11 +198,12 @@ function startScanner(modeNumber) {
       container.style.display = "flex"
       document.body.classList.add("modal-open")
       
-      startCamera(modeNumber)
+      await startCamera(modeNumber)
       
     }
 
 async function stopScanner() {
+  
   if(controls){
     controls.stop()
     controls = null
