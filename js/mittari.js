@@ -67,10 +67,10 @@ async function zoom(mode){
   console.log(track)
   console.log(capabilities)
   const debug = document.getElementById("zoomTesti")
-
-  if(capabilities.zoom){
-      const max = capabilities.zoom.max
-      const min = capabilities.zoom.min
+  debug.textContent = "Zoomtesti lähtee käyntiin"
+  if(capabilities?.zoom){
+      const max = capabilities?.zoom?.max
+      const min = capabilities?.zoom?.min
       const step = 0.2
 
   if(mode === 'out'){
