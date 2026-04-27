@@ -12,7 +12,9 @@ async function startOcrScanner(){
     OcrContainer.style.display = "flex"
 
     try {
-    OcrStream = await navigator.mediaDevices.getUserMedia({ video: true });
+    OcrStream = await navigator.mediaDevices.getUserMedia({ video:{
+          facingMode: { ideal: "environment" }
+          } });
     OcrVideo.srcObject = OcrStream;
   } catch (err) {
     console.error(err);
