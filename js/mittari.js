@@ -67,7 +67,9 @@ async function zoom(mode){
   console.log(capabilities)
   if(capabilities?.zoom){
       const max = capabilities?.zoom?.max
+      document.getElementById("zoomMaxCode").textContent = max
       const min = capabilities?.zoom?.min
+      document.getElementById("zoomMinCode").textContent = min
       const step = 0.2
 
   if(mode === 'out'){
@@ -75,7 +77,7 @@ async function zoom(mode){
     zoomValue -= step
     zoomValue = Math.round((zoomValue * 10))/10
     zoomFactor.textContent = zoomValue + " X"
-      track.applyConstraints({
+      await track.applyConstraints({
         advanced: [{ zoom: zoomValue}]
       });
       }
@@ -84,7 +86,7 @@ async function zoom(mode){
       zoomValue += step
       zoomValue = Math.round((zoomValue * 10))/10
       zoomFactor.textContent = zoomValue + " X"
-      track.applyConstraints({
+      await track.applyConstraints({
         advanced: [{ zoom: zoomValue }]
       });
       }
