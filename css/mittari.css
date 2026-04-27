@@ -509,14 +509,12 @@ table tr.selectedRomuRow td {
 #zoomValue{
     color: white;
     font-size: calc(var(--videoIconHeight)*3);
-    width: 100px;
+    width: fit-content;
 }
 
 #zoomOut, #zoomIn{
     width: var(--videoIconWidth);
     height: var(--videoIconHeight);
-    border-style: radius;
-    border-color: white;
 }
 
 #zoomTesti{
@@ -542,13 +540,22 @@ table tr.selectedRomuRow td {
 
 #zoomMaxCode, #zoomMinCode{
     color: white;
-    font-size: 15px;
+    font-size: calc(var(--videoIconWidth)*3);
 }
 
 .zoomDiv{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     height: 100%;
-    width: 15%;
+    width: 55%;
+    justify-content: center;
+    
+}
+
+.zoomWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
 }
