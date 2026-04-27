@@ -12,14 +12,22 @@ async function startOcrScanner(){
     OcrContainer.style.display = "flex"
 
     try {
-    OcrStream = await navigator.mediaDevices.getUserMedia({ video:{
-          facingMode: { ideal: "environment" }
-          } });
-    OcrVideo.srcObject = OcrStream;
+        OcrStreams = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { exact: "environment" } }
+        });
+    
   } catch (err) {
-    console.error(err);
+    OcrStream = await navigator.mediaDevices.getUserMedia({
+    video: true
+  });
   }
 
+    try{
+        OcrVideo.srcObject = OcrStream;
+    }catch(e){
+        console.error(e)
+    }
+    
     for (let i = 0; i < 4; i++) {
         const worker = await Tesseract.createWorker('fin')
         scheduler.addWorker(worker);
