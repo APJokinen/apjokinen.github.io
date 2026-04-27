@@ -551,6 +551,4 @@ table tr.selectedRomuRow td {
     align-items: center;
     height: 100%;
     width: 15%;
-    border-style: dashed;
-    border-color: white;
 }

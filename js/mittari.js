@@ -13,6 +13,7 @@ const container = document.getElementById("video-container")
 let controls = null
 let zoomValue = 1.0
 let stream = null
+let zoomMax, zoomMin;
 
 document.addEventListener("click", (e) => {
   if (!e.target.closest("table")) {
@@ -66,14 +67,10 @@ async function zoom(mode){
   console.log(track)
   console.log(capabilities)
   if(capabilities?.zoom){
-      const max = capabilities?.zoom?.max
-      document.getElementById("zoomMaxCode").textContent = max
-      const min = capabilities?.zoom?.min
-      document.getElementById("zoomMinCode").textContent = min
       const step = 0.2
 
   if(mode === 'out'){
-    if(zoomValue > min){
+    if(zoomValue > zoomMin){
     zoomValue -= step
     zoomValue = Math.round((zoomValue * 10))/10
     zoomFactor.textContent = zoomValue + " X"
@@ -82,7 +79,7 @@ async function zoom(mode){
       });
       }
   }else if(mode === 'in'){
-      if(zoomValue < max){
+      if(zoomValue < zoomMax){
       zoomValue += step
       zoomValue = Math.round((zoomValue * 10))/10
       zoomFactor.textContent = zoomValue + " X"
@@ -169,6 +166,20 @@ if(codeReader){
       }else{
           console.log("Taskulamppua ei löydy")
       }
+
+      try{
+        const track = stream.getVideoTracks()[0];
+        const capabilities = track.getCapabilities();
+        if(capabilities?.zoom){
+            zoomMax = capabilities?.zoom?.max
+            document.getElementById("zoomMaxCode").textContent = "Max: "+max
+            zoomMin = capabilities?.zoom?.min
+            document.getElementById("zoomMinCode").textContent = "Min: " +min
+        }
+      }catch(e){
+        console.error("Ei zoomia:",e) 
+      }
+      
 
       
       
