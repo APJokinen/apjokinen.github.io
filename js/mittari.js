@@ -172,9 +172,9 @@ if(codeReader){
         const capabilities = track.getCapabilities();
         if(capabilities?.zoom){
             zoomMax = capabilities?.zoom?.max
-            document.getElementById("zoomMaxCode").textContent = "Max: "+max
+            document.getElementById("zoomMaxCode").textContent = "Max: "+zoomMax
             zoomMin = capabilities?.zoom?.min
-            document.getElementById("zoomMinCode").textContent = "Min: " +min
+            document.getElementById("zoomMinCode").textContent = "Min: " +zoomMin
         }
       }catch(e){
         console.error("Ei zoomia:",e) 
