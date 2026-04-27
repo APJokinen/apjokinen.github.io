@@ -70,12 +70,14 @@ textarea{
     border-style: solid;
 }
 
-#videoWrapper {
+.videoWrapper {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 110%;
   overflow: hidden;
 }
+
+
 
 .whiteLabel{
     color: var(--green-bg);
@@ -494,17 +496,12 @@ table tr.selectedRomuRow td {
     align-items: center;
 }
 
-#lightOn{
+#lightOn, #lightOff, #lightOnOcr, #lightOffOcr{
     display: none;
     width: var(--videoIconWidth);
     height: var(--videoIconHeight);
 }
 
-#lightOff{
-    display: none;
-    width: var(--videoIconWidth);
-    height: var(--videoIconHeight);
-}
 
 #zoomValue{
     color: white;
@@ -527,16 +524,11 @@ table tr.selectedRomuRow td {
 }
 
 #ocrModalBox{
-    border-style: solid;
-    border-width: 3px;
-    width: 90dvw;
-    height: 90dvh;
+    width: 100dvw;
+    height: 100dvh;
 }
 
-#ocr-video{
-    width: 100%;
-    height: 100%;
-}
+
 
 #zoomMaxCode, #zoomMinCode{
     color: white;
@@ -558,4 +550,43 @@ table tr.selectedRomuRow td {
     flex-direction: row;
     align-items: center;
     height: 100%;
+}
+
+#ocrDiv{
+    color: Black;
+    border-style: dashed;
+    border-color: white;
+    background-color: white;
+    width: 100%;
+
+    justify-items: center;
+    align-items: center;
+}
+
+.photoDiv{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
+#photoOcr{
+    width: 9dvw;
+    height: 9dvh;
+}
+
+#zoomValueOcr{
+    font-size: 1rem;
+    color: white;
+}
+
+#ocr-video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#ocrUpperBlack{
+    display: flex;
+    flex-direction: row;
 }

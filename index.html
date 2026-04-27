@@ -20,7 +20,7 @@
 <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
 <script src="./js/ocrTunnistus.js" defer></script>
 
-<label>Päivitetty: 18:01</label>
+<label>Päivitetty: 22:16</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -61,7 +61,7 @@
         <img onclick="lampButton()" id="lightOff" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
             
         </div></div>
-        <div id="videoWrapper">
+        <div class="videoWrapper">
             <video id="video"></video>
             <div class="overlay">
                 <div class="frame">
@@ -86,9 +86,29 @@
 
   <div class="modal" id="ocr-container">
         <div id="ocrModalBox" class="videoBox">
-            <video id="ocr-video" autoplay playsinline></video>
-            <button type="button" onclick="stopOcrScan()">Sulje kamera</button>
-            <div id="ocr-test">Testi</div>
+            <div class="videoBlack" id="ocrUpperBlack">
+                <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopOcrScan()" class="material-symbols-outlined"/>
+        <img onclick="lampButtonOcr()" id="lightOnOcr" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        <img onclick="lampButtonOcr()" id="lightOffOcr" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            </div>
+            <div id="ocrDiv">
+                <p id="ocr-test">Sarjanumero: </p>
+            </div>
+            <div class="videoWrapper">
+                <video id="ocr-video" autoplay playsinline></video>
+            </div>
+            <div class="videoBlack">
+                <div class="zoomWrapper">
+                <p id="zoomMinCodeOcr">No zoom</p>
+                <img onclick="zoomOcr('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+                <div class="photoDiv">
+                    <img id="photoOcr" onclick="takePicture()" src="./svg/photo_camera_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+                    <p id="zoomValueOcr">1.0 X</p></div>
+                <img onclick="zoomOcr('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
+                <p id="zoomMaxCodeOcr">No zoom</p>  
+                </div>
+            </div>
+            
         </div>
 
   </div>
