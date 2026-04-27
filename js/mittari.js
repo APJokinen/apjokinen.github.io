@@ -12,6 +12,7 @@ let currentStream = null
 const container = document.getElementById("video-container")
 let controls = null
 let zoomValue = 1.0
+let stream = null
 
 document.addEventListener("click", (e) => {
   if (!e.target.closest("table")) {
@@ -58,11 +59,8 @@ async function zoom(mode){
     zoomIcon = document.getElementById("zoomIn")
   }*/
   
-  const stream = await navigator.mediaDevices.getUserMedia({
-    video: true
-  });
+  
 
-  video.srcObject = stream;
   const track = stream.getVideoTracks()[0];
   const capabilities = track.getCapabilities();
 
@@ -124,14 +122,17 @@ if(codeReader){
 });
 
   await videoReady*/
-  
-      try{
-        controls = await codeReader.decodeFromConstraints(
-          {
+  const mediaStreamConstraints =  {
           video: {
           facingMode: { ideal: "environment" }
           }
-          },
+          }
+  
+      
+
+      try{
+        controls = await codeReader.decodeFromConstraints(
+         mediaStreamConstraints,
         previewElem, (result, error, cont) => {
         if(result){
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
@@ -157,6 +158,12 @@ if(codeReader){
         
         
       });
+
+      try{
+        stream = await codeReader.getUserMedia(mediaStreamConstraints)
+      }catch(e){
+        console.error("Stream epäonnistui")
+      }
       
       if(typeof controls.switchTorch === "function"){
           controls.switchTorch(true)
@@ -212,7 +219,11 @@ async function stopScanner() {
 
   if(codeReader){
   codeReader  =null
-}
+  }
+
+  if(stream){
+    stream = null
+  }
 
   /*if (codeReader?.stream) {
       codeReader.stream.getTracks().forEach(t => t.stop());
