@@ -17,9 +17,10 @@
 <script src="https://unpkg.com/@zxing/browser@latest" defer></script>
 <script src="./js/mittari.js" defer></script>
 <script src="./js/scroll.js" defer></script>
+<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
+<script src="./js/ocrTunnistus.js" defer></script>
 
-
-<label>Päivitetty: 11:34</label>
+<label>Päivitetty: 13:57</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -46,6 +47,7 @@
     <input class="input1" type="text" id="Mittarin_sarjanumero" name="Mittarin sarjanumero"><br>
     </div></div>
     <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
+    <button type="button" id="startOcrScan" onclick="startOcrScanner()">Lue mittarin sarjanumero (suoraan numeroista)</button><br/><br/>
     <button type="button" onclick="startPic(1)">Lataa kuva galleriasta</button><br/><br/>
     
    
@@ -76,11 +78,17 @@
             <p id="zoomValue">1.0 X</p>
             <img onclick="zoom('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
             </div>
-            <p id="zoomTesti">testi</p>
         </div>
         </div>
   </div>
 
+  <div class="modal" id="ocr-container">
+        <div id="ocrModalBox" class="videoBox">
+            <video id="ocr-video" autoplay playsinline></video>
+            <button type="button" onclick="stopOcrScan()">Sulje kamera</button>
+        </div>
+
+  </div>
 
     <div class="modal" id="pic-container1">
         <div class="pictureBox">

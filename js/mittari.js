@@ -48,10 +48,9 @@ function romutus(){
 }
 
 async function zoom(mode){
-  const debug = document.getElementById("zoomTesti")
   console.log("zoom function start");
-  debug.textContent = "Zoom start"
   const video = document.getElementById("video");
+  const zoomFactor = document.getElementById("zoomValue")
   /*let zoomIcon = ""
   if(mode === "out"){
     zoomIcon = document.getElementById("zoomOut")
@@ -66,27 +65,23 @@ async function zoom(mode){
 
   console.log(track)
   console.log(capabilities)
-  debug.textContent = "Zoomtesti lähtee käyntiin"
   if(capabilities?.zoom){
       const max = capabilities?.zoom?.max
       const min = capabilities?.zoom?.min
       const step = 0.2
 
   if(mode === 'out'){
-    debug.textContent ="Zoom min: "+min
     if(zoomValue > min){
-        debug.textContent ="Zoom out"
-    
     zoomValue -= step
+    zoomFactor.textContent = zoomValue + " X"
       track.applyConstraints({
         advanced: [{ zoom: zoomValue}]
       });
       }
   }else if(mode === 'in'){
-    debug.textContent ="Zoom max: "+max
       if(zoomValue < max){
-        debug.textContent ="Zoom in"
       zoomValue += step
+      zoomFactor.textContent = zoomValue + " X"
       track.applyConstraints({
         advanced: [{ zoom: zoomValue }]
       });
@@ -94,9 +89,7 @@ async function zoom(mode){
   }
     }else{
       console.log("Zoom ei mahdollista tällä laitteella")
-      debug.textContent ="Ei zoomia"
     }
-    console.log("debug element:", debug);
 
 }
 
