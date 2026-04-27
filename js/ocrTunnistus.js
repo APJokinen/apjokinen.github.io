@@ -2,7 +2,7 @@ let isProcessing = false
 let intervalOn = null
 let OcrStream = null
 const output = document.getElementById('Mittarin_sarjanumero');
-const OcrVideo = document.getElementById('ocr-video');
+const OcrVideo = document.getElementById('ocr-video')
 const OcrContainer = document.getElementById("ocr-container")
 const { createWorker, createScheduler } = Tesseract;
 const scheduler = createScheduler();
@@ -12,7 +12,7 @@ async function startOcrScanner(){
     OcrContainer.style.display = "flex"
 
     try {
-        OcrStreams = await navigator.mediaDevices.getUserMedia({
+        OcrStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { exact: "environment" } }
         });
     
@@ -37,8 +37,6 @@ async function startOcrScanner(){
     const oneOcr = async() => {
         console.log("Yksi freimi")
         const debug = document.getElementById("ocr-test")
-        if(isProcessing) return
-        isProcessing = true
         const canvas = document.createElement("canvas")
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -56,9 +54,9 @@ async function startOcrScanner(){
             console.log("Ei tulosta")
             debug.textContent = "Ei tulosta"
         }
-        isProcessing = false
+        console.log("Yksi freimi loppui")
     }
-    intervalOn = setInterval(oneOcr,1000)
+    intervalOn = setInterval(oneOcr,2000)
 }
 
 

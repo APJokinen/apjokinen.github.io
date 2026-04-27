@@ -540,7 +540,7 @@ table tr.selectedRomuRow td {
 
 #zoomMaxCode, #zoomMinCode{
     color: white;
-    font-size: calc(var(--videoIconWidth)*3);
+    font-size: 1.5rem;
 }
 
 .zoomDiv{
