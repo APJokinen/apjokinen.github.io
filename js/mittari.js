@@ -73,6 +73,7 @@ async function zoom(mode){
   if(mode === 'out'){
     if(zoomValue > min){
     zoomValue -= step
+    zoomValue = Math.round(zoomValue)
     zoomFactor.textContent = zoomValue + " X"
       track.applyConstraints({
         advanced: [{ zoom: zoomValue}]
@@ -81,6 +82,7 @@ async function zoom(mode){
   }else if(mode === 'in'){
       if(zoomValue < max){
       zoomValue += step
+      zoomValue = Math.round(zoomValue)
       zoomFactor.textContent = zoomValue + " X"
       track.applyConstraints({
         advanced: [{ zoom: zoomValue }]
@@ -215,7 +217,8 @@ async function stopScanner() {
   }
 
   if(stream){
-    stream = null
+    const tracks = stream.getTracks();
+    tracks.forEach(track => track.stop());
   }
 
   /*if (codeReader?.stream) {

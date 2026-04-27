@@ -1,5 +1,6 @@
 let isProcessing = false
 let intervalOn = null
+let OcrStream = null
 const output = document.getElementById('Mittarin_sarjanumero');
 const OcrVideo = document.getElementById('ocr-video');
 const OcrContainer = document.getElementById("ocr-container")
@@ -11,8 +12,8 @@ async function startOcrScanner(){
     OcrContainer.style.display = "flex"
 
     try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    OcrVideo.srcObject = stream;
+    OcrStream = await navigator.mediaDevices.getUserMedia({ video: true });
+    OcrVideo.srcObject = OcrStream;
   } catch (err) {
     console.error(err);
   }
@@ -24,7 +25,8 @@ async function startOcrScanner(){
 
     
     const oneOcr = async() => {
-        console.log("Yksi frame")
+        console.log("Yksi freimi")
+        const debug = document.getElementById("ocr-test")
         if(isProcessing) return
         isProcessing = true
         const canvas = document.createElement("canvas")
@@ -36,7 +38,14 @@ async function startOcrScanner(){
 
 
         const { data: { text } } = await scheduler.addJob('recognize', canvas);
-        console.log(text)
+        if(text){
+            console.log("Tulos:",text)
+            debug.textContent = text
+            await stopOcrScan()
+        }else{
+            console.log("Ei tulosta")
+            debug.textContent = "Ei tulosta"
+        }
         isProcessing = false
     }
     intervalOn = setInterval(oneOcr,1000)
@@ -48,12 +57,11 @@ async function stopOcrScan(){
     if(intervalOn){
         clearInterval(intervalOn)
     }
-    if(stream){
-    const stream = OcrVideo.srcObject;
-    const tracks = stream.getTracks();
+    if(OcrStream){
+    const tracks = OcrStream.getTracks();
     tracks.forEach(track => track.stop());
     }
-    video.srcObject = null;
+    OcrVideo.srcObject = null;
     OcrContainer.style.display = "none"
 }
 
