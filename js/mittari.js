@@ -163,6 +163,7 @@ if(codeReader){
           controls.switchTorch(true)
           torchOn = true
           document.getElementById("lightOff").style.display = "block"
+          document.getElementById("lightOn").style.display = "none"
       }else{
           console.log("Taskulamppua ei löydy")
       }
