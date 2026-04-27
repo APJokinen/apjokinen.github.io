@@ -73,7 +73,7 @@ async function zoom(mode){
   if(mode === 'out'){
     if(zoomValue > min){
     zoomValue -= step
-    zoomValue = zoomValue.toFixed(1)
+    zoomValue = Math.round((zoomValue * 10))/10
     zoomFactor.textContent = zoomValue + " X"
       track.applyConstraints({
         advanced: [{ zoom: zoomValue}]
@@ -82,7 +82,7 @@ async function zoom(mode){
   }else if(mode === 'in'){
       if(zoomValue < max){
       zoomValue += step
-      zoomValue = zoomValue.toFixed(1)
+      zoomValue = Math.round((zoomValue * 10))/10
       zoomFactor.textContent = zoomValue + " X"
       track.applyConstraints({
         advanced: [{ zoom: zoomValue }]
