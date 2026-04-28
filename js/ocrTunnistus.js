@@ -3,14 +3,15 @@ let intervalOn = null
 let OcrStream = null
 let workerArray = []
 let ocrZoomMin, ocrZoomMax
+let scheduler
 const output = document.getElementById('Mittarin_sarjanumero');
 const OcrVideo = document.getElementById('ocr-video')
 const OcrContainer = document.getElementById("ocr-container")
 const { createWorker, createScheduler } = Tesseract;
-const scheduler = createScheduler();
+
 
 async function startOcrScanner(){
-    
+    scheduler = createScheduler();
     OcrContainer.style.display = "flex"
 
     try {
