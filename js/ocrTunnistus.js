@@ -42,6 +42,9 @@ async function startOcrScanner(){
 
     if(capabilities?.torch){
         torchOn = true
+        await track.applyConstraints({
+             advanced: [{ torch: true }]
+        });
         document.getElementById("lightOffOcr").style.display = "block"
         document.getElementById("lightOnOcr").style.display = "none"
     }
