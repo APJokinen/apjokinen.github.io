@@ -2,6 +2,7 @@ let isProcessing = false
 let intervalOn = null
 let OcrStream = null
 let workerArray = []
+let ocrZoomMin, ocrZoomMax
 const output = document.getElementById('Mittarin_sarjanumero');
 const OcrVideo = document.getElementById('ocr-video')
 const OcrContainer = document.getElementById("ocr-container")
@@ -32,10 +33,16 @@ async function startOcrScanner(){
     const track = OcrStream.getVideoTracks()[0];
     const capabilities = track.getCapabilities();
     if(capabilities?.zoom){
-        const min = capabilities?.zoom?.min
-        const max = capabilities?.zoom?.max
-        document.getElementById("zoomMinCodeOcr").textContent = "Min: "+min
-        document.getElementById("zoomMaxCodeOcr").textContent  = "Max: "+max
+        ocrZoomMin = capabilities?.zoom?.min
+        ocrZoomMax = capabilities?.zoom?.max
+        document.getElementById("zoomMinCodeOcr").textContent = "Min: "+ocrZoomMin
+        document.getElementById("zoomMaxCodeOcr").textContent  = "Max: "+ocrZoomMax
+    }
+
+    if(capabilities?.torch){
+        torchOn = true
+        document.getElementById("lightOffOcr").style.display = "block"
+        document.getElementById("lightOnOcr").style.display = "none"
     }
 
     
@@ -134,7 +141,9 @@ async function lampButtonOcr(){
     const capabilities = track.getCapabilities();
     if(capabilities?.torch){
         torchOn = !torchOn
-        await controls.switchTorch(torchOn)
+        await track.applyConstraints({
+             advanced: [{ torch: torchOn }]
+        });
         
       if(torchOn){
         document.getElementById("lightOff").style.display = "block"
@@ -147,6 +156,7 @@ async function lampButtonOcr(){
 }
 
 async function zoomOcr(mode){
+    const zoomFactor = document.getElementById("zoomValueOcr")
     const track = OcrStream.getVideoTracks()[0];
     const capabilities = track.getCapabilities();
 
@@ -154,24 +164,38 @@ async function zoomOcr(mode){
       const step = 0.2
 
   if(mode === 'out'){
-    if(zoomValue > zoomMin){
+    if(zoomValue - step >= zoomMin){
     zoomValue -= step
-    zoomValue = Math.round((zoomValue * 10))/10
-    zoomFactor.textContent = zoomValue + " X"
-      await track.applyConstraints({
-        advanced: [{ zoom: zoomValue}]
-      });
+      }else{
+        return
       }
   }else if(mode === 'in'){
-      if(zoomValue < zoomMax){
+      if(zoomValue + step <= zoomMax){
       zoomValue += step
-      zoomValue = Math.round((zoomValue * 10))/10
+      }else{
+        return
+      }
+  }else if(mode === 'min'){
+    if(zoomValue > ocrZoomMin){
+        zoomValue = ocrZoomMin
+    }else{
+        return
+    }
+    
+  }else if(mode === 'max'){
+    if(zoomValue < ocrZoomMax){
+        zoomValue = ocrZoomMax
+    }else{
+        return
+    }
+    
+  }
+    zoomValue = Math.round((zoomValue * 10))/10
       zoomFactor.textContent = zoomValue + " X"
       await track.applyConstraints({
         advanced: [{ zoom: zoomValue }]
       });
-      }
-  }
+
     }else{
       console.log("Zoom ei mahdollista tällä laitteella")
     }

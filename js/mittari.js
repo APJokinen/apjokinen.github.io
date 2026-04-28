@@ -70,24 +70,28 @@ async function zoom(mode){
       const step = 0.2
 
   if(mode === 'out'){
-    if(zoomValue > zoomMin){
+    if(zoomValue - step >= zoomMin){
     zoomValue -= step
-    zoomValue = Math.round((zoomValue * 10))/10
-    zoomFactor.textContent = zoomValue + " X"
-      await track.applyConstraints({
+    }
+  }else if(mode === 'in'){
+      if(zoomValue + step <= zoomMax){
+      zoomValue += step
+      }
+  }else if(mode === 'max'){
+    zoomValue = zoomMax
+    
+    
+  }else if(mode === 'min'){
+    zoomValue = zoomMin
+  }
+  zoomValue = Math.round((zoomValue * 10))/10
+  zoomFactor.textContent = zoomValue + " X"
+  await track.applyConstraints({
         advanced: [{ zoom: zoomValue}]
       });
-      }
-  }else if(mode === 'in'){
-      if(zoomValue < zoomMax){
-      zoomValue += step
-      zoomValue = Math.round((zoomValue * 10))/10
-      zoomFactor.textContent = zoomValue + " X"
-      await track.applyConstraints({
-        advanced: [{ zoom: zoomValue }]
-      });
-      }
-  }
+      
+
+
     }else{
       console.log("Zoom ei mahdollista tällä laitteella")
     }

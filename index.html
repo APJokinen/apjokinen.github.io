@@ -20,7 +20,7 @@
 <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
 <script src="./js/ocrTunnistus.js" defer></script>
 
-<label>Päivitetty: 16:18</label>
+<label>Päivitetty: 17:32</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -48,7 +48,8 @@
     </div></div>
     <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
     <button type="button" id="startOcrScan" onclick="startOcrScanner()">Lue mittarin sarjanumero (suoraan numeroista)</button><br/><br/>
-    <button type="button" onclick="startPic(1)">Lataa kuva galleriasta</button><br/><br/>
+    <button type="button" onclick="startPic(1)">Lataa kuva galleriasta (QR tai viivakoodi)</button><br/><br/>
+    <button type="button">Lataa kuva galleriasta (numerot)</button><br/><br/>
     
    
 
@@ -74,11 +75,11 @@
         </div>
         <div class="videoBlack" id="BlackLower">
             <div class="zoomWrapper">
-            <p id="zoomMinCode">No zoom</p>
+            <p onclick="zoom('min')" id="zoomMinCode">No zoom</p>
             <img onclick="zoom('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
             <div class="zoomDiv"><p id="zoomValue">1.0 X</p></div>
             <img onclick="zoom('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
-            <p id="zoomMaxCode">No zoom</p>  
+            <p onclick="zoom('max')" id="zoomMaxCode">No zoom</p>  
         </div></div>
         </div>
         </div>
@@ -100,13 +101,13 @@
             </div>
             <div class="videoBlack">
                 <div class="zoomWrapper">
-                <p id="zoomMinCodeOcr">No zoom</p>
+                <p onclick="zoomOcr('min')" id="zoomMinCodeOcr">No zoom</p>
                 <img onclick="zoomOcr('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
                 <div class="photoDiv">
                     <img id="photoOcr" onclick="takePicture()" src="./svg/photo_camera_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
                     <p id="zoomValueOcr">1.0 X</p></div>
                 <img onclick="zoomOcr('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
-                <p id="zoomMaxCodeOcr">No zoom</p>  
+                <p onclick="zoomOcr('max')" id="zoomMaxCodeOcr">No zoom</p>  
                 </div>
             </div>
             
