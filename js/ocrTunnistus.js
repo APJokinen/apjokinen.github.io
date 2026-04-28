@@ -52,19 +52,31 @@ async function startOcrScanner(){
 
 async function oneOcr() {
         console.log("Yksi freimi")
+        const debug = document.getElementById("ocr-test")
+        debug.textContent = "Analysoidaan..."
         if(isProcessing) return
         isProcessing = true
-        const debug = document.getElementById("ocr-test")
         const canvas = document.createElement("canvas")
-        canvas.width = OcrVideo.videoWidth;
-        canvas.height = OcrVideo.videoHeight;
         const ctx = canvas.getContext('2d')
 
         if (!OcrVideo.videoWidth || !OcrVideo.videoHeight) {
         console.log("Video ei ole valmis vielä");
         return;
     }
-        ctx.drawImage(OcrVideo, 0, 0, canvas.width, canvas.height);
+
+        const vw = OcrVideo.videoWidth;
+        const vh = OcrVideo.videoHeight;
+
+        const cropW = vw * 0.6;
+        const cropH = vh * 0.35;
+
+        const sx = (vw - cropW) / 2;
+        const sy = (vh - cropH) / 2;
+
+        canvas.width = cropW;
+        canvas.height = cropH;
+
+        ctx.drawImage(OcrVideo, sx, sy, cropW, cropH, 0, 0, cropW, cropH);
         
         //const blob = await new Promise(resolve => canvas.toBlob(resolve));
 
@@ -80,8 +92,11 @@ async function oneOcr() {
 
         const { data: { text } } = await scheduler.addJob('recognize', canvas);
         if(text){
-            console.log("Tulos:",text)
-            debug.textContent = "Sarjanumero: "+text
+            const clean = text
+            .replace(/\s+/g, ' ')
+            .replace(/[^\x20-\x7E]/g, '') // poistaa outoja merkkejä
+            .trim();
+            debug.textContent = "Sarjanumero: "+clean
         }else{
             console.log("Ei tulosta")
             debug.textContent = "Ei sarjanumeroa"

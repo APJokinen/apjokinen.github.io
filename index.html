@@ -20,7 +20,7 @@
 <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
 <script src="./js/ocrTunnistus.js" defer></script>
 
-<label>Päivitetty: 22:18</label>
+<label>Päivitetty: 16:18</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -96,6 +96,7 @@
             </div>
             <div class="videoWrapper">
                 <video id="ocr-video" autoplay playsinline></video>
+                <div id="ocrOverlay"></div>
             </div>
             <div class="videoBlack">
                 <div class="zoomWrapper">
@@ -258,7 +259,7 @@
                     <fieldset>
                     <legend id="modalLegend1">Uusi tuotantolaite</legend>
                     <label>Teho</label>
-                    <input id="modalPower1" type="text"/><label> kW</label><br/>
+                    <input class="modalInput" id="modalPower1" type="text"/><label class="modalInputAfterLabel">kW</label><br/>
                     </fieldset>
                     <div class="modal1BtnBox">
                     <button type="button">Lisää</button>
@@ -281,8 +282,8 @@
                     <fieldset>
                         <legend>Uusi sähkövarasto</legend>
                         <div class="modalGrid">
-                        <label>Kapasiteetti</label><input class="accuNewCap"></input><label>kWh</label>
-                        <label>Teho</label><input class="accuNewPower"></input><label>kW</label><br/>
+                        <label>Kapasiteetti</label><input class="accuNewCap modalInput"></input><label class="modalInputAfterLabel">kWh</label>
+                        <label>Teho</label><input class="accuNewPower modalInput"></input><label class="modalInputAfterLabel">kW</label>
                         </div>
                     </fieldset>
                 </div>
@@ -300,21 +301,21 @@
                     <fieldset>
                         <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
                     <div class="modalGrid">
-                    <label>Laite</label><input id="device"/><br/>
-                    <label>Merkki</label><input id="deviceLabel"/><br/>
-                    <label>Malli</label><input id="deviceModel"/><br/>
-                    <label>Tyyppi</label><select id="deviceType">
+                    <label>Laite</label><input class="modalInput" id="device"/><br/>
+                    <label>Merkki</label><input class="modalInput" id="deviceLabel"/><br/>
+                    <label>Malli</label><input  class="modalInput" id="deviceModel"/><br/>
+                    <label>Tyyppi</label><select class="modalSelect" id="deviceType">
                         <option value="Tavallinen">Tavallinen</option>
                         <option value="Hybridi">Hybridi</option>
                     </select><br/>
                     <label>Teho</label>
-                        <input id="devicePower" type="text"/><label>kW</label>
+                        <input class="modalInput" id="devicePower" type="text"/><label>kW</label>
                     <label>Enimmäisvikavirta</label>
-                    <input id="deviceMaxFault" type="text"/><label>A</label>
+                    <input class="modalInput" id="deviceMaxFault" type="text"/><label>A</label>
                     <label>Oikosulkuvirta</label>
-                    <input id="deviceShortCircuit" type="text"/><label>A</label>
+                    <input class="modalInput" id="deviceShortCircuit" type="text"/><label>A</label>
                     <label>Kytketyt vaiheet</label>
-                    <select id="devicePhases">
+                    <select class="modalSelect" id="devicePhases">
                         <option value="Kolmivaiheinen">Kolmivaiheinen</option>
                         <option value="L1">L1</option>
                         <option value="L2">L2</option>
@@ -395,7 +396,7 @@
                     <fieldset>
                     <legend id="modalLegend1">Aurinkovoima</legend>
                     <label>Teho</label>
-                    <input id="modalPowerMuutos" type="text"/><label> kW</label><br/>
+                    <input class="modalInput" id="modalPowerMuutos" type="text"/><label> kW</label><br/>
                     <button id="muutosModal1Button1" type="button" onclick="addPower2()">Lisää</button>
                     <button id="muutosModal1Button2" type="button" onclick="closeModal3()">Sulje</button><br/>
                     </fieldset><br/>
@@ -406,21 +407,21 @@
             <fieldset>
                     <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
                     <div class="modalGrid">
-                    <label>Laite</label><input class="deviceForm" id="device"/><br/>
-                    <label>Merkki</label><input class="deviceForm" id="deviceLabel"/><br/>
-                    <label>Malli</label><input class="deviceForm" id="deviceModel"/><br/>
-                    <label>Tyyppi</label><select class="deviceForm" id="deviceType">
+                    <label>Laite</label><input class="deviceForm modalInput" id="device"/><br/>
+                    <label>Merkki</label><input class="deviceForm modalInput" id="deviceLabel"/><br/>
+                    <label>Malli</label><input class="deviceForm modalInput" id="deviceModel"/><br/>
+                    <label>Tyyppi</label><select class="deviceForm modalInput" id="deviceType">
                         <option value="Tavallinen">Tavallinen</option>
                         <option value="Hybridi">Hybridi</option>
                     </select><br/>
                     <label>Teho</label>
-                        <input id="devicePower" class="deviceForm" type="text"/><label>kW</label>
+                        <input id="devicePower" class="deviceForm modalInput" type="text"/><label>kW</label>
                     <label>Enimmäisvikavirta</label>
-                    <input id="deviceMaxFault" class="deviceForm" type="text"/><label>A</label>
+                    <input id="deviceMaxFault" class="deviceForm modalInput" type="text"/><label>A</label>
                     <label>Oikosulkuvirta</label>
-                    <input id="deviceShortCircuit" class="deviceForm" type="text"/><label>A</label>
+                    <input id="deviceShortCircuit" class="deviceForm modalInput" type="text"/><label>A</label>
                     <label>Kytketyt vaiheet</label>
-                    <select id="devicePhases" class="deviceForm">
+                    <select id="devicePhases" class="deviceForm modalInput">
                         <option value="Kolmivaiheinen">Kolmivaiheinen</option>
                         <option value="L1">L1</option>
                         <option value="L2">L2</option>
@@ -462,8 +463,8 @@
                 <fieldset>
                     <legend>Uusi sähkövarasto</legend>
                     <div class="modalGrid">
-                    <label>Kapasiteetti: </label><input class="accuChangeCapacity"></input><label> kWh</label>
-                    <label>Teho: </label><input class="accuChangePower"></input><label> kW</label>
+                    <label>Kapasiteetti: </label><input class="accuChangeCapacity modalInput"></input><label> kWh</label>
+                    <label>Teho: </label><input class="accuChangePower modalInput"></input><label> kW</label>
                     </div>
                 </fieldset>
             </div>

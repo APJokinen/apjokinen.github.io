@@ -10,6 +10,11 @@
     --font-color2: black;
     --buttonWidth: 60px;
     --buttonHeight: 30px;
+    --fontFamily: Arial, Roboto, sans-serif;
+    --modalInputPadding: 10px;
+    --modalInputHeight: 18px;
+    --modalSelectHeight: calc(var(--modalInputHeight)+40px);
+
     --greenColor: rgb(55, 199, 55);
     --darkGreen: darkGreen;
 
@@ -41,6 +46,23 @@
     --input-width-1-2: calc((var(--form-width))/1 - 1*(var(--form-margin-side)));
     --mittarinNumeroFont: 11px;
   }
+}
+
+p,label{
+    font-family: var(--fontFamily);
+}
+
+.modalInput{
+    margin-bottom: 0;
+    height: var(--modalInputHeight);
+    padding: 0;
+}
+
+.modalSelect{
+    height: var(--modalSelectHeight);
+    margin-bottom: 0;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
 textarea{
@@ -178,6 +200,7 @@ button{
     min-height: var(--buttonHeight);
     width: fit-content;
     height: fit-content;
+    font-family: var(--fontFamily);
 }
 
 button:hover{
