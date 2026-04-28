@@ -41,6 +41,10 @@ async function startOcrScanner(){
     }
 
     if(capabilities?.torch){
+        await new Promise(resolve => {
+            if (OcrVideo.readyState >= 2) return resolve();
+            OcrVideo.onloadeddata = resolve;
+        });
         torchOn = true
         await track.applyConstraints({
              advanced: [{ torch: true }]
