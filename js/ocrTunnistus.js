@@ -143,11 +143,11 @@ async function lampButtonOcr(){
         });
         
       if(torchOn){
-        document.getElementById("lightOff").style.display = "block"
-        document.getElementById("lightOn").style.display = "none"
+        document.getElementById("lightOffOcr").style.display = "block"
+        document.getElementById("lightOnOcr").style.display = "none"
       }else{
-        document.getElementById("lightOn").style.display = "block"
-        document.getElementById("lightOff").style.display = "none"
+        document.getElementById("lightOnOcr").style.display = "block"
+        document.getElementById("lightOffOcr").style.display = "none"
       }
     }
 }
