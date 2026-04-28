@@ -20,7 +20,7 @@
 <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
 <script src="./js/ocrTunnistus.js" defer></script>
 
-<label>Päivitetty: 18:25</label>
+<label>Päivitetty: 21:54</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -48,8 +48,7 @@
     </div></div>
     <button type="button" id="startScan" onclick="startScanner(1)">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
     <button type="button" id="startOcrScan" onclick="startOcrScanner()">Lue mittarin sarjanumero (suoraan numeroista)</button><br/><br/>
-    <button type="button" onclick="startPic(1)">Lataa kuva galleriasta (QR tai viivakoodi)</button><br/><br/>
-    <button type="button">Lataa kuva galleriasta (numerot)</button><br/><br/>
+    <button type="button" onclick="startPic(1)">Lataa kuva mittarin sarjanumerosta galleriasta</button><br/><br/>
     
    
 
@@ -94,6 +93,7 @@
             </div>
             <div id="ocrDiv">
                 <p id="ocr-test">Sarjanumero: </p>
+                <button id="ocrButton" onclick="ocrSerialNumberToForm()">Lisää sarjanumero lomakkeeseen</button>
             </div>
             <div class="videoWrapper">
                 <video id="ocr-video" autoplay playsinline></video>
@@ -129,8 +129,9 @@
             <fieldset class="picFieldset">
                 <legend>Mittarin sarjanumero</legend>
                 <div class="sarjanumeroDiv">
-                    <label id="serialNumberByPic1"></label>
-                    <button type="button" onclick="addNumberFromPic(1)">Lisää ilmoitukseen</button>
+                    <div id="noSerialNumberByPic"><label>Ei tunnistettua koodia</label><br><br></div>
+                    <div id="serialNumberByPicZXing"><label id="serialNumberByPic1"></label><button type="button" onclick="addNumberFromPic(1)">Lisää ilmoitukseen</button><br><br></div>
+                    <div id="serialNumberByPicTesseract"><label id="serialNumberByPic2"></label><button type="button" onclick="addNumberFromPic(2)">Lisää ilmoitukseen</button><br><br></div>
                     <button type="button" onclick="emptyPic(1)">Tyhjennä kuva ja numero</button>
                 </div>
             </fieldset>

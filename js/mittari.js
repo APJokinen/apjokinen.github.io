@@ -14,6 +14,7 @@ let controls = null
 let zoomValue = 1.0
 let stream = null
 let zoomMax, zoomMin;
+let loadPicResults
 
 document.addEventListener("click", (e) => {
   if (!e.target.closest("table")) {
@@ -520,7 +521,7 @@ async function displayImages(files,modeNumber) {
 
   
 
-  codeReader = new ZXing.BrowserMultiFormatReader();
+  codeReader = new ZXingBrowser.BrowserMultiFormatReader();
   try {
     const result = await codeReader.decodeFromImageUrl(
       object
@@ -543,17 +544,17 @@ function dropHandler(ev, modeNumber) {
 
 async function loadPic(event,modeNumber){
   let img, label, resultElement;
+  loadPicResults = {Tesseract : null, Zxing:null}
   if(modeNumber === 1){
     label =  document.getElementById("beforePicLabel1");
-    resultElement = document.getElementById("serialNumberByPic1");
+    resultElement1 = document.getElementById("serialNumberByPic1");
+    resultElement2 = document.getElementById("serialNumberByPic2");
     img = document.getElementById("preview1");
-  }else{
-    label =  document.getElementById("beforePicLabel2");
-    resultElement = document.getElementById("serialNumberByPic2");
-    img = document.getElementById("preview2");
-
   }
-  
+
+  const ZXingDiv = document.getElementById("serialNumberByPicZXing")
+  const TesseractDiv = document.getElementById("serialNumberByPicTesseract")
+  const noNumberDiv = document.getElementById("noSerialNumberByPic")
   img.style.maxWidth = "400px"
   img.style.maxHeight = "400px" 
 
@@ -569,29 +570,66 @@ async function loadPic(event,modeNumber){
       object
     );
     
-    resultElement.textContent = result.getText();
+    //resultElement.textContent = "Koodin tunnistus: " + result.getText();
+    loadPicResults.ZXing = result.getText()
   } catch (err) {
-    resultElement.textContent = "Koodia ei löytynyt";
     console.error("Kuvan luku:",err)
   }
   codeReader = null
+
+  //OCR-lukeminen (tesseract)
+  const { createWorker } = Tesseract;
+
+  const worker = await createWorker();
+  await worker.setParameters({
+          tessedit_char_whitelist: '0123456789',
+        });
+
+ 
+  const { data: { text } } = await worker.recognize(object);
+  loadPicResults.Tesseract = text
+  console.log(text)
+  await worker.terminate();
+
+  if(!loadPicResults){
+      noNumberDiv.style.display = "block"
+      ZXingDiv.style.display ="none"
+      TesseractDiv.style.display = "none"
+  }else if(loadPicResults.ZXing && loadPicResults.Tesseract){
+    noNumberDiv.style.display = "none"
+      resultElement1.textContent = "Koodintunnistus: "+loadPicResults.ZXing
+      resultElement2.textContent = "Tekstitunnistus: "+loadPicResults.Tesseract
+      ZXingDiv.style.display ="block"
+      TesseractDiv.style.display = "block"
+    }else if(loadPicResults.ZXing){
+      noNumberDiv.style.display = "none"
+      resultElement1.textContent = "Koodintunnistus: "+loadPicResults.ZXing
+      resultElement2.textContent = null
+      ZXingDiv.style.display ="block"
+      TesseractDiv.style.display = "none"
+    }else{
+      noNumberDiv.style.display = "none"
+      resultElement1.textContent = null
+      resultElement2.textContent = "Tekstitunnistus: "+loadPicResults.Tesseract
+      ZXingDiv.style.display ="none"
+      TesseractDiv.style.display = "block"
+    }
+
+
+
 }
 
 function addNumberFromPic(modeNumber){
     if(modeNumber === 1){
-            const valueText = document.getElementById("serialNumberByPic1").textContent
-            if(valueText !== null && valueText !== ""){
+            const valueText = loadPicResults?.ZXing
+            if(valueText){
               document.getElementById("Mittarin_sarjanumero").value = valueText
             }
             
      }else if(modeNumber === 2){
-            if(valueText !== null && valueText !== ""){
-            const valueText = document.getElementById("serialNumberByPic2").textContent
-            const romuIndex = romuId
-            romuId++
-            const alkio = {id:romuIndex, numero:valueText}
-            romutettavat.push(alkio)
-            showRomutettavat()
+            const valueText = loadPicResults?.Tesseract
+            if(valueText){
+              document.getElementById("Mittarin_sarjanumero").value = valueText
             }
     }
 }
@@ -613,4 +651,8 @@ function emptyPic(modeNumber){
     viewLabel.style.display = "initial"
     serialNumber.textContent = null
     imgInput.value = null
+
+    document.getElementById("noSerialNumberByPic").style.display = "none"
+    document.getElementById("serialNumberByPicZXing").style.display = "none"
+    document.getElementById("serialNumberByPicTesseract").style.display = "none"
 }

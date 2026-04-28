@@ -1,9 +1,9 @@
 let isProcessing = false
 let intervalOn = null
 let OcrStream = null
-let workerArray = []
+let ocrSerialNumber;
 let ocrZoomMin, ocrZoomMax
-let scheduler
+let worker
 const output = document.getElementById('Mittarin_sarjanumero');
 const OcrVideo = document.getElementById('ocr-video')
 const OcrContainer = document.getElementById("ocr-container")
@@ -11,7 +11,7 @@ const { createWorker, createScheduler } = Tesseract;
 
 
 async function startOcrScanner(){
-    scheduler = createScheduler();
+    //scheduler = createScheduler();
     OcrContainer.style.display = "flex"
 
     try {
@@ -54,14 +54,12 @@ async function startOcrScanner(){
     }
 
     
-    for (let i = 0; i < 4; i++) {
-        const worker = await createWorker();
-        workerArray.push(worker)
+
+        worker = await createWorker();
         await worker.setParameters({
           tessedit_char_whitelist: '0123456789',
         });
-        scheduler.addWorker(worker);
-      }
+
 
 }
 
@@ -105,8 +103,10 @@ async function oneOcr() {
         return;
         }*/
 
-        const { data: { text } } = await scheduler.addJob('recognize', canvas);
+        const { data: { text } } = await worker.recognize(canvas);
         if(text){
+            ocrSerialNumber = text
+            document.getElementById("ocrButton").style.display = "block"
             debug.textContent = "Sarjanumero: "+text
         }else{
             console.log("Ei tulosta")
@@ -122,7 +122,7 @@ async function stopOcrScan(){
     if(intervalOn){
         clearInterval(intervalOn)
     }
-    scheduler.terminate()
+    worker.terminate()
     /*if(workerArray > 0){
         for(w of workerArray){
             w.terminate()
@@ -203,4 +203,8 @@ async function zoomOcr(mode){
     }else{
       console.log("Zoom ei mahdollista tällä laitteella")
     }
+}
+
+function ocrSerialNumberToForm(){
+    document.getElementById("Mittarin_sarjanumero").textContent = ocrSerialNumber
 }
