@@ -99,11 +99,7 @@ async function oneOcr() {
 
         const { data: { text } } = await scheduler.addJob('recognize', canvas);
         if(text){
-            const clean = text
-            .replace(/\s+/g, ' ')
-            .replace(/[^\x20-\x7E]/g, '') // poistaa outoja merkkejä
-            .trim();
-            debug.textContent = "Sarjanumero: "+clean
+            debug.textContent = "Sarjanumero: "+text
         }else{
             console.log("Ei tulosta")
             debug.textContent = "Ei sarjanumeroa"
