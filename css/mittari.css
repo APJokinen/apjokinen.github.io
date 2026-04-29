@@ -121,8 +121,9 @@ textarea{
         background: rgba(0,0,0,0.5);
 
     }*/
-    body.modal-open{
+    .modal-open{
         position: fixed;
+        height: 100%;
         overflow: hidden;
     }
 }
