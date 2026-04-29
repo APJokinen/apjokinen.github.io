@@ -20,7 +20,7 @@
 <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
 <script src="./js/ocrTunnistus.js" defer></script>
 
-<label>Päivitetty: 14:51</label>
+<label>Päivitetty: 18:12</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -87,17 +87,14 @@
   <div class="modal" id="ocr-container">
         <div id="ocrModalBox" class="videoBox">
             <div class="videoBlack" id="ocrUpperBlack">
-                <div id="ocrUpperWrap">
-                <div></div>
-                <div></div>
+                <div class="videoBtnWrapper">
                 <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopOcrScan()" class="material-symbols-outlined"/>
-                
                 <img onclick="lampButtonOcr()" id="lightOnOcr" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
         <img onclick="lampButtonOcr()" id="lightOffOcr" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
-            </div>
+            
             <div id="changeCameraDiv">
                 <img onclick="changeToCodeCamera()" id="qrButton" src="./svg/qr_code_scanner_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg">
-            </div>
+            </div></div>
             </div>
             <div id="ocrDiv">
                 <p id="ocr-test">Sarjanumero: </p>
@@ -133,8 +130,8 @@
                 <legend>Lisää kuva</legend>
                 <div class="sarjanumeroDiv">
             <div id="picDropZone" onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,1)">
-                <div><label id="beforePicLabel1">Lataa kuva raahaamalla tähän tai painamalla alhaalta</label></div>
-                <img id="preview1">
+                <div class="picDiv"><label id="beforePicLabel1">Lataa kuva raahaamalla tähän tai painamalla valitse tiedosto</label>
+                <img id="preview1"></div>
             </div>
             <input id="imgInput1" type="file" accept="image/*" onchange="loadPic(event, 1)">
        </div> </fieldset>

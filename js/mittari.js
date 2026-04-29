@@ -587,6 +587,7 @@ async function loadPic(event,modeNumber){
   const worker = await createWorker();
   await worker.setParameters({
           tessedit_char_whitelist: '0123456789',
+          tessedit_pageseg_mode: 13,
         });
 
  
