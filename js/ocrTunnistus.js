@@ -13,7 +13,7 @@ const { createWorker, createScheduler } = Tesseract;
 async function startOcrScanner(){
     //scheduler = createScheduler();
     OcrContainer.style.display = "flex"
-
+    document.body.classList.add("modal-open")
     try {
         OcrStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { exact: "environment" } }
@@ -137,6 +137,7 @@ async function stopOcrScan(){
     }
     OcrVideo.srcObject = null;
     OcrContainer.style.display = "none"
+    document.body.classList.remove("modal-open")
 }
 
 async function takePicture(){

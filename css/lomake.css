@@ -52,6 +52,11 @@ p,label{
     font-family: var(--fontFamily);
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 .modalInput{
     margin-bottom: 0;
     height: var(--modalInputHeight);
