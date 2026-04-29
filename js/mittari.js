@@ -543,7 +543,7 @@ function dropHandler(ev, modeNumber) {
 }
 
 async function loadPic(event,modeNumber){
-  let img, label, resultElement;
+  let img, label, resultElement1, resultElement2;
   loadPicResults = {Tesseract : null, Zxing:null}
   if(modeNumber === 1){
     label =  document.getElementById("beforePicLabel1");
@@ -552,15 +552,19 @@ async function loadPic(event,modeNumber){
     img = document.getElementById("preview1");
   }
 
+  const input = document.getElementById("imgInput1");
+
   const ZXingDiv = document.getElementById("serialNumberByPicZXing")
   const TesseractDiv = document.getElementById("serialNumberByPicTesseract")
   const noNumberDiv = document.getElementById("noSerialNumberByPic")
-  img.style.maxWidth = "400px"
-  img.style.maxHeight = "400px" 
+  //img.style.maxWidth = "400px"
+  //img.style.maxHeight = "400px" 
 
   
   const object = URL.createObjectURL(event.target.files[0]);
   img.src = object
+
+  img.style.display ="initial"
   label.style.display="none"
 
   codeReader = new ZXingBrowser.BrowserMultiFormatReader();
@@ -615,8 +619,8 @@ async function loadPic(event,modeNumber){
       TesseractDiv.style.display = "block"
     }
 
-
-
+    //event.target.value = "";
+    input.textContent = object
 }
 
 function addNumberFromPic(modeNumber){
@@ -655,4 +659,9 @@ function emptyPic(modeNumber){
     document.getElementById("noSerialNumberByPic").style.display = "none"
     document.getElementById("serialNumberByPicZXing").style.display = "none"
     document.getElementById("serialNumberByPicTesseract").style.display = "none"
+}
+
+async function changeToNumberCamera(){
+  await stopScanner()
+  await startOcrScanner()
 }

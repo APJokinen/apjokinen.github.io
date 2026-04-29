@@ -20,7 +20,7 @@
 <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
 <script src="./js/ocrTunnistus.js" defer></script>
 
-<label>Päivitetty: 12:40</label>
+<label>Päivitetty: 14:51</label>
 <h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
 
 
@@ -59,7 +59,7 @@
             <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopScanner()" class="material-symbols-outlined"/>
         <img onclick="lampButton()" id="lightOn" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
         <img onclick="lampButton()" id="lightOff" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
-            
+        <img onclick="changeToNumberCamera()" src="./svg/123_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
         </div></div>
         <div class="videoWrapper">
             <video id="video"></video>
@@ -88,11 +88,17 @@
         <div id="ocrModalBox" class="videoBox">
             <div class="videoBlack" id="ocrUpperBlack">
                 <div id="ocrUpperWrap">
+                <div></div>
+                <div></div>
                 <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopOcrScan()" class="material-symbols-outlined"/>
-                <div id="zoomFactorWrapper"><p id="zoomValueOcr">1.0 X</p></div>
+                
                 <img onclick="lampButtonOcr()" id="lightOnOcr" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
         <img onclick="lampButtonOcr()" id="lightOffOcr" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
-            </div></div>
+            </div>
+            <div id="changeCameraDiv">
+                <img onclick="changeToCodeCamera()" id="qrButton" src="./svg/qr_code_scanner_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg">
+            </div>
+            </div>
             <div id="ocrDiv">
                 <p id="ocr-test">Sarjanumero: </p>
                 <button id="ocrButton" onclick="ocrSerialNumberToForm()">Lisää sarjanumero lomakkeeseen</button>
@@ -110,6 +116,7 @@
                 <img onclick="zoomOcr('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
                 <div class="photoDiv">
                     <button id="photoOcr" onclick="takePicture()" type="button"></button>
+                    <p id="zoomValueOcr">1.0 X</p>
                         </div>
                 <img onclick="zoomOcr('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
                 <p onclick="zoomOcr('max')" id="zoomMaxCodeOcr">No zoom</p>  

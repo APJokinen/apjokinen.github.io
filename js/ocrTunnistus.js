@@ -211,3 +211,8 @@ async function zoomOcr(mode){
 function ocrSerialNumberToForm(){
     document.getElementById("Mittarin_sarjanumero").textContent = ocrSerialNumber
 }
+
+async function changeToCodeCamera(){
+    await stopOcrScan()
+    await startScanner(1)
+}
