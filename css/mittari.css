@@ -22,6 +22,10 @@
     --videoSquare: 70%;
     --videoCornerBorderWidth: 2px;
     --videoFrame: calc(var(--videoSquare) + 16*var(--videoCornerBorderWidth));
+    --cameraHalfCircleRadius: 40px;
+    --roundButtonRadius: 30px;
+    --blackHeight: 100px;
+
 
     --black: #000000;
   --green: #37C737;
@@ -138,7 +142,7 @@ textarea{
 
 
 
-#video-container{
+#video-container, #ocrModalBox{
     position: fixed;
     top: 0;
     left: 0;
@@ -351,7 +355,6 @@ table tr.selectedRomuRow td {
 }
 
 .getPicture{
-    border-style: dashed;
     width: 100%;
     height: 70%;
     justify-items: center; /* vaakasuunnassa */
@@ -455,11 +458,11 @@ table tr.selectedRomuRow td {
 
 .videoBlack{
     width: 100%;
-    height: 15%;
+    height: var(--blackHeight);
     background-color: #000000;
 }
 
-#BlackUpper{
+#BlackUpper, #ocrUpperBlack{
     top:0;
     display: flex;
     flex-direction: row;
@@ -467,11 +470,25 @@ table tr.selectedRomuRow td {
     
 }
 
-#BlackLower{
+#BlackLower, #ocrLowerBlack{
     bottom:0;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+#ocrLowerBlack{
+    height: var(--blackHeight);
+}
+
+#ocrUpperBlack{
+    width: 100%;
+}
+
+#zoomWrapperLower{
+    width: 80%;
+    height: var(--blackHeight);
+
 }
 
 .material-icons{
@@ -523,10 +540,7 @@ table tr.selectedRomuRow td {
     max-height: 400px;
 }
 
-#ocrModalBox{
-    width: 100dvw;
-    height: 100dvh;
-}
+
 
 
 
@@ -556,11 +570,8 @@ table tr.selectedRomuRow td {
     display: flex;
     flex-direction: row;
     color: Black;
-    border-style: dashed;
-    border-color: white;
     background-color: white;
     width: 100%;
-
     justify-content: center;
     align-items: center;
 }
@@ -573,12 +584,21 @@ table tr.selectedRomuRow td {
 }
 
 #photoOcr{
-    width: 9dvw;
-    height: 9dvh;
+    width: calc(2*var(--roundButtonRadius));
+    height: calc(2*var(--roundButtonRadius));
+    border-radius: calc(2*var(--roundButtonRadius));
+    padding-left: 0%;
+    padding-right: 0;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    bottom: 100px;
+    transform: translate(-50%, 50%);
+    z-index: 3;
 }
 
 #zoomValueOcr{
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: white;
 }
 
@@ -592,7 +612,8 @@ table tr.selectedRomuRow td {
     display: flex;
     flex-direction: row;
 }
-#ocrOverlay{
+
+#ocrRectangle{
     position: absolute;
   border: 2px solid yellow;
   box-sizing: border-box;
@@ -601,7 +622,15 @@ table tr.selectedRomuRow td {
     width: 60%;
     height: 35%;
   transform: translate(-50%, -50%);
+  background: transparent;
 }
+
+#ocrVideoWrapper .overlay::after{
+    width: calc(60%*1.15);
+    height: calc(35%*1.15);
+    transform: translate(-50%, -50%);
+}
+
 
 #zoomMinCodeOcr, #zoomMaxCodeOcr{
     color: white;
@@ -613,4 +642,29 @@ table tr.selectedRomuRow td {
 
 #ocrButton{
     display: none;
+}
+#cameraHalfCircle{
+    width: calc(2*var(--cameraHalfCircleRadius));
+    height: var(--cameraHalfCircleRadius);
+    border-top-right-radius: calc(2*var(--cameraHalfCircleRadius));
+    border-top-left-radius: calc(2*var(--cameraHalfCircleRadius));
+    background-color: black;
+    position: absolute;
+    left: 50%;
+    bottom: 0%;
+    transform: translate(-50%, 0%);
+}
+
+#ocrUpperWrap{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 70%;
+    place-items: center;
+    
+}
+
+#zoomFactorWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

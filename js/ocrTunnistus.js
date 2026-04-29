@@ -122,7 +122,10 @@ async function stopOcrScan(){
     if(intervalOn){
         clearInterval(intervalOn)
     }
-    worker.terminate()
+    if(worker){
+        worker.terminate()
+    }
+    
     /*if(workerArray > 0){
         for(w of workerArray){
             w.terminate()
