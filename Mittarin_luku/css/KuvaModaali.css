@@ -61,6 +61,7 @@
 }
 .picNumber{
     display: none;
+    overflow-x: auto;
 }
 .inFieldset{
     padding: 5px;
