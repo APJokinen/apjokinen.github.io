@@ -214,7 +214,7 @@ async function zoomOcr(mode){
 }
 
 function ocrSerialNumberToForm(){
-    document.getElementById("targetInput").textContent = ocrSerialNumber
+    document.getElementById("targetInput").value = ocrSerialNumber
 }
 
 async function changeToCodeCamera(){

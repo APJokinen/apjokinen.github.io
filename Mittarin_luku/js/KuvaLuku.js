@@ -62,7 +62,7 @@ async function loadPic(event,modeNumber){
 
 function addNumberFromPic(modeNumber){
     if(modeNumber === 1){
-            const valueText = loadPicResults?.ZXing
+            const valueText = loadPicResults?.Zxing
             if(valueText){
               document.getElementById("Mittarin_sarjanumero").value = valueText
             }
@@ -156,7 +156,7 @@ async function analyzePic(file){
     );
     
     //resultElement.textContent = "Koodin tunnistus: " + result.getText();
-    loadPicResults.ZXing = result.getText()
+    loadPicResults.Zxing = result.getText()
   } catch (err) {
     console.error("Kuvan luku (ZXing):",err)
   }
@@ -175,8 +175,12 @@ async function analyzePic(file){
         
   try{
     const { data: { text } } = await worker.recognize(file);
-    loadPicResults.Tesseract = text
-    console.log(text)
+    if(text.length < 20){
+      loadPicResults.Tesseract = text
+      console.log(text)
+    }else{
+      console.log("Tunnistettu teksti liian pitkä")
+    }
   }catch(e){
     console.error("Kuvan luku (Tesseract):",e)
   }
@@ -187,15 +191,15 @@ async function analyzePic(file){
       noNumberDiv.style.display = "block"
       ZXingDiv.style.display ="none"
       TesseractDiv.style.display = "none"
-  }else if(loadPicResults.ZXing && loadPicResults.Tesseract){
+  }else if(loadPicResults.Zxing && loadPicResults.Tesseract){
     noNumberDiv.style.display = "none"
-      resultElement1.textContent = "Koodintunnistus: "+loadPicResults.ZXing
+      resultElement1.textContent = "Koodintunnistus: "+loadPicResults.Zxing
       resultElement2.textContent = "Tekstitunnistus: "+loadPicResults.Tesseract
       ZXingDiv.style.display ="block"
       TesseractDiv.style.display = "block"
-    }else if(loadPicResults.ZXing){
+    }else if(loadPicResults.Zxing){
       noNumberDiv.style.display = "none"
-      resultElement1.textContent = "Koodintunnistus: "+loadPicResults.ZXing
+      resultElement1.textContent = "Koodintunnistus: "+loadPicResults.Zxing
       resultElement2.textContent = null
       ZXingDiv.style.display ="block"
       TesseractDiv.style.display = "none"
@@ -230,7 +234,7 @@ function emptyPic(){
 
 function addSerialToFront(modeNumber){
     if(modeNumber === 1){
-        document.getElementById("targetInput").value = loadPicResults.ZXing
+        document.getElementById("targetInput").value = loadPicResults.Zxing
     }else if(modeNumber === 2){
         document.getElementById("targetInput").value = loadPicResults.Tesseract
     }
