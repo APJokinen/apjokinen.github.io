@@ -64,6 +64,7 @@
 }
 .inFieldset{
     padding: 5px;
+    overflow-x: auto;
 }
 
 #closeButton{
@@ -71,9 +72,6 @@
     margin-left: 10px;
 }
 
-#imgInput1{
-
-}
 
 #imgInput1 button{
     height: 60px;
@@ -85,4 +83,8 @@
 
 #waitingPicAnalyze{
     display: none;
+}
+
+.inFieldset p{
+    font-size: 17px;
 }
