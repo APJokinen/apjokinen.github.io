@@ -15,29 +15,87 @@ function dragOverExists(e){
 
 window.addEventListener("dragover", dragOverExists);
 
+
+
+
 const dropZone = document.getElementById("picDropZone")
 const picContainer = document.getElementById("PictureModal")
 const ZXingDiv = document.getElementById("serialNumberByPicZXing")
   const TesseractDiv = document.getElementById("serialNumberByPicTesseract")
   const noNumberDiv = document.getElementById("noSerialNumberByPic")
+  const resultElement1 = document.getElementById("serialNumberByPic1");
+    const resultElement2 = document.getElementById("serialNumberByPic2");
+
+  //const { createWorker } = Tesseract;
+  let tessWorker
+  let tesseractResult
+  let ZXingResult
+
+  const codeReaderPic = new ZXingBrowser.BrowserMultiFormatReader();
+  const img = document.getElementById("PicPreview");
+  const analyzeDiv = document.getElementById("waitingPicAnalyze")
+  img.crossOrigin = "anonymous";
+
+
+  img.onload = async () => {
+
+    analyzeDiv.style.display = "block"
+  tesseractResult = null;
+  ZXingResult = null;
+
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  ctx.drawImage(img, 0, 0);
+
+  try {
+    const zx = await codeReaderPic.decodeFromCanvas(canvas);
+    console.log("zx:",zx)
+    ZXingResult = zx.getText();
+  } catch (e) {
+    console.error(e);
+  }
+
+  try {
+    const tess = await tessWorker.recognize(img);
+    console.log("tess:",tess)
+    tesseractResult = tess.data?.text || tess.text;
+  } catch (e) {
+    console.error(e);
+  }
+
+  showResults(ZXingResult, tesseractResult);
+};
+
+
 
 let loadPicResults = null
 
 
 async function StartPicModal(){
     picContainer.style.display = "flex"
-
+    tessWorker = await createWorker()
+    await tessWorker.setParameters({
+          tessedit_char_whitelist: '0123456789',
+          tessedit_pageseg_mode: 13,
+    });
 }
 
 async function ClosePicModal(){
     picContainer.style.display = "none"
+    if(tessWorker){
+      tessWorker.terminate()
+      tessWorker = null
+    }
 }
 
 
 
 async function loadPic(event,modeNumber){
   let img, label, resultElement1, resultElement2;
-  loadPicResults = {Tesseract : null, Zxing:null}
     label =  document.getElementById("beforePicLabel1");
     resultElement1 = document.getElementById("serialNumberByPic1");
     resultElement2 = document.getElementById("serialNumberByPic2");
@@ -45,18 +103,20 @@ async function loadPic(event,modeNumber){
 
 
   const input = document.getElementById("imgInput1");
-
+  displayImage(event.target.files[0])
   
   //img.style.maxWidth = "400px"
   //img.style.maxHeight = "400px" 
 
   
-  const object = URL.createObjectURL(event.target.files[0]);
+  /*const object = URL.createObjectURL(event.target.files[0]);
   img.src = object
 
   img.style.display ="initial"
   label.style.display="none"
-    analyzePic(object)
+    analyzePic(object)*/
+
+
   
 }
 
@@ -114,6 +174,7 @@ function dragoverHandler(ev) {
 }
 
 function dropHandler(ev, modeNumber) {
+  console.log("dropHandler")
  ev.preventDefault();
   const files = [...ev.dataTransfer.items]
     .map((item) => item.getAsFile())
@@ -121,25 +182,25 @@ function dropHandler(ev, modeNumber) {
   /*displayImages(files,modeNumber)
   checkImages(files)*/
   //loadPic(ev,1)
-  analyzePic(files[0])
+  displayImage(files[0])
+
 }
 
-async function displayImages(files,modeNumber) {
-  console.log("displayImages")
+async function displayImage(file) {
+  console.log("displayImage")
   //let label, resultElement, object,img;
 
 
-  const label = document.getElementById
-  for (const file of files) {
-    if (file.type.startsWith("image/")) {
+  const label =  document.getElementById("beforePicLabel1");
+    if (file?.type?.startsWith("image/")) {
       label.style.display="none"
       object = URL.createObjectURL(file)
         img.src = URL.createObjectURL(file);
         img.alt = file.name;
     }
-  }
 }
 
+/*
 async function analyzePic(file){
     console.log("File:",file)
     loadPicResults = {Tesseract : null, Zxing:null}
@@ -147,12 +208,12 @@ async function analyzePic(file){
     const label =  document.getElementById("beforePicLabel1");
     const resultElement1 = document.getElementById("serialNumberByPic1");
     const resultElement2 = document.getElementById("serialNumberByPic2");
-    const img = document.getElementById("PicPreview");
+   
     const input = document.getElementById("imgInput1");
     const analyzeDiv = document.getElementById("waitingPicAnalyze")
 
     analyzeDiv.style.display = "block"
-    codeReader = new ZXingBrowser.BrowserMultiFormatReader();
+    
   try {
     const result = await codeReader.decodeFromImageUrl(
       file
@@ -190,7 +251,7 @@ async function analyzePic(file){
   
   await worker.terminate();
   analyzeDiv.style.display = "none"
-  if(!loadPicResults){
+  if(!loadPicResults.Tesseract && !loadPicResults.Zxing){
       noNumberDiv.style.display = "block"
       ZXingDiv.style.display ="none"
       TesseractDiv.style.display = "none"
@@ -221,6 +282,33 @@ async function analyzePic(file){
       console.error("Tiedostonimeä ei löydy")
     }
     
+}*/
+
+function showResults(ZXingResult, tesseractResult){
+  analyzeDiv.style.display = "none"
+  if(!ZXingResult && !tesseractResult){
+      noNumberDiv.style.display = "block"
+      ZXingDiv.style.display ="none"
+      TesseractDiv.style.display = "none"
+  }else if(ZXingResult && tesseractResult){
+    noNumberDiv.style.display = "none"
+      resultElement1.textContent = "Koodintunnistus: "+ZXingResult
+      resultElement2.textContent = "Tekstitunnistus: "+tesseractResult
+      ZXingDiv.style.display ="block"
+      TesseractDiv.style.display = "block"
+    }else if(ZXingResult){
+      noNumberDiv.style.display = "none"
+      resultElement1.textContent = "Koodintunnistus: "+ZXingResult
+      resultElement2.textContent = null
+      ZXingDiv.style.display ="block"
+      TesseractDiv.style.display = "none"
+    }else if(tesseractResult){
+      noNumberDiv.style.display = "none"
+      resultElement1.textContent = null
+      resultElement2.textContent = "Tekstitunnistus: "+tesseractResult
+      ZXingDiv.style.display ="none"
+      TesseractDiv.style.display = "block"
+    }
 }
 
 function emptyPic(){
@@ -242,9 +330,9 @@ function emptyPic(){
 
 function addSerialToFront(modeNumber){
     if(modeNumber === 1){
-        document.getElementById("targetInput").value = loadPicResults.Zxing
+        document.getElementById("targetInput").value = ZXingResult
     }else if(modeNumber === 2){
-        document.getElementById("targetInput").value = loadPicResults.Tesseract
+        document.getElementById("targetInput").value = tesseractResult
     }
     const div = document.getElementById("picInfoDiv")
     div.style.display = "flex"
