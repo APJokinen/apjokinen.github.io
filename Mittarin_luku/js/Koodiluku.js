@@ -38,7 +38,7 @@ if(codeReader){
 }
   codeReader = new ZXingBrowser.BrowserMultiFormatReader();
 
-  const previewElem = document.querySelector('video');
+  const previewElem = document.getElementById("videoCode")
   
   /*const videoReady = new Promise(resolve => {
   video.onloadedmetadata = resolve;
@@ -65,7 +65,7 @@ if(codeReader){
           const number = document.getElementById("codeSerialNumber")
           resultValue = result.text
           number.textContent = "Sarjanumero: "+result.text
-          document.querySelectorAll(".frame").querySelector("span").style.borderColor = "red"
+          document.querySelector(".frame span").style.borderColor = "red"
           
         }
 

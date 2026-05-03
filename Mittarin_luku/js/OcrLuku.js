@@ -66,7 +66,10 @@ async function StartOcrScan(){
 async function oneOcr() {
         const tulos = document.getElementById("ocrSerialNumber")
         tulos.textContent = "Analysoidaan..."
-        if(isProcessing) return
+        if(isProcessing){
+            tulos.textContent = "Prosessointi käynnissä"
+            return
+        } 
         isProcessing = true
         const canvas = document.createElement("canvas")
         const ctx = canvas.getContext('2d')
