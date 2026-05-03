@@ -65,7 +65,7 @@ if(codeReader){
           const number = document.getElementById("codeSerialNumber")
           resultValue = result.text
           number.textContent = "Sarjanumero: "+result.text
-          document.querySelector(".frame span").style.borderColor = "red"
+          document.querySelectorAll(".frame span").style.borderColor = "red"
           
         }
 
@@ -222,5 +222,5 @@ function rejectCodeNumber(){
     resultValue = null
     container.querySelector(".videoWhite").style.display = "none"
     acceptOrDeny = false
-    document.querySelectorAll(".frame").querySelector("span").style.borderColor = "white"
+    document.querySelectorAll(".frame span").style.borderColor = "white"
 }
