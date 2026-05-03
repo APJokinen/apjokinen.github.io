@@ -11,7 +11,7 @@ const { createWorker, createScheduler } = Tesseract;
 
 
 async function StartOcrScan(){
-    //scheduler = createScheduler();
+    OcrContainer.querySelector(".videoWhite").style.display = "flex"
     document.body.classList.add("modal-open")
     OcrContainer.style.display = "flex"
     try {

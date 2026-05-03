@@ -161,7 +161,8 @@ video{
     height: 10%;
     display: none;
     flex-direction: row;
-    
+    background-color: white;
+
 }
 
 #cameraHalfCircle{
