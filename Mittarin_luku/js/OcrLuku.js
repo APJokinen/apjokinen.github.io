@@ -3,7 +3,7 @@ let intervalOn = null
 let OcrStream = null
 let ocrSerialNumber;
 let ocrZoomMin, ocrZoomMax
-let worker
+let worker;
 const output = document.getElementById('input');
 const OcrVideo = document.getElementById('videoOcr')
 const OcrContainer = document.getElementById("CameraModalOcr")
