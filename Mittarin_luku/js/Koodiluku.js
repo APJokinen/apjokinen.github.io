@@ -11,6 +11,9 @@ let codeReader
 let acceptOrDeny = false
 let resultValue = null
 
+function emptyTargetInput(){
+    document.getElementById("targetInput").value = null
+}
 
 async function StartCodeScan() {
       
