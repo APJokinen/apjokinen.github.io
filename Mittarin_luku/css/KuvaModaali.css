@@ -75,3 +75,7 @@
 #beforePicLabel1{
     padding: 0px 20px;
 }
+
+#waitingPicAnalyze{
+    display: none;
+}

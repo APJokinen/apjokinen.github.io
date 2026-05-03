@@ -149,6 +149,9 @@ async function analyzePic(file){
     const resultElement2 = document.getElementById("serialNumberByPic2");
     const img = document.getElementById("PicPreview");
     const input = document.getElementById("imgInput1");
+    const analyzeDiv = document.getElementById("waitingPicAnalyze")
+
+    analyzeDiv.style.display = "block"
     codeReader = new ZXingBrowser.BrowserMultiFormatReader();
   try {
     const result = await codeReader.decodeFromImageUrl(
@@ -186,7 +189,7 @@ async function analyzePic(file){
   }
   
   await worker.terminate();
-
+  analyzeDiv.style.display = "none"
   if(!loadPicResults){
       noNumberDiv.style.display = "block"
       ZXingDiv.style.display ="none"
@@ -203,7 +206,7 @@ async function analyzePic(file){
       resultElement2.textContent = null
       ZXingDiv.style.display ="block"
       TesseractDiv.style.display = "none"
-    }else{
+    }else if(loadPicResults.Tesseract){
       noNumberDiv.style.display = "none"
       resultElement1.textContent = null
       resultElement2.textContent = "Tekstitunnistus: "+loadPicResults.Tesseract
@@ -212,7 +215,12 @@ async function analyzePic(file){
     }
 
     //event.target.value = "";
-    input.textContent = file
+    try{
+      input.textContent = file
+    }catch(e){
+      console.error("Tiedostonimeä ei löydy")
+    }
+    
 }
 
 function emptyPic(){
