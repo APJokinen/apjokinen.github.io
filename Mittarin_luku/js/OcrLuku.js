@@ -11,8 +11,8 @@ const { createWorker, createScheduler } = Tesseract;
 
 
 async function StartOcrScan(){
-    OcrContainer.querySelector(".videoWhite").style.display = "flex"
     document.body.classList.add("modal-open")
+    window.removeEventListener("dragover", dragOverExists);
     OcrContainer.style.display = "flex"
     try {
         OcrStream = await navigator.mediaDevices.getUserMedia({
@@ -107,13 +107,14 @@ async function oneOcr() {
         }*/
 
         const { data: { text } } = await worker.recognize(canvas);
+        OcrContainer.querySelector(".videoWhite").style.display = "flex"
         if(text){
             ocrSerialNumber = text
-            container.querySelector(".videoWhite").style.display = "none"
             document.getElementById("ocrButton").style.display = "block"
             tulos.textContent = "Sarjanumero: "+text
         }else{
             console.log("Ei tulosta")
+            document.getElementById("ocrButton").style.display = "none"
             tulos.textContent = "Ei sarjanumeroa"
         }
         isProcessing=false
@@ -140,6 +141,7 @@ async function stopOcrScan(){
     OcrVideo.srcObject = null;
     OcrContainer.style.display = "none"
     document.body.classList.remove("modal-open")
+    window.addEventListener("dragover", dragOverExists);
 }
 
 async function takePicture(){
@@ -212,7 +214,7 @@ async function zoomOcr(mode){
 }
 
 function ocrSerialNumberToForm(){
-    document.getElementById("ocrSerialNumber").textContent = ocrSerialNumber
+    document.getElementById("targetInput").textContent = ocrSerialNumber
 }
 
 async function changeToCodeCamera(){

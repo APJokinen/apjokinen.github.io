@@ -1,5 +1,6 @@
 :root{
     --left-margin: 30px;
+    --bottom-margin: 20px;
     
 }
 
@@ -34,8 +35,9 @@ html, body{
     width: 200px;
     height: 120px;
     border-style: outset;
-
+    padding: 10px;
     margin-right: var(--left-margin);
+    margin-bottom: var(--bottom-margin);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,8 +67,9 @@ p{
 
 .wrapper{
     display: flex;
-    flex-direction: row;
     border-style: none;
+    flex-wrap: wrap;
+    
 }
 
 .photoDiv{
@@ -78,4 +81,8 @@ p{
 
 #targetInput{
     width: 300px;
+}
+
+.buttonP{
+    font-size: 20px;
 }

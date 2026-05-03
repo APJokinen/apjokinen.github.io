@@ -16,7 +16,7 @@ async function StartCodeScan() {
       
       container.style.display = "flex"
       document.body.classList.add("modal-open")
-      
+      window.removeEventListener("dragover", dragOverExists);
       await startCamera()
       
     }
@@ -212,6 +212,7 @@ async function stopScanner() {
 
       container.style.display = "none"
       document.body.classList.remove("modal-open")
+      window.addEventListener("dragover", dragOverExists);
      
 }
 

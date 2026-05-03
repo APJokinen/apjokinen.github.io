@@ -162,7 +162,8 @@ video{
     display: none;
     flex-direction: row;
     background-color: white;
-    font-size: 0.4rem;
+    align-items: center;
+    font-size: 6%;
 
 }
 
@@ -224,4 +225,8 @@ video{
 
 #lightOn, #lightOff, #lightOnOcr, #lightOffOcr{
     display: none;
+}
+
+#zoomMinCodeOcr, #zoomValueOcr, #zoomMaxCodeOcr{
+    color: white;
 }

@@ -17,9 +17,9 @@
 <label for="targetInput">Sarjanumero: </label>
 <input id="targetInput" placeholder="Mittarin sarjanumero tähän..."/><br><br>
 <div class="wrapper">
-<div class="button" onclick="StartCodeScan()"><p>Lue viiva- tai qr-koodi</p></div>
-<div class="button" onclick="StartOcrScan()"><p>Lue numerot (ocr-tunnistus)</p></div>
-<div class="button "onclick="StartPicModal()"><p>Lataa kuva</p></div>
+<div class="button" onclick="StartCodeScan()"><p class="buttonP">Lue viiva- tai qr-koodi</p></div>
+<div class="button" onclick="StartOcrScan()"><p class="buttonP">Lue numerot (ocr-tunnistus)</p></div>
+<div class="button "onclick="StartPicModal()"><p class="buttonP">Lataa kuva</p></div>
 </div>
 
 <div id="CameraModalCode" class="modal">
@@ -69,6 +69,7 @@
         </div></div>
         <div class="videoWhite">
             <p id="ocrSerialNumber">Sarjanumero: </p>
+            <button id="ocrButton" onclick="ocrSerialNumberToForm()">Lisää etusivulle</button>
         </div>
         <div id="ocrVideoWrapper" class="videoWrapper">
             <video id="videoOcr" autoplay playsinline></video>
@@ -80,11 +81,11 @@
         <div class="videoBlack">
             
             <div class="zoomWrapper">
-            <p onclick="zoom('min')" id="zoomMinCodeOcr">No zoom</p>
-            <img onclick="zoom('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
-            <div class="photoDiv"><button id="photoOcr" onclick="takePicture()" type="button"></button><p id="zoomValue">1.0 X</p></div>
-            <img onclick="zoom('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
-            <p onclick="zoom('max')" id="zoomMaxCodeOcr">No zoom</p>  
+            <p onclick="zoomOcr('min')" id="zoomMinCodeOcr">No zoom</p>
+            <img onclick="zoomOcr('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            <div class="photoDiv"><button id="photoOcr" onclick="takePicture()" type="button"></button><p id="zoomValueOcr">1.0 X</p></div>
+            <img onclick="zoomOcr('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
+            <p onclick="zoomOcr('max')" id="zoomMaxCodeOcr">No zoom</p>  
         </div>
         </div>
     </div>
