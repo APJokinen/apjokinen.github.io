@@ -65,7 +65,9 @@ if(codeReader){
           const number = document.getElementById("codeSerialNumber")
           resultValue = result.text
           number.textContent = "Sarjanumero: "+result.text
-          document.querySelectorAll(".frame span").style.borderColor = "red"
+          document.querySelectorAll(".frame span").forEach((fr,index) => {
+            fr.style.borderColor = "red"
+          })
           
         }
 
@@ -204,6 +206,10 @@ async function stopScanner() {
     tracks.forEach(track => track.stop());
   }
 
+  document.querySelectorAll(".frame span").forEach((fr,index) => {
+            fr.style.borderColor = "white"
+  })
+
       container.style.display = "none"
       document.body.classList.remove("modal-open")
      
@@ -222,5 +228,8 @@ function rejectCodeNumber(){
     resultValue = null
     container.querySelector(".videoWhite").style.display = "none"
     acceptOrDeny = false
-    document.querySelectorAll(".frame span").style.borderColor = "white"
+    document.querySelectorAll(".frame span").forEach((fr,index) => {
+        fr.style.borderColor = "white"
+    })
 }
+
