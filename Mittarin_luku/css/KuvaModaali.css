@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content:center;
     align-items: left;
-    max-width: 80%;
+    max-width: 65dvw;
     min-width: 0;
     overflow: auto;
 }
