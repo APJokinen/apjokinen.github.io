@@ -66,8 +66,6 @@ if(codeReader){
           resultValue = result.text
           number.textContent = "Sarjanumero: "+result.text
           document.querySelectorAll(".frame").querySelector("span").style.borderColor = "red"
-          controls.stop()
-          controls = null
           
         }
 

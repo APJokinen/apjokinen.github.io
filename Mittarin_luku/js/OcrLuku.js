@@ -106,6 +106,7 @@ async function oneOcr() {
         const { data: { text } } = await worker.recognize(canvas);
         if(text){
             ocrSerialNumber = text
+            container.querySelector(".videoWhite").style.display = "none"
             document.getElementById("ocrButton").style.display = "block"
             tulos.textContent = "Sarjanumero: "+text
         }else{
