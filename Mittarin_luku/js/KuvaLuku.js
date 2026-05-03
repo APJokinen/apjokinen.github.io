@@ -43,16 +43,8 @@ const ZXingDiv = document.getElementById("serialNumberByPicZXing")
   tesseractResult = null;
   ZXingResult = null;
 
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-
-  canvas.width = img.width;
-  canvas.height = img.height;
-
-  ctx.drawImage(img, 0, 0);
-
   try {
-    const zx = await codeReaderPic.decodeFromCanvas(canvas);
+    const zx = await codeReaderPic.decodeFromImageElement(img);
     console.log("zx:",zx)
     ZXingResult = zx.getText();
   } catch (e) {
@@ -79,8 +71,7 @@ async function StartPicModal(){
     picContainer.style.display = "flex"
     tessWorker = await createWorker()
     await tessWorker.setParameters({
-          tessedit_char_whitelist: '0123456789',
-          tessedit_pageseg_mode: 13,
+          tessedit_char_whitelist: '0123456789'
     });
 }
 
@@ -190,7 +181,7 @@ async function displayImage(file) {
   console.log("displayImage")
   //let label, resultElement, object,img;
 
-
+  img.style.display = "block"
   const label =  document.getElementById("beforePicLabel1");
     if (file?.type?.startsWith("image/")) {
       label.style.display="none"
@@ -334,6 +325,7 @@ function addSerialToFront(modeNumber){
     }else if(modeNumber === 2){
         document.getElementById("targetInput").value = tesseractResult
     }
+
     const div = document.getElementById("picInfoDiv")
     div.style.display = "flex"
 
