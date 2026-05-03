@@ -55,6 +55,9 @@ const ZXingDiv = document.getElementById("serialNumberByPicZXing")
     const tess = await tessWorker.recognize(img);
     console.log("tess:",tess)
     tesseractResult = tess.data?.text || tess.text;
+    if(tesseractResult.length > 20){
+        tesseractResult = null
+    }
   } catch (e) {
     console.error(e);
   }

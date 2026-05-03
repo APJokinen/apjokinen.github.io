@@ -7,6 +7,9 @@
     flex-direction: column;
     justify-content:center;
     align-items: left;
+    max-width: 80%;
+    min-width: 0;
+    overflow: auto;
 }
 
 #PictureBox button{
@@ -24,12 +27,13 @@
 #picDropZone{
     height: 100px;
     width: fit-content;
-    max-width: 100%;
+    max-width: 80%;
     border-style: dashed;
     display: flex;
     align-items: center;
     justify-content: left;
     overflow: auto;
+    min-width: 0;
     
 }
 
@@ -37,12 +41,15 @@
     max-width: 450px;
     max-height: 450px;
     margin-top: 20px;
+    min-width: 0;
+    
 }
 
 .picFieldset{
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
+    min-width: 0;
 }
 
 #picInfoDiv{
