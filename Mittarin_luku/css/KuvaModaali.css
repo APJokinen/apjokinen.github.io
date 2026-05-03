@@ -1,0 +1,77 @@
+
+
+#PictureBox{
+    background-color: white;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: left;
+}
+
+#PictureBox button{
+    width:fit-content;
+}
+
+#PicDiv{
+    
+}
+
+#serialNumberByPic{
+    display: none;
+}
+
+#picDropZone{
+    height: 100px;
+    width: fit-content;
+    max-width: 100%;
+    border-style: dashed;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    overflow: auto;
+    
+}
+
+#PicPreview{
+    max-width: 450px;
+    max-height: 450px;
+    margin-top: 20px;
+}
+
+.picFieldset{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#picInfoDiv{
+    display: none;
+}
+
+#picInfo{
+
+}
+.picNumber{
+    display: none;
+}
+.inFieldset{
+    padding: 5px;
+}
+
+#closeButton{
+    margin: 20px 10px 20px 0px;
+    margin-left: 10px;
+}
+
+#imgInput1{
+
+}
+
+#imgInput1 button{
+    height: 60px;
+}
+
+#beforePicLabel1{
+    padding: 0px 20px;
+}

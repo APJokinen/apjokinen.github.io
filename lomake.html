@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pientuotantoilmoitus</title>
+<link rel="stylesheet" href="./css/lomake.css">
+<link rel="stylesheet" href="./css/uusi.css">
+<link rel="stylesheet" href="./css/muutos.css">
+<link rel="stylesheet" href="./css/mittari.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<script src="./js/lomake.js" defer></script>
+<script src="./js/uusi.js" defer></script>
+<script src="./js/muutos.js" defer></script>
+<script src="https://unpkg.com/@zxing/browser@latest" defer></script>
+<script src="./js/mittari.js" defer></script>
+<script src="./js/scroll.js" defer></script>
+<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
+<script src="./js/ocrTunnistus.js" defer></script>
+
+<h1>Pientuotantolaitteiston liittäminen sähköverkkoon</h1>
+
+
+
+<form id="form">
+    <h2>Kohteen osoite</h2>
+    <div class="form1">
+    <div class="form1Block">
+    <label class="label1" for="Katuosoite">Katuosoite</label><br/>
+    <input class="input1" type="text" id="Katuosoite" name="Katuosoite"><br/><br/>
+    <label class="label1" for="Kiinteistötunnus">Kiinteistötunnus</label><br/>
+    <input class="input1" type="text" id="Kiinteistötunnus" name="Kiinteistötunnus"><br/>
+    </div>
+    <div class="form1Block">
+    <label class="label1" for="Postinumero">Postinumero</label><br>
+    <input class="input1" type="text" id="Postinumero" name="Postinumero"><br/><br/>
+    <label class="label1" for="Käyttöpaikkatunnus">Käyttöpaikkatunnus</label><br>
+    <input class="input1" type="text" id="Käyttöpaikkatunnus" name="Käyttöpaikkatunnus"><br>
+    </div>
+    <div class="form1Block">
+    <label class="label1" for="Postitoimipaikka">Postitoimipaikka</label><br>
+    <input class="input1" type="text" id="Postitoimipaikka" name="Postitoimipaikka"><br/><br/>
+    <label class="label1" id="Mittarin_sarjanumero_label" for="Mittarin sarjanumero">Mittarin sarjanumero</label><br>
+    <input class="input1" type="text" id="Mittarin_sarjanumero" name="Mittarin sarjanumero"><br>
+    </div></div>
+    <button type="button" id="startScan" onclick="startScanner()">Lue mittarin sarjanumero (QR tai viivakoodi)</button><br/><br/>
+    <button type="button" id="startOcrScan" onclick="startOcrScanner()">Lue mittarin sarjanumero (suoraan numeroista)</button><br/><br/>
+    <button type="button" onclick="startPic()">Lataa kuva mittarin sarjanumerosta galleriasta</button><br/><br/>
+    
+   
+
+        <div class="modal" id="video-container">
+        <div id="videoBox1" class="videoBox">
+        <div class="videoBlack" id="BlackUpper">
+            <div class="videoBtnWrapper">
+            <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopScanner()" class="material-symbols-outlined"/>
+        <img onclick="lampButton()" id="lightOn" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        <img onclick="lampButton()" id="lightOff" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        <img onclick="changeToNumberCamera()" src="./svg/123_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        </div></div>
+        <div class="videoWrapper">
+            <video id="video"></video>
+            <div class="overlay">
+                <div class="frame">
+                    <span class="tl"></span>
+                    <span class="tr"></span>
+                    <span class="bl"></span>
+                    <span class="br"></span>
+                </div>
+            </div>
+        </div>
+        <div class="videoBlack" id="BlackLower">
+            <div class="zoomWrapper">
+            <p onclick="zoom('min')" id="zoomMinCode">No zoom</p>
+            <img onclick="zoom('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            <div class="zoomDiv"><p id="zoomValue">1.0 X</p></div>
+            <img onclick="zoom('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
+            <p onclick="zoom('max')" id="zoomMaxCode">No zoom</p>  
+        </div></div>
+        </div>
+        </div>
+  </div>
+
+  <div class="modal" id="ocr-container">
+        <div id="ocrModalBox" class="videoBox">
+            <div class="videoBlack" id="ocrUpperBlack">
+                <div class="videoBtnWrapper">
+                <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopOcrScan()" class="material-symbols-outlined"/>
+                <img onclick="lampButtonOcr()" id="lightOnOcr" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        <img onclick="lampButtonOcr()" id="lightOffOcr" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            
+            <div id="changeCameraDiv">
+                <img onclick="changeToCodeCamera()" id="qrButton" src="./svg/qr_code_scanner_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg">
+            </div></div>
+            </div>
+            <div id="ocrDiv">
+                <p id="ocr-test">Sarjanumero: </p>
+                <button id="ocrButton" onclick="ocrSerialNumberToForm()">Lisää sarjanumero lomakkeeseen</button>
+            </div>
+            <div id="ocrVideoWrapper" class="videoWrapper">
+                <video id="ocr-video" autoplay playsinline></video>
+                <div class="overlay">
+                    <div id="ocrRectangle"></div>
+                </div>
+                <dv id="cameraHalfCircle"></dv>
+            </div>
+            <div id="ocrLowerBlack" class="videoBlack">
+                <div id="zoomWrapperLower" class="zoomWrapper">
+                <p onclick="zoomOcr('min')" id="zoomMinCodeOcr">No zoom</p>
+                <img onclick="zoomOcr('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+                <div class="photoDiv">
+                    <button id="photoOcr" onclick="takePicture()" type="button"></button>
+                    <p id="zoomValueOcr">1.0 X</p>
+                        </div>
+                <img onclick="zoomOcr('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
+                <p onclick="zoomOcr('max')" id="zoomMaxCodeOcr">No zoom</p>  
+                </div>
+            </div>
+            
+        </div>
+
+  </div>
+
+    <div class="modal" id="pic-container1">
+        <div class="pictureBox">
+            <fieldset id="picFieldset1Upper" class="picFieldset">
+                <legend>Lisää kuva</legend>
+                <div class="sarjanumeroDiv">
+            <div id="picDropZone" onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,1)">
+                <div class="picDiv"><label id="beforePicLabel1">Lataa kuva raahaamalla tähän tai painamalla valitse tiedosto</label>
+                <img id="preview1"></div>
+            </div>
+            <input id="imgInput1" type="file" accept="image/*" onchange="loadPic(event, 1)">
+       </div> </fieldset>
+            <fieldset class="picFieldset">
+                <legend>Mittarin sarjanumero</legend>
+                <div class="sarjanumeroDiv">
+                    <div id="noSerialNumberByPic"><label>Ei tunnistettua koodia</label><br><br></div>
+                    <div id="serialNumberByPicZXing"><label id="serialNumberByPic1"></label><button type="button" onclick="addNumberFromPic(1)">Lisää ilmoitukseen</button><br><br></div>
+                    <div id="serialNumberByPicTesseract"><label id="serialNumberByPic2"></label><button type="button" onclick="addNumberFromPic(2)">Lisää ilmoitukseen</button><br><br></div>
+                    <button type="button" onclick="emptyPic(1)">Tyhjennä kuva ja numero</button>
+                </div>
+            </fieldset>
+            <div class="picButtonsDiv">
+            
+            <button type="button" onclick="closePicModal(1)">Sulje</button>
+            </div><br/><br/><br/>
+        </div>
+    </div>
+    
+
+    <div class="modal" id="pic-container2">
+        <div class="pictureBox">
+            <fieldset id="picFieldset2Upper" class="picFieldset">
+                <legend>Lisää kuva</legend>
+            <div onclick="loadPic()" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,2)">
+                <div><label id="beforePicLabel2">Lataa kuva raahaamalla tähän tai painamalla alhaalta</label></div>
+                <img id="preview2">
+            </div>
+            <input id="imgInput2" type="file" accept="image/*" onchange="loadPic(event, 2)">
+        </fieldset>
+            <fieldset class="picFieldset">
+                <legend>Mittarin sarjanumero:</legend>
+                <div class="sarjanumeroDiv">
+                    <label id="serialNumberByPic2"></label>
+                    <button type="button" onclick="addNumberFromPic(2)">Lisää ilmoitukseen</button>
+                </div>
+            </fieldset>
+            <div class="picButtonsDiv">
+            <button type="button" onclick="emptyPic(2)">Tyhjennä kuva</button>
+            <button type="button" onclick="closePicModal(2)">Sulje</button>
+            </div><br/><br/><br/>
+        </div>
+    </div>
+        
+    <h2>Yhteystiedot</h2>
+    <input onclick="checkbox1()" type="checkbox" name="Yritys" id="Yritys">
+    <label class="label1" for="Yritys">Yritys</label><br/>
+    <div class="form1">
+    <div id="check1" class="form1Block">
+    <label class="label1" for="YritysNimi">Yritys</label><br/>
+    <input class="input2" type="text" id="YritysNimi" name="YritysNimi" />
+    </div>
+    <div id="check2" class="form1Block">
+    <label class="label1" for="YritysTunnus">Y-tunnus</label><br/>
+    <input class="input2" type="text" id="YritysTunnus" name="YritysTunnus" />
+    </div>
+    </div>
+    <div class="form1">
+    <div class="form2Block">
+    <label class="label1"  for="Etunimi">Etunimi</label><br/>
+    <input class="input2" type="text" id="Etunimi" name="Etunimi"></input><br/>
+    <label class="label1"  for="Sähköposti">Sähköposti</label><br/>
+    <input class="input2" type="text" id="Sähköposti" name="Sähköposti"> </input><br/>
+    </div>
+    <div class="form2Block">
+    <label class="label1" for="Sukunimi">Sukunimi</label><br/>
+    <input class="input2" type="text" id="Sukunimi" name="Sukunimi"><br/>
+    <label class="label1" for="Puhelin">Puhelin</label><br/>
+    <input class="input2" type="text" id="Puhelin" name="Puhelin"><br/>
+    </div>
+    </div>
+    <input onclick="checkbox2()" type="checkbox" name="Yhteyshenkilö" id="Yhteyshenkilö">
+    <label class="label1" for="Yhteyshenkilö">Yhteyshenkilö (jos muu kuin omistaja)</label>
+    <div class="form1">
+    <div id="check3" class="form2Block">
+    <label class="label1"  for="Etunimi">Etunimi</label><br/>
+    <input class="input2" type="text" id="Etunimi" name="Etunimi"></input><br/>
+    <label class="label1"  for="Sähköposti">Sähköposti</label><br/>
+    <input class="input2" type="text" id="Sähköposti" name="Sähköposti"> </input><br/>
+    </div>
+    <div id="check4" class="form2Block">
+    <label class="label1" for="Sukunimi">Sukunimi</label><br/>
+    <input class="input2" type="text" id="Sukunimi" name="Sukunimi"><br/>
+    <label class="label1" for="Puhelin">Puhelin</label><br/>
+    <input class="input2" type="text" id="Puhelin" name="Puhelin"><br/>
+    </div></div>
+    <h2>Tuotantolaitteiston asentaja/urakoitsija</h2>
+    <div class="form3">
+    <div class="form3Block">
+    <label class="label1" for="UrakoitsijaYritysNimi">Yrityksen nimi</label><br/>
+    <input class="input3" type="text" id="UrakoitsijaYritysNimi" name="UrakoitsijaNimi"><br/>
+    <label class="label1" for="TukesNumero">Tukes-numero</label><br/>
+    <input class="input3" type="text" id="TukesNumero" name="TukesNumero"><br/>
+    </div>
+    <div class="form3Block2">
+    <div id="form3Left">
+    <label class="label1" for="UrakoitsijaEtunimi">Etunimi</label><br>
+    <input class="input2" type="text" name="UrakoitsijaEtunimi" id="UrakoitsijaEtunimi"/><br/>
+    <label class="label1" for="UrakoitsijaSähköposti">Sähköposti</label><br/>
+    <input class="input2" type="text" name="UrakoitsijaSähköposti" id="UrakoitsijaSähköposti"/><br/><br/>
+    </div>
+    <div id="form3Right">
+    <label class="label1" for="UrakoitsijaSukunimi">Sukunimi</label><br>
+    <input class="input2" type="text" name="UrakoitsijaSukunimi" id="UrakoitsijaSukunimi"/><br/>
+    <label class="label1" for="UrakoitsijaPuhelin">Puhelin</label><br/>
+    <input class="input2" type="text" name="UrakoitsijaPuhelin" id="UrakoitsijaPuhelin"/><br/><br/>
+    </div>
+    </div>
+    </div>
+    <h2>Tuotantolaitteiston perustiedot</h2>
+    <label class="labelUusi1">Uutta pientuotantoa</label>
+    <select onchange="select1()" id="uusiPientuotantoSelect">
+        <option value="no">Ei</option>
+        <option value="yes">Kyllä</option>
+    </select><br/><br/>
+    <div id="uusiPientuotanto">
+    
+    <div id="uusiTuotantoBox">
+        <div class="marginBox1">
+        <h3>Uusi pientuotanto</h3>
+        <label class="labelUusi1">Valitse tuotantotapa</label><br/>
+    <select id="selectPower1" onchange="select3()">
+        <option value="Aurinkovoima">Aurinkovoima</option>
+        <option value="Tuulivoima">Tuulivoima</option>
+        <option value="Dieselvoima">Dieselvoima</option>
+    </select><br/><br/>
+        <fieldset class="uusiFieldset">
+            <legend id="legendUusi">Järjestelmän tuotanto</legend>
+            <div id="newProductionContainer"></div>
+            <div class="clickBox" id="clickBox1"  onclick="openModal1()">
+                <label id="tuotanto1">Lisää tuotanto</label>
+                <label class="clickBoxPlus">+</label>
+            </div>
+            <div id="modal1" class="modal">
+                <div class="modalBox">
+                    <fieldset>
+                    <legend id="modalLegend1">Uusi tuotantolaite</legend>
+                    <label>Teho</label>
+                    <input class="modalInput" id="modalPower1" type="text"/><label class="modalInputAfterLabel">kW</label><br/>
+                    </fieldset>
+                    <div class="modal1BtnBox">
+                    <button type="button">Lisää</button>
+                    <button type="button">Sulje</button>
+                    </div>
+                    <br/><br/>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="uusiFieldset">
+            <legend>Järjestelmän sähkövarastot</legend>
+            <div id="akkuUusiContainer"></div>
+            <div class="clickBox" id="clickBox1" onclick="uusiAkku()" >
+                <label id="tuotanto1">Lisää sähkövarasto</label>
+                <label class="clickBoxPlus">+</label>
+                
+            </div>
+            <div id="accuNewModal" class="modal">
+                <div class="modalBox">
+                    <fieldset>
+                        <legend>Uusi sähkövarasto</legend>
+                        <div class="modalGrid">
+                        <label>Kapasiteetti</label><input class="accuNewCap modalInput"></input><label class="modalInputAfterLabel">kWh</label>
+                        <label>Teho</label><input class="accuNewPower modalInput"></input><label class="modalInputAfterLabel">kW</label>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="uusiFieldset">
+        <legend id="invertterit">Järjestelmän verkkoliitäntälaitteet</legend>
+        <div id="container1"></div>
+         <div class="clickBox" id="clickBox2"  onclick="openModal2()">
+                <label>Lisää verkkoliitäntälaite</label><br/>
+                <label class="clickBoxPlus">+</label>          
+            </div>
+        <div id="modal2" class="modal">
+                <div id="modalBox2" class="modalBox">
+                    <fieldset>
+                        <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
+                    <div class="modalGrid">
+                    <label>Laite</label><input class="modalInput" id="device"/><br/>
+                    <label>Merkki</label><input class="modalInput" id="deviceLabel"/><br/>
+                    <label>Malli</label><input  class="modalInput" id="deviceModel"/><br/>
+                    <label>Tyyppi</label><select class="modalSelect" id="deviceType">
+                        <option value="Tavallinen">Tavallinen</option>
+                        <option value="Hybridi">Hybridi</option>
+                    </select><br/>
+                    <label>Teho</label>
+                        <input class="modalInput" id="devicePower" type="text"/><label>kW</label>
+                    <label>Enimmäisvikavirta</label>
+                    <input class="modalInput" id="deviceMaxFault" type="text"/><label>A</label>
+                    <label>Oikosulkuvirta</label>
+                    <input class="modalInput" id="deviceShortCircuit" type="text"/><label>A</label>
+                    <label>Kytketyt vaiheet</label>
+                    <select class="modalSelect" id="devicePhases">
+                        <option value="Kolmivaiheinen">Kolmivaiheinen</option>
+                        <option value="L1">L1</option>
+                        <option value="L2">L2</option>
+                        <option value="L3">L3</option>
+                    </select>
+                </div>
+                    <button type="button" onclick="addDevice2()">Lisää</button>
+                    <button type="button" onclick="closeModal2()">Sulje</button><br/>
+                    </fieldset><br/>
+                </div>
+            </div>
+
+        </fieldset>
+        <fieldset class="uusiFieldset">
+            <legend>Järjestelmän verkkoliitäntätehot</legend>
+            <div id="KoosteContainerUusi"></div>
+        </fieldset>
+        <fieldset class="uusiFieldset">
+            <legend>Lisätiedot</legend>
+            <textarea id="infoForNew" placeholder="Lisätiedot tähän..."></textarea>
+        </fieldset>
+        <fieldset class="uusiFieldset">
+            <legend>Lisää</legend>
+            <button class="nollaus" type="button" onclick="nollaaUusi()">Nollaa järjestelmä</button>
+            <button class="JärjestelmäLisäys" type="button" onclick="addSystem()" id="add">Lisää järjestelmä ilmoitukseen</button>
+        </fieldset>
+        
+        <fieldset class="uusiFieldset">
+            <legend>Ilmoitus</legend>
+            <div id="container2TabButtons"></div>
+            <div id="container2"></div>
+        </fieldset>
+        <button class="tyhjennaIlmoitus" type="button" onclick="nollaaIlmoitusUusi()">Tyhjennä ilmoitus</button>
+    </div></div>
+    <br/><br/>
+    </div><br>
+    <label class="labelUusi1">Muutoksia pientuotannossa</label>
+    <select onchange="select2()" id="muutosPientuotantoSelect">
+        <option value="no">Ei</option>
+        <option value="yes">Kyllä</option>
+    </select><br><br/>
+    <div id="muutosPientuotanto">
+    <div id="muutosTuotantoBox">
+        <div class="marginBox1">
+    <h3>Muutokset pientuotannossa</h3>
+    <label class="labelUusi1">Valitse tuotantotapa:</label>
+    <select id="muutosTuotantoTapa">
+        <option value="Aurinkovoima">Aurinkovoima</option>
+        <option value="Tuulivoima">Tuulivoima</option>
+        <option value="Dieselvoima">Dieselvoima</option>
+    </select><br/><br/><br/>
+    <fieldset class="muutosFieldset">
+        <legend>Järjestelmän tuotanto</legend>
+        
+            <div id="containerMuutosTuotanto"></div>
+        <div id="tuotantoClickbox" onclick="uusiTuotanto()" class="clickBox">
+            <label>Uusi tuotanto</label>
+            <label class="clickBoxPlus">+</label>
+        </div>
+        <div class="centerBox">
+        <div id="tuotantoClickBoxJaolla" class="clickBoxJaolla">
+            <div class="vanha"><div class="jakoOtsikko"><label>Vanha</label></div>
+            <div class="clickBoxMuutosVanha" onclick="tuotantoVanha()">
+                <label id="VanhaTuotanto">Lisää tuotanto</label>
+                <label class="clickBoxPlus">+</label>
+            </div>
+            </div>
+            
+            <div class="uusi">
+            <div class="jakoOtsikko"><label>Uusi</label></div>
+            <div class="clickBoxMuutosUusi" onclick="tuotantoUusi()">
+                <label id="UusiTuotanto">Lisää tuotanto</label>
+                <label class="clickBoxPlus">+</label>
+            </div>
+            </div></div>
+        <div id="muutosModal1" class="modal">
+            <div class="modalBox">
+                    <fieldset>
+                    <legend id="modalLegend1">Aurinkovoima</legend>
+                    <label>Teho</label>
+                    <input class="modalInput" id="modalPowerMuutos" type="text"/><label> kW</label><br/>
+                    <button id="muutosModal1Button1" type="button" onclick="addPower2()">Lisää</button>
+                    <button id="muutosModal1Button2" type="button" onclick="closeModal3()">Sulje</button><br/>
+                    </fieldset><br/>
+                </div>
+        </div>
+        <div id="muutosModal2" class="modal">
+            <div class="modalBox">
+            <fieldset>
+                    <legend id="modalLegend2">Uusi verkkoliitäntälaite</legend>
+                    <div class="modalGrid">
+                    <label>Laite</label><input class="deviceForm modalInput" id="device"/><br/>
+                    <label>Merkki</label><input class="deviceForm modalInput" id="deviceLabel"/><br/>
+                    <label>Malli</label><input class="deviceForm modalInput" id="deviceModel"/><br/>
+                    <label>Tyyppi</label><select class="deviceForm modalInput" id="deviceType">
+                        <option value="Tavallinen">Tavallinen</option>
+                        <option value="Hybridi">Hybridi</option>
+                    </select><br/>
+                    <label>Teho</label>
+                        <input id="devicePower" class="deviceForm modalInput" type="text"/><label>kW</label>
+                    <label>Enimmäisvikavirta</label>
+                    <input id="deviceMaxFault" class="deviceForm modalInput" type="text"/><label>A</label>
+                    <label>Oikosulkuvirta</label>
+                    <input id="deviceShortCircuit" class="deviceForm modalInput" type="text"/><label>A</label>
+                    <label>Kytketyt vaiheet</label>
+                    <select id="devicePhases" class="deviceForm modalInput">
+                        <option value="Kolmivaiheinen">Kolmivaiheinen</option>
+                        <option value="L1">L1</option>
+                        <option value="L2">L2</option>
+                        <option value="L3">L3</option>
+                    </select>
+                    </div>
+                    <div class="poistoDiv">
+                        <input type="checkbox" class="poistoCheckBox"></input><label class="boldLabel">Vanha laite poistettu</label></div>
+                    <button type="button">Lisää</button>
+                    <button type="button">Sulje</button><br/>
+                    </fieldset><br/>
+        </div></div></div>
+    </fieldset>
+    <fieldset class="muutosFieldset">
+        <legend>Järjestelmän sähkövarastot</legend>
+        <div class="centerBox">
+        <div id="akkuMuutosContainer"></div>
+            <div id="akkuClickBoxJaolla" class="clickBoxJaolla">
+                <div class="vanha"><div class="jakoOtsikko"><label>Vanha</label></div>
+                <div class="clickBoxMuutos">
+                <div class="clickBoxMuutosLaite"><label class="vanhaLaite">Lisää sähkövarasto</label></div>
+                <div class="clickBoxMuutosPlus"><label class="clickBoxPlus">+</label></div>
+            </div></div>
+            <div class="uusi"><div class="jakoOtsikko"><label>Uusi</label></div>
+                <div class="clickBoxMuutos">
+                <div class="clickBoxMuutosLaite"><label class="uusiLaite">Lisää sähkövarasto</label></div>
+                <div class="clickBoxMuutosPlus"><label class="clickBoxPlus">+</label></div>
+            </div></div>
+        <br/>
+        </div></div>
+        <div onclick="muutosAkku()" class="clickBox">
+                <label>Uusi sähkövarasto</label>
+                <label class="clickBoxPlus">+</label>
+                
+            </div>
+    </fieldset>
+        <div class="modal" id="muutosAkkuModal">
+            <div class="modalBox">
+                <fieldset>
+                    <legend>Uusi sähkövarasto</legend>
+                    <div class="modalGrid">
+                    <label>Kapasiteetti: </label><input class="accuChangeCapacity modalInput"></input><label> kWh</label>
+                    <label>Teho: </label><input class="accuChangePower modalInput"></input><label> kW</label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        
+        
+    
+    <fieldset id="fieldsetId" class="muutosFieldset">
+        <legend>Järjestelmän verkkoliitäntälaitteet</legend>
+        <div class="laiteMuutosBox">
+        <div id="laiteClickBoxJaolla" class="clickBoxJaolla">
+            <div class="vanha"><div class="jakoOtsikko"><label>Vanha</label></div>
+            <div class="clickBoxMuutos">
+                <div class="clickBoxMuutosLaite"><label class="vanhaLaite">Lisää laite</label></div>
+                <div class="clickBoxMuutosPlus"><label class="clickBoxPlus">+</label></div>
+            </div>
+            </div>
+            
+            <div class="uusi">
+            <div class="jakoOtsikko"><label>Uusi</label></div>
+            <div class="clickBoxMuutos">
+               <div class="clickBoxMuutosLaite"><label class="uusiLaite">Lisää laite</label></div> 
+                <div class="clickBoxMuutosPlus"><label class="clickBoxPlus">+</label></div>
+            </div>
+            </div><br/></div>
+            
+        
+        <div id="container4"></div>
+        
+        <div onclick="uusiLaite()" class="clickBox">
+                <label>Uusi laite</label>
+                <label class="clickBoxPlus">+</label>
+            </div>
+            </div>
+    </fieldset>
+    <fieldset class="muutosFieldset">
+        <legend>Järjestelmän verkkoliitäntätehojen muutokset</legend>
+        <div id="KoosteContainer"></div>
+    </fieldset class="muutosFieldset">
+    <fieldset class="muutosFieldset">
+        <legend>Lisätiedot</legend>
+        <textarea id="infoAreaChange" placeholder="Lisätiedot tähän...."></textarea>
+    </fieldset>
+    <fieldset class="muutosFieldset">
+        <legend>Lisää</legend>
+        <button class="nollaus" type="button" onclick="nollaaMuutos()">Nollaa järjestelmä</button>
+        <button class="JärjestelmäLisäys" onclick="addSystemChange()" type="button">Lisää järjestelmä ilmoitukseen</button>
+    </fieldset>
+    <fieldset class="muutosFieldset">
+        <legend>Ilmoitus</legend>
+        <div id="container5TabButtons"></div>
+        <div id="container5"></div>
+    </fieldset>
+    <button class="tyhjennaIlmoitus" type="button" onclick="nollaaIlmoitusMuutos()">Tyhjennä ilmoitus</button>
+    </div>
+    <br/>
+    </div></div>
+    <div class="modal" id="showSystemDevice">
+            <div class="showSystemDeviceContent">
+                <fieldset class="muutosFieldset">
+                    <legend id="showSystemDeviceLegend">Laite</legend>
+                <div id="showSystemDeviceTable">
+                    
+                </div>
+                <label id="oldDeviceRemovedLabel"></label>
+            </fieldset>
+        <button type="button" onclick="SuljeMuutosLaite()">Sulje</button><br><br></div>
+    </div>
+    <h2>Tuotantolaitteiston tekniset tiedot</h2>
+    <label class="label2">Vakuutan, että</label>
+    <div id="Tekniset_tiedot">
+        <div class="teknisetBox">
+            <label class="label3">1. <span class="label3Bold">Tuotantolaitteisto täyttää teknisen standardin SFS-EN 50549-1:2019 vaatimukset</span>, mukaan lukien verkkoonliitäntälaitteen (invertteri/vaihtosuuntaaja) suojausasettelut ja irtikytkeytymisajat.</label>
+            <br/><input type="checkbox"/><label class="label3">Täyttää tekniset vaatimukset <span class="label3Red">(Pakollinen )</span></label>
+        </div>
+        <div class="teknisetBox">
+            <label class="label3">2. <span class="label3Bold">Tuotantolaitteisto on erotettavissa erillisellä erotuskytkimellä</span>, johon verkonhaltijalla on esteetön pääsy (esim. talon ulkoseinällä, ei lukitussa tilassa). </label>
+            <br/><input type="checkbox"/><label class="label3">Erotettavissa erillisellä erotuskytkimellä <span class="label3Red">(Pakollinen )</span></label><br/>
+            <label class="label3">Erotuskytkimen sijainti</label><br/>
+            <input class="input4" type="text"/>
+        </div>
+        <div class="teknisetBox"><label class="label3">3. <span class="label3Bold">Liittymän sähkökeskuksilla on varoituskyltit </span> takasyöttövaarasta ja opastus tuotantolaitteiston irtikytkemiselle.</label><br/>
+        <input type="checkbox"/><label class="label3">Sähkökeskuksilla on varoituskyltit <span class="label3Red">(Pakollinen )</span></label>
+        </div>
+        <div class="teknisetBox"><label class="label3">4. <span class="label3Bold">Tuotantolaitteiston liitäntäsuojaus on toteutettu keskitetyllä suojauslaitteella</span>(koskee nimellisteholtaan vähintään 50 kW tuotantolaitteistoja, myös yksittäistä tuotantolaitetta).</label>
+        <br/><input type="checkbox"/><label class="label3">Keskitetty suojauslaite</label>
+    </div></div><br/>
+    <label class="label3">Verkonhaltijalla ei ole velvollisuutta liittää laitteita, jotka eivät täytä eurooppalaisen pientuotannon standardin EN 50549 vaatimuksia.
+</label><br/>
+<button type="button">Jatka tilaukseen</button>
+</form>
+
+</body>
+</html>

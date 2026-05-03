@@ -1,0 +1,36 @@
+.buttonTunnistusTesti{
+    width: 200px;
+    height: 120px;
+    border-style: outset;
+
+    margin-right: var(--left-margin);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonTunnistusTesti:active{
+    border-style: inset;
+}
+
+#inputTunnistusTesti{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: center;
+    
+}
+
+.wrapperTunnistusTesti{
+    display: flex;
+    flex-direction: row;
+    border-style: none;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+#mainTunnistus{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="./Mittarin_luku/css/KameraModaali.css">
+<link rel="stylesheet" href="./Mittarin_luku/css/KuvaModaali.css">
+<link rel="stylesheet" href="./Mittarin_luku/css/Mittarin_luku.css">
+</head>
+<body>
+<script src="https://unpkg.com/@zxing/browser@latest" defer></script>
+<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js' defer></script>
+<script src="./Mittarin_luku/js/Koodiluku.js" defer></script>
+<script src="./Mittarin_luku/js/KuvaLuku.js" defer></script>
+<script src="./Mittarin_luku/js/OcrLuku.js" defer></script>
+
+<h1>Mittarin luku</h1>
+<label for="targetInput">Sarjanumero: </label>
+<input id="targetInput" placeholder="Mittarin sarjanumero tähän..."/><br><br>
+<div class="wrapper">
+<div class="button" onclick="StartCodeScan()"><p>Lue viiva- tai qr-koodi</p></div>
+<div class="button" onclick="StartOcrScan()"><p>Lue numerot (ocr-tunnistus)</p></div>
+<div class="button "onclick="StartPicModal()"><p>Lataa kuva</p></div>
+</div>
+
+<div id="CameraModalCode" class="modal">
+    <div class="videoBox">
+    <div class="videoBlack">
+        <div id="videoBlackUpper" class="videoBtnWrapper">
+        <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopScanner()" class="material-symbols-outlined"/>
+        <img onclick="lampButton()" id="lightOn" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        <img onclick="lampButton()" id="lightOff" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        <img onclick="changeToNumberCamera()" src="./svg/123_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        </div></div>
+    <div class="videoWhite">
+            <p id="codeSerialNumber">Sarjanumero: </p>
+            <button onclick="addCodeNumberToFront()">Lisää koodi etusivulle</button>
+            <button onclick="rejectCodeNumber()">Hylkää koodi</button>
+        </div>
+    <div class="videoWrapper">
+        <video autoplay playsinline id="videoCode"></video>
+        <div class="overlay">
+                <div class="frame">
+                    <span class="tl"></span>
+                    <span class="tr"></span>
+                    <span class="bl"></span>
+                    <span class="br"></span>
+                </div>
+            </div>
+    </div>
+    <div id="videoBlackLower" class="videoBlack">
+        <div class="zoomWrapper">
+            <p onclick="zoom('min')" id="zoomMinCode">No zoom</p>
+            <img onclick="zoom('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            <div class="zoomDiv"><p id="zoomValue">1.0 X</p></div>
+            <img onclick="zoom('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
+            <p onclick="zoom('max')" id="zoomMaxCode">No zoom</p>  
+        </div>
+    </div></div></div>
+
+
+<div id="CameraModalOcr" class="modal">
+    <div class="videoBox">
+        <div class="videoBlack">
+            <div class="videoBtnWrapper">
+            <img id="imgCancel" src="./svg/cancel_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" onclick="stopOcrScan()" class="material-symbols-outlined"/>
+            <img onclick="lampButton()" id="lightOnOcr" src="./svg/lightbulb_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            <img onclick="lampButton()" id="lightOffOcr" src="./svg/light_off_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            <img onclick="changeToCodeCamera()" src="./svg/qr_code_scanner_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+        </div></div>
+        <div class="videoWhite">
+            <p id="ocrSerialNumber">Sarjanumero: </p>
+        </div>
+        <div id="ocrVideoWrapper" class="videoWrapper">
+            <video id="videoOcr" autoplay playsinline></video>
+            <div id="cameraHalfCircle"></div>
+            <div class="overlay">
+                    <div id="ocrRectangle"></div>
+                </div>
+        </div>
+        <div class="videoBlack">
+            
+            <div class="zoomWrapper">
+            <p onclick="zoom('min')" id="zoomMinCode">No zoom</p>
+            <img onclick="zoom('out')" id="zoomOut" src="./svg/zoom_out_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg"/>
+            <div class="photoDiv"><button id="photoOcr" onclick="takePicture()" type="button"></button><p id="zoomValue">1.0 X</p></div>
+            <img onclick="zoom('in')" id="zoomIn" src="./svg/zoom_in_70dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" />
+            <p onclick="zoom('max')" id="zoomMaxCode">No zoom</p>  
+        </div>
+        </div>
+    </div>
+</div>
+
+<div id="PictureModal" class="modal">
+    <div id="PictureBox">
+        <div id="PicDiv">
+            <fieldset class="picFieldset">
+                <legend>Lisää kuva</legend>
+                <div class="inFieldset">
+                <div id="picDropZone" class="getPicture" ondrag="dragoverHandler(event)" ondrop="dropHandler(event,1)">
+                <label id="beforePicLabel1">Lataa kuva raahaamalla tähän tai painamalla valitse tiedosto</label>
+                <img id="PicPreview">
+                </div>
+                <input id="imgInput1" type="file" accept="image/*" onchange="loadPic(event, 1)">
+                </div></div>
+            </fieldset>
+            <fieldset class="picFieldset">
+                <legend>Mittarin sarjanumero: </legend>
+                <div class="inFieldset">
+                <div class="picNumber" id="noSerialNumberByPic"><p>Ei tunnistettua sarjanumeroa</p></div>
+                <div class="picNumber" id="serialNumberByPicZXing"><p id="serialNumberByPic1"></p><button type="button" onclick="addSerialToFront(1)">Lisää kooditunnistettu sarjanumero ilmoitukseen</button></div>
+                <div class="picNumber" id="serialNumberByPicTesseract"><p id="serialNumberByPic2"></p><button type="button" onclick="addSerialToFront(2)">Lisää tekstitunnistettu sarjanumero ilmoitukseen</button></div>
+                <div class="picNumber" id="picInfoDiv"><p id="picInfo">Sarjanumero lisätty etusivulle</p></div>
+                <button type="button" onclick="emptyPic()">Tyhjennä kuva</button></div>
+            </fieldset>
+            <button id="closeButton" type="button" onclick="ClosePicModal()">Sulje</button>
+    </div>
+</div>
+
+
+</body>
+</html>

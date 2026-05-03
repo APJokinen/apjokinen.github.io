@@ -71,7 +71,6 @@ textarea{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-style: solid;
 }
 
 .videoWrapper {
