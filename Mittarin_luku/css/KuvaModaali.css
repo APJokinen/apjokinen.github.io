@@ -13,7 +13,6 @@
     align-items: left;
     max-width: 65dvw;
     min-width: 0;
-    overflow: auto;
 }
 
 #PictureBox button{
@@ -69,8 +68,8 @@
     transform: none;
 }
 .inFieldset{
-    padding: 5px;
-    overflow-x: auto;
+    padding: 50px;
+    overflow-x: visible;
 }
 
 #closeButton{
