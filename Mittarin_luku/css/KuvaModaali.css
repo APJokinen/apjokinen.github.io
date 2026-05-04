@@ -66,6 +66,7 @@
     display: none;
     margin-left: 0;
     transform: none;
+    overflow-x: visible;
 }
 .inFieldset{
     padding: 50px;
