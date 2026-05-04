@@ -55,7 +55,7 @@ const ZXingDiv = document.getElementById("serialNumberByPicZXing")
     const tess = await tessWorker.recognize(img);
     console.log("tess:",tess)
     tesseractResult = tess.data?.text || tess.text;
-    if(tesseractResult.length > 20){
+    if(tesseractResult?.length > 20){
         tesseractResult = null
     }
   } catch (e) {
@@ -279,32 +279,43 @@ async function analyzePic(file){
 }*/
 
 function showResults(ZXingResult, tesseractResult){
-  const el = document.getElementById("lowerInFieldset")
-  console.log("Scroll-left:", el.scrollLeft)
-  el.style.border = "3px solid red";
+  
   analyzeDiv.style.display = "none"
+
   if(!ZXingResult && !tesseractResult){
-      noNumberDiv.style.display = "block"
-      ZXingDiv.style.display ="none"
+    ZXingDiv.style.display ="none"
       TesseractDiv.style.display = "none"
+    resultElement1.style.display = "none"
+      resultElement2.style.display = "none"
+      noNumberDiv.style.display = "block"
+      
   }else if(ZXingResult && tesseractResult){
+    ZXingDiv.style.display ="block"
+      TesseractDiv.style.display = "block"
     noNumberDiv.style.display = "none"
+      resultElement1.style.display = "block"
+      resultElement2.style.display = "block"
       resultElement1.textContent = "Koodintunnistus: "+ZXingResult
       resultElement2.textContent = "Tekstitunnistus: "+tesseractResult
-      ZXingDiv.style.display ="block"
-      TesseractDiv.style.display = "block"
+      
     }else if(ZXingResult){
-      noNumberDiv.style.display = "none"
-      resultElement1.textContent = "Koodintunnistus: "+ZXingResult
-      resultElement2.textContent = null
       ZXingDiv.style.display ="block"
       TesseractDiv.style.display = "none"
+      noNumberDiv.style.display = "none"
+      resultElement1.style.display = "block"
+      resultElement2.style.display = "none"
+      resultElement1.textContent = "Koodintunnistus: "+ZXingResult
+      resultElement2.textContent = null
+      
     }else if(tesseractResult){
+      ZXingDiv.style.display ="none"
+      TesseractDiv.style.display = "block"
+      resultElement1.style.display = "none"
+      resultElement2.style.display = "block"
       noNumberDiv.style.display = "none"
       resultElement1.textContent = null
       resultElement2.textContent = "Tekstitunnistus: "+tesseractResult
-      ZXingDiv.style.display ="none"
-      TesseractDiv.style.display = "block"
+      
     }
 
 }

@@ -23,7 +23,7 @@
     
 }
 
-#serialNumberByPic{
+#serialNumberByPic1, #serialNumberByPic2{
     display: none;
 }
 
@@ -69,8 +69,8 @@
     overflow-x: visible;
 }
 .inFieldset{
-    padding: 50px;
-    overflow-x: visible;
+    padding: 10px;
+    overflow-x: auto;
 }
 
 #closeButton{
@@ -93,4 +93,27 @@
 
 .inFieldset p{
     font-size: 17px;
+}
+
+#lowerInFieldset{
+    
+}
+
+.picButton{
+    min-width: 80px;
+    min-height: 30px;
+    border-radius: 10px;
+    background-color: rgb(55, 199, 55);
+    border-style: none;
+    color: white;
+}
+
+::file-selector-button {
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgb(55, 199, 55);
+    border-style: none;
+    color: white;
+    font-size: 10px;
 }

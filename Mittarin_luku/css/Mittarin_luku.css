@@ -81,9 +81,27 @@ p{
 }
 
 #targetInput{
-    width: 300px;
+    width: auto;
+    height: 2rem;
+}
+
+#targetLabel{
+    font-size: 2rem;
 }
 
 .buttonP{
     font-size: 20px;
+}
+
+#targetEmptyButton{
+    min-width: 80px;
+    min-height: 30px;
+    border-radius: 10px;
+    background-color: rgb(55, 199, 55);
+    border-style: none;
+    color: white;
+}
+
+#targetWrapper{
+    margin-right: 0 auto;
 }

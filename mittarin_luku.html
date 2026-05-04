@@ -14,9 +14,11 @@
 <script src="./Mittarin_luku/js/OcrLuku.js" defer></script>
 
 <h1>Mittarin luku</h1>
-<label for="targetInput">Sarjanumero: </label>
-<input id="targetInput" placeholder="Mittarin sarjanumero tähän..."/><br>
-<button onclick="emptyTargetInput()">Tyhjennä</button><br><br>
+<div id="targetWrapper">
+<label id="targetLabel" for="targetInput">Sarjanumero: </label>
+<input id="targetInput" placeholder="Mittarin sarjanumero tähän..."/><br><br>
+<button id="targetEmptyButton" onclick="emptyTargetInput()">Tyhjennä</button><br><br><br><br>
+</div>
 <div class="wrapper">
 <div class="button" onclick="StartCodeScan()"><p class="buttonP">Lue viiva- tai qr-koodi</p></div>
 <div class="button" onclick="StartOcrScan()"><p class="buttonP">Lue numerot (ocr-tunnistus)</p></div>
@@ -34,8 +36,8 @@
         </div></div>
     <div class="videoWhite">
             <p id="codeSerialNumber">Sarjanumero: </p>
-            <button onclick="addCodeNumberToFront()">Lisää koodi etusivulle</button>
-            <button onclick="rejectCodeNumber()">Hylkää koodi</button>
+            <button class="ocrButton" onclick="addCodeNumberToFront()">Lisää koodi etusivulle</button>
+            <button class="ocrButton" onclick="rejectCodeNumber()">Hylkää koodi</button>
         </div>
     <div class="videoWrapper">
         <video autoplay playsinline id="videoCode"></video>
@@ -108,14 +110,15 @@
             <fieldset class="picFieldset">
                 <legend>Mittarin sarjanumero: </legend>
                 <div id="lowerInFieldset" class="inFieldset">
-                <div  class="picNumber" id="waitingPicAnalyze"><p>Analysoidaan kuvaa...</p></div>
+                <div class="picNumber" id="waitingPicAnalyze"><p>Analysoidaan kuvaa...</p></div>
                 <div class="picNumber" id="noSerialNumberByPic"><p>Ei tunnistettua sarjanumeroa</p></div>
-                <div class="picNumber" id="serialNumberByPicZXing"><p id="serialNumberByPic1"></p><button type="button" onclick="addSerialToFront(1)">Lisää kooditunnistettu sarjanumero ilmoitukseen</button></div>
-                <div class="picNumber" id="serialNumberByPicTesseract"><p id="serialNumberByPic2"></p><button type="button" onclick="addSerialToFront(2)">Lisää tekstitunnistettu sarjanumero ilmoitukseen</button></div>
+                <div class="picNumber" id="serialNumberByPicZXing"><p id="serialNumberByPic1"></p><button class="picButton" type="button" onclick="addSerialToFront(1)">Lisää kooditunnistettu sarjanumero ilmoitukseen</button><br><br><br></div>
+                <div class="picNumber" id="serialNumberByPicTesseract"><p id="serialNumberByPic2"></p><button class="picButton" type="button" onclick="addSerialToFront(2)">Lisää tekstitunnistettu sarjanumero ilmoitukseen</button></div>
                 <div class="picNumber" id="picInfoDiv"><p id="picInfo">Sarjanumero lisätty etusivulle</p></div>
-                <button type="button" onclick="emptyPic()">Tyhjennä kuva</button></div>
+                <button type="button" class="picButton" onclick="emptyPic()">Tyhjennä kuva</button>
+            </div>
             </fieldset>
-            <button id="closeButton" type="button" onclick="ClosePicModal()">Sulje</button>
+            <button id="closeButton" class="picButton" type="button" onclick="ClosePicModal()">Sulje</button>
     </div>
 </div>
 
