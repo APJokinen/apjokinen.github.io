@@ -62,7 +62,7 @@ if(codeReader){
         previewElem, (result, error, cont) => {
         if(result && !acceptOrDeny){
           //console.log("✅ Data: " + result.text + "<br>📦 Tyyppi: " + result.barcodeFormat)
-          
+          acceptOrDeny = true
           console.log(result.text)
           container.querySelector(".videoWhite").style.display = "flex"
           const number = document.getElementById("codeSerialNumber")
@@ -226,6 +226,13 @@ async function changeToNumberCamera(){
 
 function addCodeNumberToFront(){
   targetInput.value = resultValue
+  resultValue = null
+  acceptOrDeny = false
+  container.querySelector(".videoWhite").style.display = "none"
+  document.querySelectorAll(".frame span").forEach((fr,index) => {
+    fr.style.borderColor = "white"
+  })
+
 }
 
 function rejectCodeNumber(){
