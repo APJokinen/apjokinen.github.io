@@ -279,6 +279,9 @@ async function analyzePic(file){
 }*/
 
 function showResults(ZXingResult, tesseractResult){
+  const el = document.getElementById("lowerInFieldset")
+  console.log("Scroll-left:", el.scrollLeft)
+  el.style.border = "3px solid red";
   analyzeDiv.style.display = "none"
   if(!ZXingResult && !tesseractResult){
       noNumberDiv.style.display = "block"
@@ -303,6 +306,7 @@ function showResults(ZXingResult, tesseractResult){
       ZXingDiv.style.display ="none"
       TesseractDiv.style.display = "block"
     }
+
 }
 
 function emptyPic(){
